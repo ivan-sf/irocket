@@ -1,0 +1,358 @@
+<?php
+//echo $_SESSION['adminUser'];
+$modelUser = new models\User();
+$array = $modelUser->inner();
+
+$modelCompany = new models\DepositAccount();
+$dataCompany = $modelCompany->dataCompany();
+$datos2 = mysqli_fetch_array($dataCompany);
+$modelMovements = new models\Movements();
+$alltimeActive = $modelMovements->alltimeActive();
+$alltimePassive = $modelMovements->alltimePassive();
+
+//Datos Dia
+$dateTimeDay = date("Y-m-d");
+
+//Datos Semana
+$fecha = date('Y-m-j');
+
+$totalA = 0;
+while ( $total = mysqli_fetch_array($alltimeActive)) {
+     $totalA += $total['totalMoney']; 
+ }
+
+ $totalP = 0;
+while ( $total = mysqli_fetch_array($alltimePassive)) {
+     $totalP += $total['totalMoney']; 
+ }
+$total = $totalA-$totalP;
+
+?>
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+        <div class="user-profile">
+            <div class="dropdown user-pro-body">
+                <div>
+                    <img src="<?php echo (URL) . $array['ruta']; ?>" alt="user-img" class="img-circle">
+                </div>
+                                <h5 class=""><small><b><?php echo strtoupper($array['userName']); ?></b></small></h5>
+                <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    
+                    <?php echo ucwords($array['nameUser'] . " " . $array['lastnameUser']);  ?>
+
+                    <span class="caret"></span>
+
+                </a>
+
+                <?php  
+                if (isset($_SESSION['administrador'])) {
+                    $usuario1 = $_SESSION['administrador'];
+                }elseif (isset($_SESSION['adminUserNew'])) {
+                    $usuario1 = $_SESSION['adminUserNew'];
+                }
+                ?>
+
+                <ul class="dropdown-menu animated flipInY">
+                    <li><a href="<?php echo (URL); ?>empleados/detalles?id=<?php echo $usuario1;?>&configurar&perfil"><i class="ti-user"></i> Mi perfil</a></li>
+                    <?php if(isset($_SESSION['administrador'])){ ?>
+                    <li><a href="<?php echo URL; ?>depositos/detalles?id=1&configurar&tipo=activo"><i class="ti-wallet"></i> Depositos</a></li>
+                    <li><a href="<?php echo URL; ?>notificaciones?ver=todo"><i class="ti-email"></i> Notificaciones</a></li>
+                    <li><a href="<?php echo (URL); ?>empresa/detalles?id=1&configurar"><i class="ti-settings"></i> Configuracion</a></li>
+
+                    <?php }?>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="<?php echo (URL); ?>usuario/logout"><i class="fa fa-power-off"></i> <b>SALIR DEL SISTEMA</b></a></li>
+                </ul>
+            </div>
+        </div>
+        <ul class="nav" id="side-menu">
+            <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+                <!-- input-group -->
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+                    </span> </div>
+                    <!-- /input-group -->
+                </li>
+
+                <li>
+                    <?php if(isset($_SESSION['administrador'])){ ?>
+                    <div class="hide-menu t-earning">
+                        <div id="sparkline2dash" class="m-b-10"></div><small class="db">BALANCE GENERAL - <b><?php echo date("m/Y"); ?></b></small>
+                        <h3 class="m-t-0 m-b-0">$<?php echo number_format($total); ?> COP</h3></div>
+                    <?php }?>
+                    
+                        <!-- <h3 class="m-t-0 m-b-0">$<?php echo number_format($datos2['currentAssets']); ?> COP</h3></div>-->
+                    </li>
+                    <li class="nav-small-cap m-t-10"><center>MENU PRINCIPAL</center></li>
+
+
+                       
+                         <li> 
+                        <a href="<?php echo URL; ?>index"" class="waves-effect">
+                            <i data-icon="/" class="icon-rocket">
+                            </i> <span class="hide-menu">Panel</span></a> 
+                        </li>
+                          <li> 
+                        <a href="<?php echo URL; ?>cajas?caja=ventas"" class="waves-effect">
+                            <i data-icon="/" class="linea-icon linea-basic fa-fw">
+                            </i> <span class="hide-menu">Caja</span></a> 
+                        </li>
+                        <li> 
+                        <a href="<?php echo URL; ?>cajas/facturas?ver=Todas"" class="waves-effect">
+                            <i data-icon="/" class=" icon-layers">
+                            </i> <span class="hide-menu">Facturas</span></a> 
+                        </li>
+
+                         <?php if(isset($_SESSION['administrador'])){ ?>
+
+
+                         <li> 
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class=" icon-pie-chart" data-icon="F"></i> 
+                                <span class="hide-menu"> Reportes 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">4</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=todo">Completos</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=diario&fecha=<?php echo $fecha ?>">Diarios</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semanal&fecha=<?php echo $fecha ?>">Semanales</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=mensual&fecha=<?php echo $fecha ?>">Mensuales</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semestral&fecha=<?php echo $fecha ?>">Semestrales</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=anual&fecha=<?php echo $fecha ?>">Anuales</a> </li>
+                            </ul>
+                        </li>
+<!--
+                         <li class="" id="reportes">
+                            <a href="inbox.html" class="waves-effect ">
+                                <i data-icon=")" class="fa fa-bar-chart-o"></i> 
+                                <span class="hide-menu">Reportes 
+                                <span class="fa arrow"></span> 
+                                <span class="label label-rouded label-custom pull-right">4</span>
+                            </a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+
+                             <li> <a href="javascript:void(0)" class="waves-effect">Ventas
+                                <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=todo">Todas las facturas</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=diario&fecha=<?php echo $fecha ?>">Diario</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semanal&fecha=<?php echo $fecha ?>">Semanal</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=mensual&fecha=<?php echo $fecha ?>">Mensual</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semestral&fecha=<?php echo $fecha ?>">Semestral</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=anual&fecha=<?php echo $fecha ?>">Anual</a> </li>
+                                </ul>
+                            </li>
+
+                            <li> <a href="javascript:void(0)" class="waves-effect">Compras
+                                <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=todo">Todas las facturas</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=diario&fecha=<?php echo $fecha ?>">Diario</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=semanal&fecha=<?php echo $fecha ?>">Semanal</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=mensual&fecha=<?php echo $fecha ?>">Mensual</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=semestral&fecha=<?php echo $fecha ?>">Semestral</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=compras&tipo=anual&fecha=<?php echo $fecha ?>">Anual</a> </li>
+                                </ul>
+                            </li>
+
+                            
+
+                            <li> <a href="javascript:void(0)" class="waves-effect">Depositos
+                                <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=depositos&tipo=activo">Activos</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=depositos&tipo=pasivo">Pasivos</a> </li>
+                                   
+                                </ul>
+                            </li>
+                           
+                           <li> <a href="javascript:void(0)" class="waves-effect">Pendientes
+                                <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=pendientes&tipo=pagar">Cuentas por pagar</a> </li>
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=pendientes&tipo=cobrar">Cuentas por cobrar</a> </li>
+                                   
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+-->
+                     <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-building-o" data-icon="F"></i> 
+                                <span class="hide-menu"> Empresa 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">4</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>empresa/detalles?id=1&detalles">Detalles</a> </li>
+                                <li> <a href="<?php echo URL; ?>empresa/detalles?id=1&configurar">Configurar</a> </li>
+                                <li> <a target="_blank" href="<?php echo URL_SITIO; ?>">Crear nueva empresa</a> </li>
+                            </ul>
+                        </li>
+
+                        <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-credit-card-alt" data-icon="F"></i> 
+                                <span class="hide-menu"> Depositos
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">5</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&detalles&tipo=activo">Movimientos</a> </li>
+                                <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&fondos&tipo=activo">Depositos</a> </li>
+                                <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&fondos&tipo=pasivo">Retiros</a> </li>
+                                <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&configurar&tipo=activo">Configurar cuenta</a> </li>
+                                <li> <a target="_blank" href="<?php echo URL_SITIO; ?>">Crear nueva cuenta</a> </li>
+                            </ul>
+                        </li>
+
+
+                        <?php }?>
+
+                        
+
+
+                        
+
+                  
+                       
+                        
+                       
+
+
+
+
+
+                        <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-desktop" data-icon="F"></i> 
+                                <span class="hide-menu"> Catalogos 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">5</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>inventarios?catalogo">Inventarios</a> </li>
+                                <li> <a href="<?php echo URL; ?>productos?catalogo">Productos</a> </li>
+                                <li> <a href="<?php echo URL; ?>empleados?catalogo">Empleados</a> </li>
+                                <li> <a href="<?php echo URL; ?>clientes?catalogo">Clientes</a> </li>
+                                <li> <a href="<?php echo URL; ?>proveedores?catalogo">Proveedores</a> </li>
+                            </ul>
+                        </li>
+
+
+
+                         <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-cubes" data-icon="F"></i> 
+                                <span class="hide-menu"> Inventarios 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                
+                                <li> <a href="<?php echo URL; ?>inventarios/crear">Crear inventarios</a> </li>
+
+                                <li> <a href="<?php echo URL; ?>inventarios/tabla?index">Tabla</a> </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-shopping-cart" data-icon="F"></i> 
+                                <span class="hide-menu"> Productos 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>productos/crear">Crear productos</a> </li>
+                                <li> <a href="<?php echo URL; ?>productos/tabla?index">Tabla</a> </li>
+                            </ul>
+                        </li>
+
+                         <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-smile-o" data-icon="F"></i> 
+                                <span class="hide-menu"> Empleados 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>empleados/crear">Crear empleados</a> </li>
+                                    <li> <a href="<?php echo URL; ?>empleados/tabla?index">Tabla</a> </li>
+                            </ul>
+                        </li>
+
+                         <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa  fa-heart" data-icon="F"></i> 
+                                <span class="hide-menu"> Clientes 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>clientes/crear">Crear clientes</a> </li>
+                                    <li> <a href="<?php echo URL; ?>clientes/tabla?index">Tabla</a> </li>
+                            </ul>
+                        </li>
+
+                         <li> 
+
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="icon-people" data-icon="F"></i> 
+                                <span class="hide-menu"> Proveedores 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>proveedores/crear">Crear proveedores</a> </li>
+                                <li> <a href="<?php echo URL; ?>proveedores/tabla?index">Tabla</a> </li>
+                            </ul>
+                        </li>
+
+                         
+
+
+                    <li>
+                        <a href="<?php echo (URL); ?>usuario/logout" class="waves-effect"><i class="icon-logout fa-fw"></i> 
+                        <span class="hide-menu">Salir del sistema</span>
+                    </a></li>
+                    <li class="nav-small-cap"><center>SOPORTE</center></li>
+                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+                     <span class="hide-menu">Documentacion</span></a></li>
+                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-success"></i> <span class="hide-menu">Preguntas frecuentes</span></a></li>
+                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-info"></i> <span class="hide-menu">Contactar</span></a></li>
+                </ul>
+            </div>
+        </div>

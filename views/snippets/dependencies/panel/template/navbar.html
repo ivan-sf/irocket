@@ -1,0 +1,329 @@
+<?php
+//echo $_SESSION['adminUser'];
+
+//header("location:" . URL);
+
+$modelUser = new models\User();
+$modelInventory = new models\Inventory();
+$modelBill = new models\Bills();
+$con = new models\Conexion();
+$array = $modelUser->inner();
+$sql = "";
+$arrayInventory = $modelInventory->array();
+$arrayBills = $modelBill->array();
+$rowInventory = $modelInventory->row();
+?>
+<?php 
+    $modelInventory = new models\Notifications();
+    $con = new models\Conexion();
+    $arrayInventory = $modelInventory->array();
+    $modelCompany = new models\Company();
+    $arrayCompany = $modelCompany->dataCompany();
+?>
+
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+
+   <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+        <div class="top-left-part">
+            <a class="logo" href="<?php echo (URL); ?>">
+                    <?php $datosCompany = mysqli_fetch_array($arrayCompany); ?>
+                     <?php if($datosCompany['rutaLogoCompany'] == 'views/assets/images/company/default.png'){ ?>
+                    <img src="<?php echo (URL); ?>views/plugins/images/logo.png" alt="home" class="dark-logo" />
+                    <img src="<?php echo (URL); ?>views/plugins/images/logo-dark.png" alt="home" class="light-logo" />
+                    <?php }else{  ?>
+                    <img height="60" src="<?php echo URL; ?><?php echo $datosCompany['rutaLogoCompany'];?>" alt="home" class="light-logo" />
+                    <?php }  ?>
+                   
+                </b>
+                <span class="hidden-xs">
+                    <img src="<?php echo (URL); ?>views/plugins/images/eliteadmin-text.png" alt="home" class="dark-logo" />
+
+                    
+                    <img src="<?php echo (URL); ?>views/plugins/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
+                </span>
+            </a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-left hidden-xs">
+            <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+        </ul>
+
+        <ul class="nav navbar-top-links navbar-right pull-right">
+            <?php if(isset($_SESSION['administrador'])){ ?>
+            <li class="dropdown"> 
+                <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                    <i class="ti-thought"></i>
+                    <div class="notify">
+                        <span class="heartbit"></span>
+                        <span class="point"></span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu mailbox animated bounceInDown">
+                    <li>
+                        <div class="drop-title">Notificaciones</div>
+                    </li>
+                    <li>
+                        <div class="message-center">
+                                
+
+                                        <?php while($datos = mysqli_fetch_array($arrayInventory)) { ?>
+                                        
+                                        <a href="#">
+                                        <div class="user-img"> 
+                                                        <?php 
+                                                            if($datos['typeNotification'] == 1){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/warehouse_add.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 2){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/warehouse_update.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php }elseif($datos['typeNotification'] == 3){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/warehouse_delete.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 4){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/product_add.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                       <?php  }elseif($datos['typeNotification'] == 5){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/product_update.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                       <?php  }elseif($datos['typeNotification'] == 6){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/product_delete.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 7){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/company_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 8){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/product_delete.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 9){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/deposit_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 10){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/cash_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 11){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/mov_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 16){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/company_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 12){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/deposit_retirement.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 17){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/deposit_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 17){ ?>
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/deposit_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                         <?php  }elseif($datos['typeNotification'] == 18){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/employee_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 19){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/employee_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 20){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/employee_delete.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 21){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/client_delete.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 22){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/client_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 23){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/client_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 26){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/provider_delete.png" alt="user" class="img-circle"> <span class="pull-right"> 
+                                                        <?php  }elseif($datos['typeNotification'] == 25){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/provider_update.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 24){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/provider_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  } ?>
+                                                        
+                                        </div>
+                                        <div class="mail-contnet">
+                                            <h5>
+                                                <?php 
+                                                    if($datos['typeNotification'] == 1){
+                                                        echo "Nuevo inventario";
+                                                    }elseif($datos['typeNotification'] == 2){
+                                                        echo "Edito inventario";
+                                                    }elseif($datos['typeNotification'] == 3){
+                                                        echo "Elimino inventario";
+                                                    }elseif($datos['typeNotification'] == 4){
+                                                        echo "Nuevo producto";
+                                                    }elseif($datos['typeNotification'] == 5){
+                                                        echo "Edito producto";
+                                                    }elseif($datos['typeNotification'] == 6){
+                                                        echo "Elimino producto";
+                                                    }elseif($datos['typeNotification'] == 7){
+                                                        echo "Creo empresa";
+                                                    }elseif($datos['typeNotification'] == 8){
+                                                        echo "Creo administrador";
+                                                    }elseif($datos['typeNotification'] == 9){
+                                                        echo "Creo cuenta de deposito";
+                                                    }elseif($datos['typeNotification'] == 10){
+                                                        echo "Creo caja registradora";
+                                                    }elseif($datos['typeNotification'] == 11){
+                                                        echo "Ingreso deposito";
+                                                    }elseif($datos['typeNotification'] == 16){
+                                                        echo "Edito empresa";
+                                                    }elseif($datos['typeNotification'] == 12){
+                                                        echo "Retiro de deposito";
+                                                    }elseif($datos['typeNotification'] == 17){
+                                                        echo "Edito cuenta de deposito";
+                                                    }elseif($datos['typeNotification'] == 18){
+                                                        echo "Creo empleado";
+                                                    }elseif($datos['typeNotification'] == 19){
+                                                        echo "Edito empleado";
+                                                    }elseif($datos['typeNotification'] == 20){
+                                                        echo "Elimino empleado";
+                                                    }elseif($datos['typeNotification'] == 23){
+                                                        echo "Creo cliente";
+                                                    }elseif($datos['typeNotification'] == 22){
+                                                        echo "Edito cliente";
+                                                    }elseif($datos['typeNotification'] == 21){
+                                                        echo "Elimino cliente";
+                                                    }elseif($datos['typeNotification'] == 24){
+                                                        echo "Creo proveedor";
+                                                    }elseif($datos['typeNotification'] == 25){
+                                                        echo "Edito proveedor";
+                                                    }elseif($datos['typeNotification'] == 26){
+                                                        echo "Elimino proveedor";
+                                                    }
+                                                 ?>
+                                            </h5>
+                                            <span class="mail-desc"><?php echo $datos['message']; ?> 
+                                                <span class="time"></i> <?php echo $datos['date_register']; ?></span> 
+                                            </div>
+                                        </a>
+                                       <?php } ?>
+                              
+
+                            
+
+                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="text-center" href="<?php echo URL."notificaciones?ver=todo" ?>"> <strong>Ver todas</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </li>
+            <?php }?>
+            
+                            <li class="dropdown"> 
+                                <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                                    <i class="ti-shopping-cart"></i>
+                                    <div class="notify">
+                                        <span class="heartbit">
+
+                                        </span>
+                                        <span class="point">
+
+                                        </span>
+                                    </div>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-cart dropdown-tasks animated slideInUp">
+                                        <?php while($datos = mysqli_fetch_array($arrayBills)) { ?>
+
+                                        <li>
+                                            <div class="cart-img"><img src="<?php echo (URL); ?>views/plugins/images/alert.png" /></div>
+                                            <div class="cart-content">
+                                            <h5><?php 
+                                                if($datos['typeBill'] == 1){
+                                                    echo "Factura de venta";
+                                                }elseif($datos['typeBill'] == 2){
+                                                    echo "Factura de compra";
+                                                }elseif($datos['typeBill'] == 3){
+                                                    echo "Factura de cambio";
+                                                }elseif($datos['typeBill'] == 4){
+                                                    echo "Factura de devolucion";
+                                                }
+                                                $set = $modelBill->set("idbill",$datos['idbills']);
+                                                $viewBills = $modelBill->view();
+                                                $total = 0;
+                                         while($datos2 = mysqli_fetch_array($viewBills)) {
+                                            $total = $total + $datos2['precio_total'];
+                                        }
+
+
+
+                                             ?></h5>
+                                              <small><span class="time"></i> <?php echo $datos['fecha']; ?></span> </small>
+
+                                         </div>
+
+                                              
+
+                                        </li>
+                                        <li class="divider"></li>
+
+                                        <?php } ?>
+                                         <li>
+                                        <a class="text-center" href="<?php echo URL; ?>facturas?ver=todas"> <strong>Ver todas</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+
+                                        
+                                </ul>
+                                        </li>
+                                        <?php if(isset($_SESSION['administrador'])){ ?>
+                                         <li class="mega-dropdown">
+                                            <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><span class="hidden-xs">ACCIONES</span> <i class="icon-options-vertical"></i></a>
+                                            <ul class="dropdown-menu mega-dropdown-menu animated bounceInDown">
+                                                <li class="col-sm-3">
+                                                    <ul>
+                                                        <li class="dropdown-header"><b>CATALOGOS</b></li>
+                                                        <li><a href="<?php echo URL; ?>inventarios?catalogo">Inventarios</a></li>
+                                                        <li><a href="<?php echo URL; ?>productos?catalogo">Productos</a></li>
+                                                        <li><a href="<?php echo URL; ?>empleados?catalogo">Empleados</a></li>
+                                                        <li><a href="<?php echo URL; ?>clientes?catalogo">Clientes</a></li>
+                                                        <li><a href="<?php echo URL; ?>proveedores?catalogo">Proveedores</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="col-sm-3">
+                                                    <ul>
+                                                        <li class="dropdown-header"><b>CREAR</b></li>
+                                                        <li><a href="<?php echo URL."inventarios/crear" ?>">Inventarios</a></li>
+                                                        <li><a href="<?php echo URL."productos/crear" ?>">Productos</a></li>
+                                                        <li><a href="<?php echo URL."empleados/crear" ?>">Empleados</a></li>
+                                                        <li><a href="<?php echo URL."clientes/crear" ?>">Clientes</a></li>
+                                                        <li><a href="<?php echo URL."proveedores/crear" ?>">Proveedores</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="col-sm-3">
+                                                    <ul>
+                                                        <li class="dropdown-header right-side-toggle"><b>TABLAS</b></li>
+                                                        <li><a href="<?php echo URL; ?>inventarios/tabla?index">Inventarios</a></li>
+                                                        <li><a href="<?php echo URL; ?>productos/tabla?index">Productos</a></li>
+                                                        <li><a href="<?php echo URL; ?>empleados/tabla?index">Empleados</a></li>
+                                                        <li><a href="<?php echo URL; ?>clientes/tabla?index">Clientes</a></li>
+                                                        <li><a href="<?php echo URL; ?>proveedores/tabla?index">Proveedores</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="col-sm-3">
+                                                    <ul>
+                                                        <li class="dropdown-header right-side-toggle"><b>MAS</b></li>
+                                                        <li><a href="<?php echo URL; ?>empresa/detalles?id=1&configurar">Configurar empresa</a></li>
+                                                        <li><a href="<?php echo URL; ?>depositos/detalles?id=1&fondos">Ajustar depositos</a></li>
+                                                        <li><a target="_blank" href="<?php echo URL_SITIO; ?>">Documentacion</a></li>
+                                                        <li><a target="_blank" href="<?php echo URL_SITIO; ?>">Contacto</a></li>
+                                                        <li><a href="<?php echo (URL); ?>usuario/logout">Salir del sistema</a></li>
+                                                    </ul>
+                                                </li>
+                                               
+                                                <li class="col-sm-12 m-t-40 demo-box">
+                                                    <div class="row">
+                                                     
+                                                        <div class="col-sm-12">
+                                                            <div class="white-box text-center bg-success"><a href="<?php echo URL; ?>cajas?caja=ventas" target="_blank" class="text-white"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i><br/>Ingresar a caja</a></div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <?php }?>
+
+
+
+
+
+
+
+
+
+
+
+                                    </ul>
+                                </div>
+                            </nav>
