@@ -300,7 +300,7 @@ class Employees
 						$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `users_idusers`) VALUES ('', '19', '$mensaje', '$datetimeNot', '$idUser')";
 						$query = $this->con->consulta($sql);
 						if ($query) {
-							header("location:" . URL . "empleados/detalles?id=2&configurar&success_update");
+							header("location:" . URL . "empleados/detalles?id=$idUser&configurar&success_update");
 						}else{
 							echo "Error en la notificacion";
 						}

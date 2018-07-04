@@ -222,7 +222,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p&tipo=activo class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Deposito #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>
@@ -249,7 +249,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Retiro #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>
@@ -1131,7 +1131,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Deposito #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>
@@ -1159,7 +1159,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Retiro #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>
@@ -1474,7 +1474,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Deposito #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>
@@ -1502,7 +1502,7 @@ if (isset($_SESSION['administrador'])) {
                                                     </div>
                                                     <div class="product-text">
                                                         <center>
-                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>"><p class="">Eliminar</p></a>
+                                                            <a href="?id=1&detalles&eliminar=<?php echo $datos['idmovementDepositAccount'] ?>&tipo=activo"><p class="">Eliminar</p></a>
                                                             <h6 class="box-title m-b-0"><small>Retiro #<?php echo $i; ?></small></h6>
                                                             <b><center><?php echo number_format($datos['totalMoney']); ?></center></b>
                                                             <b><center><?php echo $datos['typeDeposit']; ?></center></b>

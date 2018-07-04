@@ -151,6 +151,53 @@
                 </div>
 
 
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Depositos</h3>
+                            <div class="text-center"> <span class="text-muted">Lista de depositos</span>
+                                <div class="list-group"><br>
+                                      <?php 
+                                            while ( $listDeposits = mysqli_fetch_array($dataTodayListDeposit)) {?>
+                                    <a href="#">
+                                      
+
+                                        <button type="button" class="list-group-item">
+                                            <span class="badge badge-success"><?php echo number_format($listDeposits['totalMoney']); ?></span>
+                                            <?php echo $listDeposits['dataRegister']; ?>
+                                        </button></a>
+                                        <?php } ?> 
+                                        
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Retiros</h3>
+                            <div class="text-center"> <span class="text-muted">Lista de retiros</span>
+                                <div class="list-group"><br>
+                                      <?php 
+                                            while ( $listRetreats = mysqli_fetch_array($dataTodayListRetreats)) {?>
+                                    <a href="#">
+                                      
+
+                                        <button type="button" class="list-group-item">
+                                            <span class="badge badge-danger"><?php echo number_format($listRetreats['totalMoney']); ?></span>
+                                            <?php echo $listRetreats['dataRegister']; ?>
+                                        </button></a>
+                                        <?php } ?> 
+                                        
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="row">
                     
@@ -551,50 +598,7 @@
              
 
 
-                    <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Depositos</h3>
-                            <div class="text-center"> <span class="text-muted">Lista de depositos</span>
-                                <div class="list-group"><br>
-                                      <?php 
-                                            while ( $listDeposits = mysqli_fetch_array($dataTodayListDeposit)) {?>
-                                    <a href="#">
-                                      
-
-                                        <button type="button" class="list-group-item">
-                                            <span class="badge badge-danger"><?php echo number_format($listDeposits['totalMoney']); ?></span>
-                                            <?php echo $listDeposits['dataRegister']; ?>
-                                        </button></a>
-                                        <?php } ?> 
-                                        
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Retiros</h3>
-                            <div class="text-center"> <span class="text-muted">Lista de retiros</span>
-                                <div class="list-group"><br>
-                                      <?php 
-                                            while ( $listRetreats = mysqli_fetch_array($dataTodayListRetreats)) {?>
-                                    <a href="#">
-                                      
-
-                                        <button type="button" class="list-group-item">
-                                            <span class="badge badge-danger"><?php echo number_format($listRetreats['totalMoney']); ?></span>
-                                            <?php echo $listRetreats['dataRegister']; ?>
-                                        </button></a>
-                                        <?php } ?> 
-                                        
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
+                    
 
                    
                          
@@ -606,7 +610,6 @@
 
                      
 
-                    </div>
                 </div>
 
 

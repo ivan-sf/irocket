@@ -49,6 +49,13 @@ class DepositAccount
 		$idupdate = mysqli_real_escape_string($connect,$this->idupdate);
 		$sql = "UPDATE `movementdepositaccount` SET `totalMoney`='0' WHERE `idmovementDepositAccount`='$idupdate'";
 		$query = $this->con->consulta($sql);
+
+		$datetimeNot = 	date("Y-m-d G:i:s A");
+		$mensaje = "Has eliminado un deposito.";
+		$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `movementDepositAccount_idmovementDepositAccount`) VALUES ('', '27', '$mensaje', '$datetimeNot', '$idupdate')";
+		$query = $this->con->consulta($sql);
+
+
 		if ($query) {
 			header("location:" . URL . "depositos/detalles?id=" . $idupdate . "&detalles&success&tipo=activo");
 			
@@ -107,25 +114,30 @@ class DepositAccount
 					$query = $this->con->returnConsulta($sql);
 					$data = mysqli_fetch_array($query);
 					$idMove = $data['idmovementDepositAccount'];
+					$totalMoney = $data['totalMoney'];
 
-					if ($tipoDeposito == 'activo') {
+					if ($totalMoney > 0) {
+						if ($tipoDeposito == 'activo') {
 						$mensaje = "Felicitaciones ! has ingresado la suma de <b>$" . number_format($newfondos) . "</b> a tu cuenta de depositos.";
 						$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `movementDepositAccount_idmovementDepositAccount`) VALUES ('', '11', '$mensaje', '$datetimeNot', '$idMove')";
 					}else{
 						$mensaje = "Felicitaciones ! has hecho un retiro por <b>$" . number_format($newfondos) . "</b> de tu cuenta de depositos.";
 						$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `movementDepositAccount_idmovementDepositAccount`) VALUES ('', '12', '$mensaje', '$datetimeNot', '$idMove')";
-						}
+					}
 						
-						$query = $this->con->consulta($sql);
-						if ($query) {
-							if ($tipoDeposito == 'activo') {
-								header("location:" . URL . "depositos/detalles?id=" . 1 . "&fondos&success_update&tipo=activo");
-							}else{
-								header("location:" . URL . "depositos/detalles?id=" . 1 . "&fondos&success_update&tipo=pasivo");							
-							}
+					$query = $this->con->consulta($sql);
+					if ($query) {
+						if ($tipoDeposito == 'activo') {
+							header("location:" . URL . "depositos/detalles?id=" . 1 . "&fondos&success_update&tipo=activo");
 						}else{
-							echo "Error";
+							header("location:" . URL . "depositos/detalles?id=" . 1 . "&fondos&success_update&tipo=pasivo");							
 						}
+					}else{
+						echo "Error";
+					}
+					}
+
+					
 				}
 			}else{
 				header("location:" . URL . "login?new_cash");
@@ -209,17 +221,23 @@ class DepositAccount
 							$query = $this->con->returnConsulta($sql);
 							$data = mysqli_fetch_array($query);
 							$idMove = $data['idmovementDepositAccount'];
+							$totalMoney = $data['totalMoney'];
+							if ($totalMoney > 0) {
+								$datetimeNot = 	date("Y-m-d G:i:s A");
+								$mensaje = "Felicitaciones ! has ingresado la suma de <b>$" . number_format($dataCurrent) . "</b> a tu cuenta de depositos.";
+								$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `movementDepositAccount_idmovementDepositAccount`) VALUES ('', '11', '$mensaje', '$datetimeNot', '$idMove')";
+								$query = $this->con->consulta($sql);
 
-							$datetimeNot = 	date("Y-m-d G:i:s A");
-							$mensaje = "Felicitaciones ! has ingresado la suma de <b>$" . number_format($dataCurrent) . "</b> a tu cuenta de depositos.";
-							$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `movementDepositAccount_idmovementDepositAccount`) VALUES ('', '11', '$mensaje', '$datetimeNot', '$idMove')";
-							$query = $this->con->consulta($sql);
-
-							if ($query) {
-								header("location:" . URL . "login?new_cash");
+								if ($query) {
+									header("location:" . URL . "login?new_cash");
+								}else{
+									header("location:" . URL . "login?new_cash=error_notification");
+								}
 							}else{
-								header("location:" . URL . "login?new_cash=error_notification");
+								header("location:" . URL . "login?new_cash");
 							}
+
+							
 						}else{
 							header("location:" . URL . "login?new_cash=error_movement_account");
 						}

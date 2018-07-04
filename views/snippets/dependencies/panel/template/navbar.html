@@ -90,7 +90,7 @@ $rowInventory = $modelInventory->row();
                                                         <?php  }elseif($datos['typeNotification'] == 7){ ?>
                                                                   <img src="<?php echo (URL); ?>views/plugins/images/company_add.png" alt="user" class="img-circle"> <span class="pull-right">
                                                         <?php  }elseif($datos['typeNotification'] == 8){ ?>
-                                                                  <img src="<?php echo (URL); ?>views/plugins/images/product_delete.jpg" alt="user" class="img-circle"> <span class="pull-right">
+                                                                  <img src="<?php echo (URL); ?>views/plugins/images/admin_add.png" alt="user" class="img-circle"> <span class="pull-right">
                                                         <?php  }elseif($datos['typeNotification'] == 9){ ?>
                                                                   <img src="<?php echo (URL); ?>views/plugins/images/deposit_add.png" alt="user" class="img-circle"> <span class="pull-right">
                                                         <?php  }elseif($datos['typeNotification'] == 10){ ?>
@@ -123,6 +123,8 @@ $rowInventory = $modelInventory->row();
                                                                  <img src="<?php echo (URL); ?>views/plugins/images/provider_update.png" alt="user" class="img-circle"> <span class="pull-right">
                                                         <?php  }elseif($datos['typeNotification'] == 24){ ?>
                                                                  <img src="<?php echo (URL); ?>views/plugins/images/provider_add.png" alt="user" class="img-circle"> <span class="pull-right">
+                                                        <?php  }elseif($datos['typeNotification'] == 27){ ?>
+                                                                 <img src="<?php echo (URL); ?>views/plugins/images/delete.png" alt="user" class="img-circle"> <span class="pull-right">
                                                         <?php  } ?>
                                                         
                                         </div>
@@ -175,6 +177,8 @@ $rowInventory = $modelInventory->row();
                                                         echo "Edito proveedor";
                                                     }elseif($datos['typeNotification'] == 26){
                                                         echo "Elimino proveedor";
+                                                    }elseif($datos['typeNotification'] == 27){
+                                                        echo "Elimino deposito";
                                                     }
                                                  ?>
                                             </h5>

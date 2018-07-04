@@ -86,10 +86,12 @@ $arrayInventory = $modelInventory->array2();
                    	<?php }elseif ($datos['typeNotification'] == 26) { ?>
                         	<img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_delete.png">  </div>
                    	<?php }elseif ($datos['typeNotification'] == 25) { ?>
-                        	<img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_update.png">  </div>
-                   	<?php }elseif ($datos['typeNotification'] == 24) { ?>
-                        	<img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  </div>
-                   	<?php } ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_update.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 24) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 27) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/delete.png">  </div>
+                    <?php } ?>
 
         
 
@@ -145,6 +147,8 @@ $arrayInventory = $modelInventory->array2();
                             echo "Edito proveedor";
                         }elseif($datos['typeNotification'] == 26){
                             echo "Elimino proveedor";
+                        }elseif($datos['typeNotification'] == 27){
+                            echo "Elimino deposito";
                         }
                      ?>
 
@@ -236,6 +240,14 @@ $arrayInventory = $modelInventory->array2();
                     <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
                 </center>
             <?php }  ?>
+
+            <?php 
+             if ($datos['typeNotification'] == 27) { ?>
+              <center>
+                  <br>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver deposito eliminado</a>
+                </center>
+            <?php }  ?>
             
 
             </div>
@@ -291,8 +303,10 @@ $arrayInventory = $modelInventory->array2();
                    	<?php }elseif ($datos['typeNotification'] == 25) { ?>
                         	<img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_update.png">  
                    	<?php }elseif ($datos['typeNotification'] == 24) { ?>
-                        	<img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  
-                   	<?php } ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  
+                    <?php }elseif ($datos['typeNotification'] == 27) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/delete.png">  
+                    <?php } ?>
 
 
         </div>
@@ -347,6 +361,8 @@ $arrayInventory = $modelInventory->array2();
                             echo "Edito proveedor";
                         }elseif($datos['typeNotification'] == 26){
                             echo "Elimino proveedor";
+                        }elseif($datos['typeNotification'] == 27){
+                            echo "Elimino deposito";
                         }
                      ?>
 
@@ -436,6 +452,14 @@ $arrayInventory = $modelInventory->array2();
               <center>
                   <br>
                     <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
+                </center>
+            <?php }  ?>
+
+            <?php 
+             if ($datos['typeNotification'] == 27) { ?>
+              <center>
+                  <br>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver deposito eliminado</a>
                 </center>
             <?php }  ?>
             </div>
