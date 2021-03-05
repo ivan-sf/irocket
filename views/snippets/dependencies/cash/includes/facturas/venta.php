@@ -1,7 +1,13 @@
 <?php 
 $modelInventory = new models\Bills();
 $con = new models\Conexion();
-$arrayInventory = $modelInventory->arraySale();
+if(isset($_GET['pos'])){
+    $arrayInventory = $modelInventory->arraySalePos();
+}elseif(isset($_GET['electronica'])){
+    $arrayInventory = $modelInventory->arraySaleElec();
+}elseif(isset($_GET['remision'])){
+    $arrayInventory = $modelInventory->arraySaleRem();
+}
 ?>
 <div id="page-wrapper" style="min-height: 541px;">
             <div class="container-fluid">
@@ -36,7 +42,8 @@ $arrayInventory = $modelInventory->arraySale();
                         $viewBills = $modelInventory->view();
                         $total = 0;
                         while($datos2 = mysqli_fetch_array($viewBills)) {
-                            $total = $total + $datos2['precio_total'];
+                            $total = $total + $datos2['total'];
+                            $total2 = $datos2['total'];
                         }
 
                      ?> 
@@ -60,19 +67,20 @@ $arrayInventory = $modelInventory->arraySale();
                                     <h4 class="">
                                         <b>
                                             <?php if($datos['typeBill'] == 1){
-                                                echo "Factura de venta";
+                                                echo "Factura de venta POS";
                                             }elseif($datos['typeBill'] == 2){
-                                                echo "Factura de compra";
+                                                echo "Factura de venta Remision";
                                             }elseif($datos['typeBill'] == 3){
-                                                echo "Factura de cambio";
-                                            }elseif($datos['typeBill'] == 4){
-                                                echo "Factura de devolucion";
-                                            } ?>
+                                                echo "Factura electronica";
+                                            }?>
                                         </b>
                                      </h4>
+                                     <?php echo $datos['cliente']; ?>
 
 
-                                    <small><h5>Factura #<?php echo $datos['idbills']; ?></h5></small>
+                                    <small><h5>Factura #<?php echo $datos['numeroFactura']; ?></h5></small>
+                                    <small><h5><?php echo $datos['dateRegister']; ?></h5></small>
+                                    <small><h5><?php echo $total2; ?></h5></small>
 
                                     <br>
                                 </div>

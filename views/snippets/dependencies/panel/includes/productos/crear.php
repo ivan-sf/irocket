@@ -1,79 +1,77 @@
-<?php 
+<?php
 $modelInventory = new models\Inventory();
 $con = new models\Conexion();
 $arrayInventory = $modelInventory->array();
 $rowInventory = $modelInventory->row();
+
+$modelProducts = new models\Products();
+$arrayProducts = $modelProducts->arrayCrear();
+if(isset($_GET['inventario'])){
+    $inventarioGet = $_GET['inventario'];
+    $arrayCode = $modelProducts->set("inventarioGet",$inventarioGet);
+    $dataCode = $modelProducts->viewInv();
+}
+
 ?>
 <div id="page-wrapper" style="min-height: 953px;">
 
     <div class="container-fluid">
         <div class="row bg-title">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Productos</h4> </div>
-
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                    <ol class="breadcrumb">
-                        <li><a href="#">Panel</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li class="active">Crear</li>
-                    </ol>
-                </div>
-                <!-- /.col-lg-12 -->
+                <h4 class="page-title">Productos</h4>
             </div>
-            <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>productos?catalogo" class="">Catalogo</a></button>
-            <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>productos/tabla?index" class="">Tabla</a></button>
-            <br>
-            <br>
 
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box">
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Panel</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li class="active">Crear</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>productos?catalogo" class="">Catalogo</a></button>
+        <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>productos/tabla?index" class="">Tabla</a></button>
+        <br>
+        <br>
 
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
 
+                    <!--INICIO ENCABEZADO-->
+                    <div class="m-portlet__head ">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title col-lg-12">
 
+                                <center>
+                                    <h3 class="box-title">Crear productos</h3>
+                                </center>
 
-                        <div class="m-grid__item m-grid__item--fluid m-wrapper">
-
-                            <!-- END: Subheader -->
-
-                            <div class="m-content">
                                 <div class="col-lg-12">
-                                    <div class="m-portlet">
+                                    <div id="respuesta2" class="hiddenDIV">
 
-                                        <div class="m-portlet__head ">
-                                            <div class="m-portlet__head-caption">
-                                                <div class="m-portlet__head-title col-lg-12">
-                                                    <span class="m-portlet__head-icon m--hide">
-                                                        <i class="la la-gear"></i>
-                                                    </span>
-                                                    <center><h3 class="box-title">Crear productos</h3></center>
-                                                    <center><b><small>Puedes agregar hasta 5 productos a un inventario en cada consulta, para ampliar tu paquete de consultas visita  <a  target="_blank" href=" <?php echo URL_SITIO; ?> ">nuestro sitio web.</a></small></b>
-                                                        <br><br>
+                                        <div class="m-alert m-alert--icon m-alert--air alert alert-warning alert-dismissible fade show" role="alert" id="alertJS">
+                                            <div class="m-alert__icon">
+                                                <i class="la la-warning"></i>
+                                            </div>
+                                            <div class="m-alert__text">
+                                                <center> <strong>
+                                                        Lo sentimos,
+                                                    </strong>
+                                                    <span id="answerJS2"></span></center>
+                                            </div>
+                                            <div class="m-alert__close">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        </div>
 
-                                                        <div class="col-lg-12">
-                                                            <div id="respuesta2" class="hiddenDIV">
+                                    </div>
+                                </div>
 
-                                                                <div class="m-alert m-alert--icon m-alert--air alert alert-warning alert-dismissible fade show" role="alert" id="alertJS">
-                                                                    <div class="m-alert__icon">
-                                                                        <i class="la la-warning"></i>
-                                                                    </div>
-                                                                    <div class="m-alert__text">
-                                                                     <center> <strong>
-                                                                        Lo sentimos,
-                                                                    </strong>
-                                                                    <span id="answerJS2"></span></center>
-                                                                </div>
-                                                                <div class="m-alert__close">
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <?php if (isset($_GET['success'])) {
-                                                        echo "
+                                <?php if (isset($_GET['success'])) {
+                                    echo "
                                                         <div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-success alert-dismissible fade show' role='alert' id='alertabien'>
                                                         <div class='m-alert__icon'>
                                                         <i class='flaticon-rocket'></i>
@@ -90,9 +88,9 @@ $rowInventory = $modelInventory->row();
                                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
                                                         </div>
                                                         </div>";
-                                                    }elseif (isset($_GET['error'])) {
-                                                        if ($_GET['error'] == 'existe') {
-                                                            echo "
+                                } elseif (isset($_GET['error'])) {
+                                    if ($_GET['error'] == 'existe') {
+                                        echo "
                                                             <div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-danger alert-dismissible fade show' role='alert' id='alertabien'>
                                                             <div class='m-alert__icon'>
                                                             <i class='flaticon-rocket'></i>
@@ -109,8 +107,8 @@ $rowInventory = $modelInventory->row();
                                                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
                                                             </div>
                                                             </div>";
-                                                        }elseif ($_GET['error'] == 'code') {
-                                                            echo "
+                                    } elseif ($_GET['error'] == 'code') {
+                                        echo "
                                                             <div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-danger alert-dismissible fade show' role='alert' id='alertabien'>
                                                             <div class='m-alert__icon'>
                                                             <i class='flaticon-rocket'></i>
@@ -127,265 +125,335 @@ $rowInventory = $modelInventory->row();
                                                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
                                                             </div>
                                                             </div>";
-                                                        }
-                                                    } ?>
+                                    }
+                                } ?>
 
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--begin::Form-->
-
-                                        <form  onsubmit="return checkSubmit();" method="POST" enctype="multipart/form-data" id="formulario">
-                                            <div class="m-portlet__body">
-                                                <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-                                                    <div class="m-form__actions m-form__actions--solid">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <center><button type="button" class="btn m-btn--pill m-btn--air btn-primary" id="botonPlus">
-                                                                    Agregar fila
-                                                                </button>
-                                                                <button type="button" class="btn m-btn--pill m-btn--air btn-danger hiddenDIV" id="botonDelete">
-                                                                    Eliminar fila
-                                                                </button></center><br>
-                                                                <center>
-                                                                </div>
-                                                                <div class="col-lg-12">
-
-
-                                                                </div>
-
-
-
-
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                   <div class="col-lg-12">
-                                                       <center>
-                                                            <?php 
-                                                            if (isset($_GET['inventario'])) { ?>
-                                                                 <h4>Inventario <b><?php echo ucfirst($_GET['inventario']); ?></b>
-                                                                    <input type="hidden" name="idInventary" value="<?php echo $_GET['inventario'] ?>"><a href="<?php echo URL; ?>productos/crear"><small><small>Cambiar inventario</small></small></a></h4> 
-                                                                    <input type="hidden" name="typeInventory" value="1"></h4>
-                                                             <?php }else{ ?>
-
-                                                             
-                                                       </center>
-                                                   </div>
-                                                    <div class="form-group m-form__group row" id="">
-                                                        <div class="col-lg-12">
-                                                            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                <center><b>Inventario</b>
-                                                                </font></font>
-                                                                <span class="m-form__help"><br>
-                                                                    <small>Por favor seleccione el inventario al que desea agregar el producto y/o productos</small>
-                                                                </span>
-                                                            </center>
-                                                            <div class="m-input-icon" id="input9">
-
-                                                                    <input type="hidden" name="typeInventory" value="2"></h4>
-                                                                <select id="optionvalue" name="idInventary" id="idInventary" class="form-control m-input m-input--air m-input--pill"">
-                                                                    <?php while($datos1 = mysqli_fetch_array($arrayInventory)) { ?>
-                                                                    <option id="">
-                                                                        <?php echo strtoupper($datos1['nameInventory']) . "<br>"; ?>    
-                                                                    </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <br>
-                                                        </div>
-
-                                                        <?php } ?>
-
-                                                        <div class="col-lg-12">
-
-
-
-
-
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Nombre *</b>
-                                                                </font></font>
-                                                                <span class="m-form__help"><br>
-                                                                    <small>Ingrese el nombre del producto.</small>
-                                                                </span><br>
-                                                                <div class="m-input-icon" id="input2">
-                                                                    <input type="text" class="form-control m-input m-input--air m-input--pill" autofocus=""  placeholder="Nombre producto" name="nameProduct[]" id="nameProduct">
-
-                                                                </div>
-                                                            </div>
-                                                            <br>
-
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Codigo *</b>
-                                                                </font></font><br>
-                                                                <span class="m-form__help">
-                                                                    <small> <b>Codigo general del producto  </b> Este codigo sera utilizado para realizar compras y ventas del producto</small>
-                                                                </span>
-                                                                <div class="m-input-icon" id="input1">
-                                                                    <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Codigo general" name="codeProduct[]" id="codeProduct">
-
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Precio venta *</b>
-                                                                </font></font>
-                                                                <span class="m-form__help"><br>
-                                                                    <small>Precio de venta general del <b>producto</b></small>
-                                                                </span>
-                                                                <div class="m-input-icon" id="input3">
-                                                                    <input type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Precio venta" name="priceProduct[]" id="priceProduct">
-
-                                                                </div>
-                                                            </div>
-                                                            <br>
-
-
-
-
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Precio venta en promocion</b>
-                                                                </font></font>
-                                                                <span class="m-form__help"><br>
-                                                                    <small>Precio de promocion del producto<b> se asignara el precio de venta por defecto</b></small>
-
-                                                                </span>
-                                                                <div class="m-input-icon" id="input6">
-                                                                    <input type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Precio venta en promocion" name="pricePromProduct[]" id="pricePromProduct">
-
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                            <!--
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Codigo promocion *</b>
-                                                                </font></font><br>
-                                                                <span class="m-form__help">
-                                                                    <small> <b>Codigo promocion del producto    </b> Este codigo sera utilizado para realizar compras y ventas del producto a precio de promocion</small>
-                                                                </span>
-                                                                <div class="m-input-icon" id="input4">
-                                                                    <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Codigo promocion" name="codePromProduct[]" id="codePromProduct">
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                        -->
-                                                            <div class="col-lg-12">
-                                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                                    <b>Precio compra</b>
-                                                                </font></font>
-                                                                <span class="m-form__help"><br>
-                                                                    <small>Precio de compra general del producto<b> se asignara (cero 0) por defecto</b></small>
-                                                                </span>
-                                                                <div class="m-input-icon" id="input11">
-                                                                    <input type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Precio compra" name="priceProductSale[]" id="priceProductSale">
-
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                           
-
-                                                            <div class="col-lg-12">
-                                                <!--
-                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                    <b>Precio compra en promocion</b>
-                                                </font></font>
-                                                <span class="m-form__help"><br>
-                                                    <small>Precio de promocion del <b>producto</b> es <b>obligatorio (*) solamente si se ingresa el codigo de promocion.</b></small>
-                                                    
-                                                </span>-->
-                                                <div id="input10">
-                                                    <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Precio compra en promocion" name="pricePromProductSale[]" id="pricePromProductSale">
-
-                                                </div>
-                                            </div>
-
-
-
-
-
-                                        </div>
-
-
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-12">
-                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                <!--    <b>Limite minimo de cantidad *</b>
-                                                </font></font>
-                                                <span class="m-form__help"><br>
-                                                    <small>Este valor sera usado para notificar al administrador la escasez del producto.</small>
-                                                </span>-->
-                                                <div class="m-input-icon" id="input5">
-                                                    <input value="1" type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="" name="limitProduct[]" id="limitProduct">
-                                                </div>
-                                            </div>
-                                            
-
-
-
-                                            <div class="col-lg-12">
-                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                    <b>Descripcion</b>
-                                                </font></font>
-                                                <span class="m-form__help"><br>
-                                                    <small>Descripcion del producto.</small>
-                                                </span>
-                                                <div class="m-input-icon" id="input7">
-                                                    <textarea name="descriptionProduct[]" id="descriptionProduct" class="form-control m-input m-input--air m-input--pill" id="exampleTextarea" rows="3"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <br>
-
-
-
-
-                                            <div class="col-lg-12">
-                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                                    <b>Foto</b>
-                                                </font></font>
-                                                <span class="m-form__help"><br>
-                                                    <small>Foto del producto.</small>
-                                                </span>
-                                                <div class="m-input-icon" id="input8">
-                                                    <input value="1" type="file" class="form-control m-input m-input--air m-input--pill" placeholder="" name="photoProduct[]" id="photoProduct">
-                                                </div><br>
-                                            </div>
-
-
-                                            <div class="col-lg-12">
-
-                                                <br><center><button type="button" class="btn btn-block m-btn--square  btn-success m-btn m-btn--custom m-btn--bolder m-btn--uppercase" id="botonCrear">
-                                                    <h4 class="text-white">Crear producto(s)</h4>
-                                                </button></center>
-                                            </div>
-
-
-
-                                    </div>
-
-                                
-                                    
-                                </div>
-
-                            </form>
-
-
+                            </div>
                         </div>
                     </div>
+                    <!--FINAL ENCABEZADO-->
+
+                    <!--INICIO FORMULARIO-->
+                    <form onsubmit="return checkSubmit();" method="POST" enctype="multipart/form-data" id="formulario">
+
+                        <div class="col-lg-12">
+                            <center>
+                                <?php
+                                if (isset($_GET['inventario'])) { ?>
+                                    <h4>Inventario <b><?php echo ucfirst($_GET['inventario']); ?></b>
+                                        <input type="hidden" name="idInventary" value="<?php echo $_GET['inventario'] ?>"><a href="<?php echo URL; ?>productos/crear"><small><small>Cambiar inventario</small></small></a></h4>
+                                    <input type="hidden" name="typeInventory" value="1"></h4>
+                                <?php } else { ?>
+                            </center>
+                        </div>
+                        <?php
+                            if(!isset($_GET['inventario'])){
+                        ?>
+                        
+
+
+
+
+
+
+
+
+                    <!--INICIO LINEA DE PRODUCTOS-->
+
+                        <div class="col-lg-12">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                <center><b>LINEA DE PRODUCTOS</b>
+                            </font>
+                        </font>
+                        <span class="m-form__help"><br>
+                            <small>Por favor seleccione la linea de productos al que desea agregar el producto</small>
+                        </span>
+                        </center>
+                        <div class="m-input-icon" id="input9">
+
+                            <input type="hidden" name="typeInventory" value="2"></h4>
+                            <select id="optionvalue" name="idInventary" id="idInventary" class="form-control m-input m-input--air m-input--pill"">
+                                <?php while ($datos1 = mysqli_fetch_array($arrayInventory)) { ?>
+                                <option id="">
+                                    <?php echo strtoupper($datos1['nameInventory']) . "<br>"; ?>    
+                                </option>
+                                <?php } ?>
+                            </select>
+                                
+                            </div>
+                            <br>
+                        </div>
+
+                        <?php } ?>
+                    <!--FINAL LINEA DE PRODUCTOS-->
+                      <!--INICIO BOTON-->
+                    <div class="row col-lg-12">
+                        <div class="col-lg-12">
+                            <br>
+                            <center>
+                                <button type="button" class="btn btn-block m-btn--square btn-rounded btn-success" id="botonSeleccionarInventario">
+                                    <h4 class="text-black">Seleccionar inventario</h4>
+                                </button>
+                            </center>
+                        </div>
+                    </div>
+                    <!--FINAL BOTON-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <?php
+                            }
+                        if(isset($_GET['inventario'])){
+                        ?>
+                        
+                    <!--INICIO NOMBRE DE PRODUCTOS-->
+                        <div class=" col-lg-12">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    <b>Nombre *</b>
+                                </font>
+                            </font>
+
+                            <br>
+                            <span class="m-form__help">
+                                <small> <b>Nombre del producto </b></small>
+                            </span>
+                            <div class="m-input-icon" id="">
+                                <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Nombre del producto" name="nameProduct" id="nameProduct">
+
+                            </div>
+                        </div>
+                    <!--FINAL NOMBRE DE PRODUCTOS-->
+                    <!--INICIO CODIGO Y PRECIO VENTA DE PRODUCTOS-->
+                        <br>
+                        <div class="row col-lg-12">
+
+                            <div class="col-lg-6">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        <b>Codigo *</b>
+                                    </font>
+                                </font>
+                                <button type="button" class="btn btn-rounded btn-outline-success" id="botonCodes">
+                                    +
+                                </button>
+                                <br>
+                                <span class="m-form__help">
+                                    <small> <b>Codigo del producto *primer codigo obligatorio* </b> </small>
+                                </span>
+                                <div class="m-input-icon" id="input1">
+                                <?php 
+                                    while ($datosCod = mysqli_fetch_array($dataCode)) {
+                                   
+                                ?>
+                                    <input type="text" disabled class="form-control m-input m-input--air m-input--pill" value="<?php echo $datosCod['codeCurrent']+1 ?>" id="">
+                                    <input type="hidden" class="form-control m-input m-input--air m-input--pill" value="<?php echo $datosCod['codeCurrent']+1 ?>" name="codeProduct_1" id="">
+
+                                </div>  
+                                <?php 
+                                 }
+                                ?>
+                            </div>
+
+                            <br>
+
+                            <div class="col-lg-6">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        <b>Precio de venta*</b>
+                                    </font>
+                                </font>
+                                <button type="button" class="btn btn-rounded btn-outline-success" id="botonPrecios">
+                                    +
+                                </button>
+                                <br>
+                                <span class="m-form__help">
+                                    <small> <b>Precio de venta del producto *primer precio obligatorio* </b></small>
+                                </span>
+                                <div class="m-input-icon" id="input2">
+                                    <input type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Precio de venta" name="priceProduct_1" id="codeProduct">
+
+                                </div>
+                            </div>
+                        </div>
+                    <!--FINAL CODIGO Y PRECIO VENTA DE PRODUCTOS-->
+                    <!--INICIO PRECIO DE COMPRA E IVA-->
+                        <br>
+                        <div class="row col-lg-12">
+                            <div class="col-lg-6">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            <b>Precio de compra*</b>
+                                        </font>
+                                    </font>
+
+                                    <br>
+                                    <span class="m-form__help">
+                                        <small> <b>Precio de compra del producto </b></small>
+                                    </span>
+
+                                    <div class="m-input-icon" id="">
+                                        <input type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Precio de compra" name="priceBuy" id="priceBuy">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            <b>IVA*</b>
+                                        </font>
+                                    </font>
+
+                                    <br>
+                                    <span class="m-form__help">
+                                        <small> <b>IVA del producto </b></small>
+                                    </span>
+
+                                    <div class="form-group">
+                                        <select class="form-control" name="ivaProduct">
+                                            <option value="19">19%</option>
+                                            <option value="5">5%</option>
+                                            <option value="0">0%</option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
+                    <!--FINAL PRECIO DE COMPRA E IVA-->
+
+
+
+                    <!--INICIO UNIDADES / PRESENTACION-->
+                    <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Unidades por caja" name="unidadesCaja" id="unidadesCaja">
+                    <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Presentacion farmaceutica" name="presentacionFarmaceutica" id="presentacionFarmaceutica">
+                    <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Concentracion" name="consentracion" id="consentracion">
+                    <!--FINAL UNIDADES / PRESENTACION-->
+
+                    
+                     <!--INICIO LABORATORIO  / LOTE -->
+                        <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Laboratorio del producto" name="laboratorio" id="laboratorio">
+                        <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Lote del producto" name="lote" id="lote">
+                        <input type="hidden" class="form-control m-input m-input--air m-input--pill" placeholder="Registro sanitario del producto" name="registroSanitario" id="registroSanitario">
+
+                    <!--FINAL LABORATORIO  / LOTE -->
+
+                     <!--INICIO REGISTRO SANITARIO / VENCIMIENTO -->
+                    
+                        <input type="hidden" class="form-control m-input m-input--air m-input--pill" name="fechaVencimiento" id="fechaVencimiento">
+
+                    <!--FINAL REGISTRO SANITARIO / VENCIMIENTO -->
+
+                    
+                 <!--INICIO UBICACION-->
+                    <div class="row col-lg-12">
+                            <div class="col-lg-6">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        <b>Ubicacion almacen</b>
+                                    </font>
+                                </font>
+
+                                <br>
+                                <span class="m-form__help">
+                                    <small> <b>Ubicacion en el almacen del producto </b></small>
+                                </span>
+
+                                <div class="m-input-icon" id="">
+                                    <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Ubicacion almacen" name="ubicacionAlmacen" id="ubicacionAlmacen">
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        <b>Ubicacion bodega</b>
+                                    </font>
+                                </font>
+
+                                <br>
+                                <span class="m-form__help">
+                                    <small> <b>Ubicacion en bodega del producto </b></small>
+                                </span>
+
+                                <div class="m-input-icon" id="">
+                                    <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Ubicacion bodega" name="ubicacionBodega" id="ubicacionBodega">
+
+                                </div>
+                            </div>
+                        </div>
+                <!--FINAL UBICACION-->
+
+
+
+                    <!--INICIO FOTO-->
+                        <div class="row col-lg-12">
+                            <div class="col-lg-12">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        <b>Foto</b>
+                                    </font>
+                                </font>
+                                <span class="m-form__help"><br>
+                                    <small>Foto del producto.</small>
+                                </span>
+                                <div class="m-input-icon" id="input8">
+                                    <input value="1" type="file" class="form-control m-input m-input--air m-input--pill" placeholder="" name="photoProduct" id="photoProduct">
+                                </div><br>
+                            </div>
+                        </div>
+                    <!--FINAL FOTO-->
+                    <!--INICIO BOTON-->
+                    <div class="row col-lg-12">
+                        <div class="col-lg-12">
+                            <br>
+                            <center><button type="button" class="btn btn-block m-btn--square btn-rounded btn-success" id="botonCrear">
+                                    <h4 class="text-black">Crear producto</h4>
+                                </button></center>
+                        </div>
+                    </div>
+                    <!--FINAL BOTON-->
+                    <?php
+                        }
+                    ?>
+                        
+
+
+
+                    </form>
+                    <!--FINAL FORMULARIO-->
+
+
                 </div>
             </div>
-
         </div>
-    </div><div class="slimScrollBar" style="background: rgb(220, 220, 220); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+    </div>
+
+</div>
+</div>
+<div class="slimScrollBar" style="background: rgb(220, 220, 220); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
+<div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+</div>
 </div>
 <!-- /.right-sidebar -->
 </div>
@@ -401,7 +469,7 @@ $rowInventory = $modelInventory->row();
 
 <script>
     $('#formulario').keyup(function(e) {
-        if(e.keyCode == 13) {
+        if (e.keyCode == 13) {
             var answer = $('#answerJS');
             var respuesta = $('#respuesta');
             var alertJS = $('#alertJS');
@@ -414,21 +482,45 @@ $rowInventory = $modelInventory->row();
                 type: "POST",
                 url: "../../irocket/controllers/ajax/ajax_validationProducts.php",
                 data: datos,
-                success:function (data) {
-                    if(data.indexOf('1') != -1){
-                        respuesta.removeClass('hiddenDIV');
-                        answer.html("Los campos con * son obligatorios.");
+                success: function(data) {
+                    if (data.indexOf('1') != -1) {
                         respuesta2.removeClass('hiddenDIV');
-                        answer2.html("Los campos con * son obligatorios.");
-                    }else{
+                        answer2.html("Recuerde que los campos con * son obligatorios o verifique que el codigo ingresado no esta en uso");
+                    } else {
                         $("#formulario").submit();
                     }
                 }
-            });  
+            });
         }
     });
 
-    $("#botonCrear").click(function () {
+    $('#formulario').keyup(function(e) {
+        if (e.keyCode == 13) {
+            var answer = $('#answerJS');
+            var respuesta = $('#respuesta');
+            var alertJS = $('#alertJS');
+
+            var answer2 = $('#answerJS2');
+            var respuesta2 = $('#respuesta2');
+
+            var datos = $("#formulario").serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../irocket/controllers/ajax/ajax_validationProducts.php",
+                data: datos,
+                success: function(data) {
+                    if (data.indexOf('1') != -1) {
+                        respuesta2.removeClass('hiddenDIV');
+                        answer2.html("Recuerde que los campos con * son obligatorios o verifique que el codigo ingresado no esta en uso");
+                    } else {
+                        $("#formulario").submit();
+                    }
+                }
+            });
+        }
+    });
+
+    $("#botonCrear").click(function() {
 
         var answer = $('#answerJS');
         var respuesta = $('#respuesta');
@@ -442,182 +534,100 @@ $rowInventory = $modelInventory->row();
             type: "POST",
             url: "../../irocket/controllers/ajax/ajax_validationProducts.php",
             data: datos,
-            success:function (data) {
-                if(data.indexOf('1') != -1){
-                    respuesta.removeClass('hiddenDIV');
-                    answer.html("Los campos con * son obligatorios.");
+            success: function(data) {
+                if (data.indexOf('1') != -1) {
                     respuesta2.removeClass('hiddenDIV');
-                    answer2.html("Los campos con * son obligatorios.");
-                }else{
+                    answer2.html("Recuerde que los campos con * son obligatorios o verifique que el codigo ingresado no esta en uso");
+                } else {
                     $("#formulario").submit();
                 }
             }
-        });         
-    })
-</script>
+
+        });
+    });
 
 
+    $("#botonSeleccionarInventario").click(function() {
 
+    var answer = $('#answerJS');
+    var respuesta = $('#respuesta');
+    var alertJS = $('#alertJS');
 
+    var answer2 = $('#answerJS2');
+    var respuesta2 = $('#respuesta2');
 
-
-
-
-
-
-
-
-<script>
-    $("#botonDelete").click(function () {
-        var lengthInputs = $("#input1 input").length;
-
-        if (lengthInputs == 2) {
-            $("#botonDelete").toggleClass("hiddenDIV");
-        }else{
-                //alert(lengthInputs);
+    var datos = $("#formulario").serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../irocket/controllers/ajax/ajax_validationSeleccionar_inventario.php",
+        data: datos,
+        success: function(data) {
+            if (data.indexOf('1') != -1) {
+                respuesta2.removeClass('hiddenDIV');
+                answer2.html("Recuerde que los campos con * son obligatorios o verifique que el codigo ingresado no esta en uso");
+            } else {
+                $("#formulario").submit();
             }
-            var input1 = $("#input1 input:last-child");
-            var input2 = $("#input2 input:last-child");
-            var input3 = $("#input3 input:last-child");
-            var input4 = $("#input4 input:last-child");
-            var input5 = $("#input5 input:last-child");
-            var input6 = $("#input6 input:last-child");
-            var input8 = $("#input8 input:last-child");
-            var input10 = $("#input10 input:last-child");
-            var input11 = $("#input11 input:last-child");
-            var input7 = $("#input7 textarea:last-child");
-            input1.remove();
-            input2.remove();
-            input3.remove();
-            input4.remove();
-            input5.remove();
-            input6.remove();
-            input7.remove();
-            input8.remove();
-            input10.remove();
-            input11.remove();
-        })
-    var i = 0;
-    $("#botonPlus").click(function () {
-        var lengthInputs = $("#input1 input").length;
-
-        if (lengthInputs < 5) {
-            if (lengthInputs > 0) {
-                $("#botonDelete").removeClass("hiddenDIV");
-            }
-            var dom = document.createElement("input");
-            dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-            dom.setAttribute("placeholder",'Codigo general');
-            dom.setAttribute("name",'codeProduct[]');
-            dom.setAttribute("id",'codeProduct');
-            insert = $("#input1").append(dom);      
-            if (insert) {
-                var dom = document.createElement("input");
-                dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                dom.setAttribute("name",'nameProduct[]');
-                dom.setAttribute("id",'nameProduct');
-                dom.setAttribute("placeholder",'Nombre producto');
-                insert = $("#input2").append(dom);  
-                if (insert) {
-                    var dom = document.createElement("input");
-                    dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                    dom.setAttribute("placeholder",'Precio venta');
-                    dom.setAttribute("name",'priceProduct[]');
-                    dom.setAttribute("id",'priceProduct');
-                    dom.setAttribute("type",'number');
-                    insert = $("#input3").append(dom);  
-                }
-                if (insert) {
-                    var dom = document.createElement("input");
-                    dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                    dom.setAttribute("placeholder",'Codigo promocion');
-                    dom.setAttribute("name",'codePromProduct[]');
-                    dom.setAttribute("id",'codePromProduct');
-                    insert = $("#input4").append(dom);  
-                }
-                if (insert) {
-                    var dom = document.createElement("input");
-                    dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                    dom.setAttribute("value",'1');
-                    dom.setAttribute("name",'limitProduct[]');
-                    dom.setAttribute("id",'limitProduct');
-                    dom.setAttribute("type",'hidden');
-                    insert = $("#input5").append(dom);  
-                }
-                if (insert) {
-                    var dom = document.createElement("input");
-                    dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                    dom.setAttribute("placeholder",'Precio venta en promocion');
-                    dom.setAttribute("name",'pricePromProduct[]');
-                    dom.setAttribute("id",'pricePromProduct');
-                    dom.setAttribute("type",'number');
-                    insert = $("#input6").append(dom);  
-                }
-                if (insert) {
-                    var dom = document.createElement("textarea");
-                    dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                    dom.setAttribute("name",'descriptionProduct[]');
-                    dom.setAttribute("id",'descriptionProduct');
-                    dom.setAttribute("rows",'3');
-                    insert = $("#input7").append(dom);  
-                    if (insert) {
-                        $(".descprod").html("Agregar descripcion");
-                    }
-                    if (insert) {
-
-                        var dom = document.createElement("input");
-                        dom.setAttribute("type",'file');
-                        dom.setAttribute("name",'photoProduct[]');
-                        dom.setAttribute("id",'photoProduct');
-                        dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                        insert = $("#input8").append(dom);  
-
-                        if (insert) {
-
-                            var dom = document.createElement("input");
-                            dom.setAttribute("class",'form-control m-input m-input--air m-input--pill');
-                            dom.setAttribute("placeholder",'Precio compra');
-                            dom.setAttribute("name",'priceProductSale[]');
-                            dom.setAttribute("id",'priceProductSale');
-                            dom.setAttribute("type",'number');
-                            insert = $("#input11").append(dom); 
-
-                        }
-
-                    }
-                }
-            }
-        }else{
-            var answer = $('#answerJS');
-            var respuesta = $('#respuesta');
-
-            var answer2 = $('#answerJS2');
-            var respuesta2 = $('#respuesta2');
-
-            var alertJS = $('#alertJS');
-            respuesta2.removeClass('hiddenDIV');
-            answer2.html("no puede agregar mas de 5 productos si quiere ampliar su paquete de consultas puede <b><a href=''> visitar nuestro sitio web.</a></b>");
         }
 
+    });
+    });
+</script>
+
+
+
+
+
+
+<script>
+    var ibc = 1;
+    $("#botonCodes  ").click(function() {
+        ibc++
+        var lengthInputs = $("#input1 input").length;
+
+        if (lengthInputs < 11) {
+
+            var dom = document.createElement("input");
+            dom.setAttribute("class", 'form-control m-input m-input--air m-input--pill');
+            dom.setAttribute("placeholder", "Codigo  " + ibc);
+            dom.setAttribute("name", 'codeProduct_' + ibc);
+            dom.setAttribute("id", 'codeProduct');
+            insert = $("#input1").append(dom);
+
+        }
     })
+</script>
 
+<script>
+    var ibp = 1;
+    $("#botonPrecios  ").click(function() {
+        ibp++
+        var lengthInputs = $("#input2 input").length;
 
+        if (lengthInputs < 10) {
 
+            var dom = document.createElement("input");
+            dom.setAttribute("class", 'form-control m-input m-input--air m-input--pill');
+            dom.setAttribute("placeholder", "Precio  " + ibp);
+            dom.setAttribute("name", 'priceProduct_' + ibp);
+            dom.setAttribute("id", 'priceProduct');
+            insert = $("#input2").append(dom);
+
+        }
+    })
 </script>
 
 
 <script>
+    $(document).ready(function() {
+        //$("#alertabien").slideUp(5000).delay(5000);
 
-    $(document).ready(function () {
-                                            //$("#alertabien").slideUp(5000).delay(5000);
-
-                                            $('#alertabien').delay(8000).slideToggle(1000, function () {
-                                                $('#alertabien').removeClass("show");
-                                            });
-                                            return false;
-                                        });
-
-                                    </script>
+        $('#alertabien').delay(8000).slideToggle(1000, function() {
+            $('#alertabien').removeClass("show");
+        });
+        return false;
+    });
+</script>
 
 
 
@@ -625,13 +635,14 @@ $rowInventory = $modelInventory->row();
 
 <script>
     var statSend = false;
-function checkSubmit() {
-    if (!statSend) {
-        statSend = true;
-        return true;
-    } else {
-        
-        return false;
+
+    function checkSubmit() {
+        if (!statSend) {
+            statSend = true;
+            return true;
+        } else {
+
+            return false;
+        }
     }
-}
 </script>

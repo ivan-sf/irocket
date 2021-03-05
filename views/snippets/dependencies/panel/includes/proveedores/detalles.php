@@ -17,6 +17,12 @@ if ($datos1['stateBD'] == 1) {
 }else{
     header("location:" . URL . "proveedores?error=delete");
 }
+
+$sqlProd = "SELECT * FROM products INNER JOIN productdetails 
+ON idproducts=products_idproducts 
+WHERE providerID='$idGet'";
+$queryProd = $con->returnConsulta($sqlProd);
+
 ?>
 <div id="page-wrapper" style="min-height: 953px;">
 
@@ -87,6 +93,59 @@ if ($datos1['stateBD'] == 1) {
                             <li>Email<span class="pull-right label-info label"><?php echo strtoupper($datos['email']); ?></span></li>
                             <li>Descripcion<span class="pull-right label-info label"><?php echo strtoupper($datos['description']); ?></span></li>
                         </ul>
+
+
+                        <br>
+                        <center><button class="btn m-btn--square btn-primary" alt="default" data-toggle="modal" data-target=".b20s-modal-sm" class="model_img img-responsive">Productos distribuidos</button></center>
+
+
+                        <div class="modal fade b20s-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="mySmallModalLabel">Productos distribuidos por <?php echo strtoupper($datos['userName']); ?>.</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                    
+                                        <?php while ($dataProd=mysqli_fetch_array($queryProd)) { ?>
+
+                                    <div class="row">
+                                            
+                                        
+                                        <div class="col-lg-4">
+                                            <b><center>Producto</center></b>  
+
+                                            <div class="m-input-icon" id="input1">
+                                                <center><b><h2><?php echo ucfirst($dataProd['nameProduct']); ?></h2></b></center>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <b><center>Precio</center></b>
+                                            
+                                            <div class="m-input-icon" id="input2">
+                                                <center><b><h2><?php echo ucfirst($dataProd['price_buy']); ?></h2></b></center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <b><center>Cantidad</center></b>
+                                            
+                                            <div class="m-input-icon" id="input2">
+                                                <center><b><h2><?php echo ucfirst($dataProd['quantityProduct']); ?></h2></b></center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <?php } ?>
+
+   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                         
                     </div>
                     

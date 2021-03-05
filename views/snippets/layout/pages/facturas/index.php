@@ -22,8 +22,8 @@ require "views/snippets/templates/panel/template.php";
                     include "views/snippets/dependencies/panel/includes/facturas/reportes/ventas/todo.php";
                 }elseif ($_GET['tipo'] == 'diario') {
                     include "views/snippets/dependencies/panel/includes/facturas/reportes/ventas/diario.php";
-                }elseif ($_GET['tipo'] == 'semanal') {
-                    include "views/snippets/dependencies/panel/includes/facturas/reportes/ventas/semanal.php";
+                }elseif ($_GET['tipo'] == 'contable') {
+                    include "views/snippets/dependencies/panel/includes/facturas/reportes/ventas/contable.php";
                 }elseif ($_GET['tipo'] == 'mensual') {
                     include "views/snippets/dependencies/panel/includes/facturas/reportes/ventas/mensual.php";
                 }elseif ($_GET['tipo'] == 'semestral') {

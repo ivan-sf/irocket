@@ -10,7 +10,7 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew']) OR isset($_
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -18,6 +18,7 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew']) OR isset($_
     <link rel="icon" sizes="16x16" href="<?php echo (URL); ?>views/plugins/images/favicon.ico">
     <title><?php echo TITLE_APP; ?></title>
     <link href="<?php echo (URL); ?>views/snippets/layout/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo (URL); ?>views/snippets/layout/css/jquery-ui.css" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
@@ -31,29 +32,14 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew']) OR isset($_
     <link href="<?php echo (URL); ?>views/snippets/layout/css/animate.css" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/snippets/layout/css/style.css" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/snippets/layout/css/estilos.css" rel="stylesheet">
-    <link href="<?php echo (URL); ?>views/snippets/layout/css/colors/default.css" id="theme" rel="stylesheet">
+    <link href="<?php echo (URL); ?>views/snippets/layout/css/colors/blue.css" id="theme" rel="stylesheet">
     <link href="<?php echo (URL); ?>views/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    
+    <!--Owl carousel CSS 
     <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
-
+-->
     <link href="<?php echo (URL); ?>views/snippets/layout/css/datatable.css" rel="stylesheet" type="text/css" />
     <script src="<?php echo (URL); ?>views/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 
 
-    <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-19175540-9', 'auto');
-    ga('send', 'pageview');
-    </script>
+   
 </head>

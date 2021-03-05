@@ -282,9 +282,9 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
                                                  <?php 
 
 
-                                                    $texto = $datos['descriptionProduct'];
+                                                    $texto = $datos['codeProduct'];
                                                     
-                                                    echo substr($texto,0,75) . "...";  
+                                                    echo $texto;  
 
 
                                                     ?>
@@ -318,6 +318,17 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
                                     </span>
                                 </div>
 
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Codigo de inventario 
+                                    </label>
+                                    <input name='codeCurrent' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['codeCurrent']); ?>">
+
+                                    <span class="m-form__help">
+                                        Por favor ingrese los cambios en el codigo de inventario.
+                                    </span>
+                                </div>
+
                                 <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-12 col-sm-12">
                                             Descripcion
@@ -329,6 +340,8 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
                                             </span>
                                         </div>
                                     </div>
+
+                                  
 
                                 <br><br>
 
@@ -435,9 +448,9 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
                                                  <?php 
 
 
-                                                    $texto = $datos['descriptionProduct'];
+                                                    $texto = $datos['codeProduct'];
                                                     
-                                                    echo substr($texto,0,75) . "...";  
+                                                    echo $texto;  
 
 
                                                     ?>
@@ -468,6 +481,17 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
 
                                     <span class="m-form__help">
                                         Por favor ingrese los cambios en el nombre.
+                                    </span>
+                                </div>
+
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Codigo de inventario 
+                                    </label>
+                                    <input name='codeCurrent' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['codeCurrent']); ?>">
+
+                                    <span class="m-form__help">
+                                        Por favor ingrese los cambios en el codigo de inventario.
                                     </span>
                                 </div>
 
@@ -618,6 +642,17 @@ $arrayProducts2 = $modelProducts->arrayInventory2($_GET['id']);
 
                                     <span class="m-form__help">
                                         Por favor ingrese los cambios en el nombre.
+                                    </span>
+                                </div>
+
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Codigo de inventario 
+                                    </label>
+                                    <input name='codeCurrent' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['codeCurrent']); ?>">
+
+                                    <span class="m-form__help">
+                                        Por favor ingrese los cambios en el codigo de inventario.
                                     </span>
                                 </div>
 

@@ -23,6 +23,7 @@ class Employees
 	private $photo_name;
 	private $photo_size;
 	private $photo_type;
+	private $motivoNom;
 
 	function __construct(){
 		$this->con = new Conexion;
@@ -56,33 +57,36 @@ class Employees
 		$sql = "SELECT * FROM users 
 		INNER JOIN userdetails 
 		ON users.idusers=userdetails.users_idusers
-		WHERE userdetails.range = 1
+		WHERE userdetails.tipoEmpleado = 1
 		AND users.stateBD = 1
 		ORDER BY users.idusers desc";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
-	public function arrayClients()
-	{
-		$sql = "SELECT * FROM users 
-		INNER JOIN userdetails 
-		ON users.idusers=userdetails.users_idusers
-		WHERE userdetails.range = 2
-		AND users.stateBD = 1
-		ORDER BY users.idusers desc";
-		$datos = $this->con->returnConsulta($sql);
-		return $datos;
-	}
+	
 	public function arrayProvider()
 	{
 		$sql = "SELECT * FROM users 
 		INNER JOIN userdetails 
 		ON users.idusers=userdetails.users_idusers
-		WHERE userdetails.range = 3
+		WHERE userdetails.tipoProveedor = 1
 		AND users.stateBD = 1
 		ORDER BY users.idusers desc";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
+	}
+
+	public function queryNom()
+	{
+		$iduser = $this->idproduct;
+		$sql = "SELECT * FROM depositreports 
+		WHERE users_idusers='$iduser'";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
 	}
 
 	public function create()
@@ -134,6 +138,12 @@ class Employees
 			$array = mysqli_fetch_array($query);
 			$row = mysqli_num_rows($query);
 
+			if ($fechadepago=='') {
+				$datetime = date("Y-m-1");
+				$nuevafecha = strtotime ( '+1 month' , strtotime ( $datetime ) ) ;
+				$day2 = date ( 'Y-m-j' , $nuevafecha );
+			}
+
 			if ($row >= 1 && $array['range'] == 1) {
 				header("location:" . URL . "empleados/crear?error=documento");
 			}else{
@@ -155,7 +165,7 @@ class Employees
 							$idus = $array['idusers'];
 						if ($query) {
 							$dateTime = date("Y-m-d");
-							$sql = "INSERT INTO `userdetails` (`users_idusers`, `nameUser`, `lastnameUser`, `documentUser`, `genere`, `age`, `data_register`, `range`, `jobTitle`, `company`, `phone`, `email`, `ruta`, `description`, `salary`, `date_pay`) VALUES ('$idus', '$nameUser1', '$lastnameUser1', '$documentUser1', '', '$age1', '$dateTime', '1', 'empleado', '$companyUser1', '$phone1', '$email1', '$ruta', '$description', '$salario', '$fechadepago')";
+							$sql = "INSERT INTO `userdetails` (`users_idusers`, `nameUser`, `lastnameUser`, `documentUser`, `genere`, `age`, `data_register`, `range`, `jobTitle`, `company`, `phone`, `email`, `ruta`, `description`, `salary`, `salaryBase`, `date_pay`) VALUES ('$idus', '$nameUser1', '$lastnameUser1', '$documentUser1', '', '$age1', '$dateTime', '1', 'empleado', '$companyUser1', '$phone1', '$email1', '$ruta', '$description', '$salario', '$salario', '$day2')";
 							$query = $this->con->consulta($sql);
 								if ($query) {
 									$datetimeNot = 	date("Y-m-d G:i:s A");
@@ -179,7 +189,7 @@ class Employees
 							$idus = $array['idusers'];
 						if ($query) {
 							$dateTime = date("Y-m-d");
-							$sql = "INSERT INTO `userdetails` (`users_idusers`, `nameUser`, `lastnameUser`, `documentUser`, `genere`, `age`, `data_register`, `range`, `jobTitle`, `company`, `phone`, `email`, `ruta`, `description`, `salary`, `date_pay`) VALUES ('$idus', '$nameUser1', '$lastnameUser1', '$documentUser1', '', '$age1', '$dateTime', '1', 'empleado', '$companyUser1', '$phone1', '$email1', '$ruta', '$description', '$salario', '$fechadepago')";
+							$sql = "INSERT INTO `userdetails` (`users_idusers`, `nameUser`, `lastnameUser`, `documentUser`, `genere`, `age`, `data_register`, `range`, `jobTitle`, `company`, `phone`, `email`, `ruta`, `description`, `salary`, `salaryBase`, `date_pay`) VALUES ('$idus', '$nameUser1', '$lastnameUser1', '$documentUser1', '', '$age1', '$dateTime', '1', 'empleado', '$companyUser1', '$phone1', '$email1', '$ruta', '$description', '$salario', '$salario', '$day2')";
 							$query = $this->con->consulta($sql);
 								if ($query) {
 									$datetimeNot = 	date("Y-m-d G:i:s A");
@@ -226,6 +236,61 @@ class Employees
 				echo "Error en la notificacion";
 			}
 		}
+
+	}
+
+	public function nomina()
+	{
+		$connect = $this->con->connect();
+		$idUser = $this->idUser;
+		$abonoNom = $this->abonoNom;
+		$motivoNom = $this->motivoNom;
+		if ($motivoNom=='') {
+			$motivoNom = 'Pago de nomina';
+		}
+		if ($abonoNom=='') {
+			header("location:" . URL . "empleados/detalles?id=".$idUser."&configurar&error=nomina");
+		}else{
+			$sql = "SELECT * FROM `userdetails` WHERE users_idusers='$idUser'";
+			$query = $this->con->returnConsulta($sql);
+			$array = mysqli_fetch_array($query);
+			$salario = $array['salary'];
+			$name = $array['nameUser'];
+			$last = $array['lastnameUser'];
+			$empleado = $name." ".$last;
+
+			$newSalary = $salario-$abonoNom;
+
+			$sql2 = "UPDATE `userdetails` SET `salary` = '$newSalary' WHERE `userdetails`.`users_idusers` = '$idUser'";
+			$query2 = $this->con->consulta($sql2);
+			if ($query2) {
+
+				//echo "Si";
+				$datetimeNot = 	date("Y-m-d G:i:s A");
+				$dateTime = date("Y-m-d");
+				
+				$fondosTotales = $abonoNom;
+				$type=2;
+				$sql = "INSERT INTO `movementdepositaccount` (`depositAccount_iddepositAccounts`, `users_idusers`, `typeMovement`, `totalMoney`, `dataRegister`, `typeDeposit`, `fecha`) VALUES ('1', '1', '$type', '$abonoNom', '$dateTime', '$motivoNom', '$datetimeNot')";
+				$query = $this->con->consulta($sql);
+				if ($query) {
+					$sql = "INSERT INTO `depositreports` (`iddepositreports`, `fecha`, `tipo`, `total`, `empleado`, `users_idusers`) VALUES (NULL, '$dateTime', '$motivoNom', '$abonoNom', '$empleado', '$idUser')";
+					$query = $this->con->consulta($sql);
+					if ($query) {	
+						//echo "Si";
+					}else{
+						//echo "No";
+					}
+				}else{
+					echo "No 1";
+				}
+
+			}else{
+				//echo "No";
+			}
+		}
+
+		
 
 	}
 

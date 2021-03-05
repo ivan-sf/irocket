@@ -1,7 +1,13 @@
 <?php 
 $modelInventory = new models\Bills();
 $con = new models\Conexion();
-$arrayInventory = $modelInventory->arrayBuy();
+if(isset($_GET['pos'])){
+    $arrayInventory = $modelInventory->arrayBuyPos();
+}elseif(isset($_GET['electronica'])){
+    $arrayInventory = $modelInventory->arrayBuyElec();
+}elseif(isset($_GET['remision'])){
+    $arrayInventory = $modelInventory->arrayBuyRem();
+}
 ?>
 <div id="page-wrapper" style="min-height: 541px;">
             <div class="container-fluid">
@@ -36,7 +42,7 @@ $arrayInventory = $modelInventory->arrayBuy();
                         $viewBills = $modelInventory->view();
                         $total = 0;
                         while($datos2 = mysqli_fetch_array($viewBills)) {
-                            $total = $total + $datos2['precio_total'];
+                            $total = $total + $datos2['total'];
                         }
 
                      ?> 
@@ -59,20 +65,21 @@ $arrayInventory = $modelInventory->arrayBuy();
                                 <div class="el-card-content">
                                     <h4 class="">
                                         <b>
-                                            <?php if($datos['typeBill'] == 1){
-                                                echo "Factura de venta";
-                                            }elseif($datos['typeBill'] == 2){
-                                                echo "Factura de compra";
-                                            }elseif($datos['typeBill'] == 3){
-                                                echo "Factura de cambio";
-                                            }elseif($datos['typeBill'] == 4){
-                                                echo "Factura de devolucion";
-                                            } ?>
+                                            <?php if($datos['typeBill'] == 4){
+                                                echo "Factura de compra POS";
+                                            }elseif($datos['typeBill'] == 5){
+                                                echo "Factura de compra Remision";
+                                            }elseif($datos['typeBill'] == 6){
+                                                echo "Factura compra Electronica";
+                                            }?>
                                         </b>
                                      </h4>
+                                     <?php echo $datos['cliente']; ?>
 
 
-                                    <small><h5>Factura #<?php echo $datos['idbills']; ?></h5></small>
+                                    <small><h5>Factura #<?php echo $datos['numeroFactura']; ?></h5></small>
+                                    <small><h5><?php echo $datos['dateRegister']; ?></h5></small>
+                                    <small><h5><?php echo $total; ?></h5></small>
 
                                     <br>
                                 </div>

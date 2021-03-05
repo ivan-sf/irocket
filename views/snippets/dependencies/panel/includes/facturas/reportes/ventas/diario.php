@@ -1,14 +1,116 @@
 <?php 
+$con = new models\Conexion();
+$fecha=$_GET['fecha'];
 $modelMov = new models\Movements();
+$modelBills = new models\Bills();
+$totalDiaVentas = $modelBills->ingresosDiaPosFD($_GET['fecha']);
+$totalDiaVentasElec = $modelBills->ingresosDiaElecFD($_GET['fecha']);
+$totalDiaVentasRem = $modelBills->ingresosDiaRemFD($_GET['fecha']);
+
+$comprasDiaPosFD = $modelBills->comprasDiaPosFD($_GET['fecha']);
+$comprasDiaElecFD = $modelBills->comprasDiaElecFD($_GET['fecha']);
+$comprasDiaRemFD = $modelBills->comprasDiaRemFD($_GET['fecha']);
+
+$totalDiaCompras = $modelBills->comprasDia($_GET['fecha']);
+$iva19 = $modelBills->iva19($_GET['fecha']);
+$iva5 = $modelBills->iva5($_GET['fecha']);
+$iva19C = $modelBills->iva19C($_GET['fecha']);
+$iva5C = $modelBills->iva5C($_GET['fecha']);
+$listaDevoluciones = $modelMov->listaDevoluciones();
+
+
+$totalVentasDiario = 0;
+$totalVentasDiarioElec = 0;
+$totalVentasDiarioRem = 0;
+
+$totalComprasDiario = 0;
+$totalComprasDiarioElec = 0;
+$totalComprasDiarioRem = 0;
+
+$totalIva19 = 0;
+$totalIva5 = 0;
+
+$totalIva19C = 0;
+$totalIva5C = 0;
+
+while ($dataA = mysqli_fetch_array($totalDiaVentas)) {
+    $totalVentasDiario += $dataA['precioTotal'];
+}
+
+while ($dataAA = mysqli_fetch_array($totalDiaVentasElec)) {
+    $totalVentasDiarioElec += $dataAA['total'];
+}
+
+while ($dataAAA = mysqli_fetch_array($totalDiaVentasRem)) {
+    $totalVentasDiarioRem += $dataAAA['precioTotal'];
+}
+
+while ($dataA = mysqli_fetch_array($comprasDiaPosFD)) {
+    $totalComprasDiario += $dataA['precioTotal'];
+}
+
+while ($dataAA = mysqli_fetch_array($comprasDiaElecFD)) {
+    $totalComprasDiarioElec += $dataAA['total'];
+}
+
+while ($dataAAA = mysqli_fetch_array($comprasDiaRemFD)) {
+    $totalComprasDiarioRem += $dataAAA['precioTotal'];
+}
+
+while ($dataI19 = mysqli_fetch_array($iva19)) {
+    $totalIva19 += $dataI19['impuesto']*$dataI19['cantidad'];;
+}
+
+
+
+while ($dataI5 = mysqli_fetch_array($iva5)) {
+    $totalIva5 += $dataI5['impuesto']*$dataI5['cantidad'];;
+}
+
+while ($dataI19 = mysqli_fetch_array($iva19C)) {
+    $totalIva19C += $dataI19['impuesto']*$dataI19['cantidad'];;
+}
+
+
+
+while ($dataI5 = mysqli_fetch_array($iva5C)) {
+    $totalIva5C += $dataI5['impuesto']*$dataI5['cantidad'];;
+}
+
+
+
 $atA = $modelMov->dayActiveV($_GET['fecha']);
+$atA = $modelMov->dayActiveV($_GET['fecha']);
+$atB = $modelMov->dayActiveV($_GET['fecha']);
 $atP = $modelMov->dayPassiveV($_GET['fecha']);
 $atDA = $modelMov->daytimeActiveD($_GET['fecha']);
 $atDP = $modelMov->daytimePassiveD($_GET['fecha']);
-
 $totalA = 0;
 while ($dataA = mysqli_fetch_array($atA)) {
     $totalA += $dataA['totalMoney'];
 }
+
+$sql = "SELECT * FROM bills INNER JOIN billdetails ON bills.idbills=billdetails.bills_idbills 
+WHERE
+bills.dateRegister='$fecha' AND bills.typeBill=1 AND stateBillDetail=2 OR
+bills.dateRegister='$fecha' AND bills.typeBill=2 AND stateBillDetail=2 OR
+bills.dateRegister='$fecha' AND bills.typeBill=3 AND stateBillDetail=2
+";
+$query = $con->returnConsulta($sql);
+$datosA = mysqli_num_rows($query);
+$totalB = 0;
+while ($datosB=mysqli_fetch_array($query)) {
+    $totalB += $datosB['pUnidadCompra']*$datosB['cantidad'];
+}
+$totalC = $totalVentasDiario+$totalVentasDiarioElec+$totalVentasDiarioRem-$totalB;
+
+
+/*
+ $idBill = $dataA['bills_idbills'];
+    $sql = "SELECT * FROM billdetails WHERE bills_idbills='$idBill'";
+    $query = $con->returnConsulta($sql);
+    $totalB += $dataA['totalMoney'];
+*/
 $totalP = 0;
 while ($dataP = mysqli_fetch_array($atP)) {
     $totalP += $dataP['totalMoney'];
@@ -22,6 +124,7 @@ $totalDP = 0;
 while ($dataDP = mysqli_fetch_array($atDP)) {
     $totalDP += $dataDP['totalMoney'];
 }
+
  ?>
 <div id="page-wrapper" style="min-height: 923px;">
             <div class="container-fluid">
@@ -46,286 +149,185 @@ while ($dataDP = mysqli_fetch_array($atDP)) {
                 <div class="row">
 
                     <div class="col-md-12">
-                    	<div class="white-box">
-                    		<form action="views/snippets/layout/pages/facturas/ventas/reportediario.php" method="GET" id="formulario">
-                    			<div class="row">
-                    				<div class="col-lg-6">
-                        	 		<input class="form-control" type="date" id="fecha" name="fecha" value="<?php echo $_GET['fecha'] ?>"><br>
-                    				
-                    			</div>
-                    			<div class="col-lg-6">
-                    				<button type="submit" class="btn btn-block btn-outline btn-success">Consultar</button>
-                    				
-                    			</div>
-                    			</div>
-	
-			                </form>
-                    	</div>
+                        <div class="white-box">
+                            <form action="views/snippets/layout/pages/facturas/ventas/reportediario.php" method="GET" id="formulario">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                    <input class="form-control" type="date" id="fecha" name="fecha" value="<?php echo $_GET['fecha'] ?>"><br>
+                                    
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-block btn-outline btn-success">Consultar</button>
+                                    
+                                </div>
+                                </div>
+    
+                            </form>
+                        </div>
 
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="white-box text-center bg-success">
-                                    <h1 class="text-white counter"><?php echo number_format($totalA); ?> </h1>
-                                    <p class="text-white">Ingreso total de ventas</p>
+                                    <h1 class="text-white counter"><?php echo number_format($totalVentasDiario); ?> </h1>
+                                    <p class="text-white">Ingreso total de ventas POS</p>
                                 </div>
                             </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="white-box text-center bg-success">
+                                    <h1 class="text-white counter"><?php echo number_format($totalVentasDiarioElec); ?> </h1>
+                                    <p class="text-white">Ingreso total de ventas Electronica</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="white-box text-center bg-success">
+                                    <h1 class="text-white counter"><?php echo number_format($totalVentasDiarioRem); ?> </h1>
+                                    <p class="text-white">Ingreso total de ventas Remision</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-success">
+                                    <h1 class="text-white counter"><?php echo number_format($totalIva19); ?> </h1>
+                                    <p class="text-white">Iva 19% Facturas de venta legales</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-success">
+                                    <h1 class="text-white counter"><?php echo number_format($totalIva5); ?> </h1>
+                                    <p class="text-white">Iva 5% Facturas de venta legales</p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalComprasDiario); ?> </h1>
+                                    <p class="text-white">Gasto total de compras POS</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalComprasDiarioElec); ?> </h1>
+                                    <p class="text-white">Gasto total de compras Electronica</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalComprasDiarioRem); ?> </h1>
+                                    <p class="text-white">Gasto total de compras POS</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalIva19C); ?> </h1>
+                                    <p class="text-white">Iva 19% Facturas de compra legales</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalIva5C); ?> </h1>
+                                    <p class="text-white">Iva 5% Facturas de compra legales</p>
+                                </div>
+                            </div>
+
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="white-box text-center bg-success">
                                     <h1 class="text-white counter"><?php echo number_format($totalDA); ?> </h1>
                                     <p class="text-white">Ingreso total de depositos</p>
                                 </div>
                             </div>
-                          
-
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="white-box text-center bg-danger">
-                                    <h1 class="text-white counter"><?php echo number_format($totalP); ?> </h1>
-                                    <p class="text-white">Gasto total de compras</p>
-                                </div>
-                            </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="white-box text-center bg-danger">
                                     <h1 class="text-white counter"><?php echo number_format($totalDP); ?> </h1>
-                                    <p class="text-white">Retiro total de depositos</p>
+                                    <p class="text-white">Retiro total de depositos + Devoluciones</p>
                                 </div>
                             </div>
 
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="white-box">
+                                <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Devoluciones</h3>
+                                <div class="text-center"> <span class="text-muted">Lista de devoluciones</span>
+                                    <div class="list-group"><br>
+                                        <?php 
+                                        $totalDev=0;
+                                                while ( $listDeposits = mysqli_fetch_array($listaDevoluciones)) {
+                                                $totalDev += $listDeposits['totalMoney'];   ?>
+                                        <a href="facturas/detalles?id=<?php echo $listDeposits['bills_idbills']; ?>&detalles">
+                                        
+
+                                            <button type="button" class="list-group-item">
+                                                <span class="badge badge-success"><?php echo number_format($listDeposits['totalMoney']); ?></span>
+                                                <?php if($listDeposits['typeMovement']==2){
+                                                    echo "Factura  de venta #" . $listDeposits['bills_idbills']; 
+                                                } ?>
+                                                <?php if($listDeposits['typeMovement']==1){
+                                                    echo "Factura  de compra #" . $listDeposits['bills_idbills']; 
+                                                } ?>
+                                            </button></a>
+                                            <?php } ?>       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+
                         </div>
-
-                        
-
 
                         <div class="row">
-                    <div class="col-md-6 col-lg-6 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Balance general</h3>
-                            <div id="morris-donut-chart-day"></div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-primary">
+                                    <h1 class="text-white counter"><?php echo number_format($totalVentasDiario+$totalVentasDiarioElec+$totalVentasDiarioRem-$totalDev); ?> </h1>
+                                    <p class="text-white">Ingreso total (VENTAS))</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <div class="white-box text-center bg-primary">
+                                    <h1 class="text-white counter"><?php echo number_format($totalComprasDiario+$totalComprasDiarioElec+$totalComprasDiarioRem); ?> </h1>
+                                    <p class="text-white">Inversion total (COMPRAS)</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-4 col-xs-12">
+                                <div class="white-box text-center bg-success">
+                                    <h1 class="text-white counter"><?php echo number_format($totalVentasDiario+$totalVentasDiarioElec+$totalVentasDiarioRem-$totalDev); ?> </h1>
+                                    <p class="text-white">Costo productos</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-4 col-xs-12">
+                                <div class="white-box text-center bg-danger">
+                                    <h1 class="text-white counter"><?php echo number_format($totalB); ?> </h1>
+                                    <p class="text-white">Inversion productos</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-4 col-xs-12">
+                                <div class="white-box text-center bg-info">
+                                    <h1 class="text-white counter"><?php echo number_format($totalC-$totalDev); ?> </h1>
+                                    <p class="text-white">Ganancia productos</p>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
-<?php 
-$atA = $modelMov->dayActive($_GET['fecha']);
-$atP = $modelMov->dayPassive($_GET['fecha']);
-$totalA = 0;
-while ($dataA = mysqli_fetch_array($atA)) {
-    $totalA += $dataA['totalMoney'];
-}
-$totalP = 0;
-while ($dataP = mysqli_fetch_array($atP)) {
-    $totalP += $dataP['totalMoney'];
-}
- ?>
-                    <div class="col-lg-6">
-                        <div class="white-box">
-                            <h4 class="box-title text-primary">INGRESOS TOTALES</h4>
+                       
 
-                            <ul class="list-inline two-part">
-                                <li><i class="ti-shopping-cart text-primary"></i></li>
-                                   
 
-                                <h3><li class="text-right text-primary">$<span class="counter"><?php echo number_format($totalA) ?></span></li></h3>
-                            </ul>
-                        </div>
-                        <div class="white-box" style="margin-top: 20px">
-                            <h4 class="box-title text-danger">GASTOS TOTALES</h4>
 
-                            <ul class="list-inline two-part">
-                                <li><i class="ti-cut text-danger"></i></li>
-                                   
+                  
 
-                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalP) ?></span></li></h3><br>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                        
                     </div>
 
 
-                        <div class="white-box">
-
-			             
-                        <div class="table-responsive">
-                        <table id="dt_bills" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
-                            <h4>Lista de ventas</h4>
-
-                            <thead>
-                                <tr role="row">
-                                    <th>F#</th>
-                                    <th>Fecha</th>
-                                    <th>Tipo</th>
-                                    <th>Total</th>
-                                    <th>Pago</th>
-                                    <th>Saldo</th>
-                                    <th>Cliente</th>                                           
-                                    <th>Caja</th>                                           
-                                </tr>
-                            </thead>
-                            
-                        </table>
-                        </div>
-                    </div>
-
-                    <div class="white-box">
-
-                         
-                        <div class="table-responsive">
-                        <table id="dt_bills2" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
-                            <h4>Lista de compras</h4>
-
-                            <thead>
-                                <tr role="row">
-                                    <th>F#</th>
-                                    <th>Fecha</th>
-                                    <th>Tipo</th>
-                                    <th>Total</th>
-                                    <th>Pago</th>
-                                    <th>Saldo</th>
-                                    <th>Proveedor</th>                                           
-                                    <th>Caja</th>                                           
-                                </tr>
-                            </thead>
-                            
-                        </table>
-                        </div>
-                    </div>
+                   
                     </div>
                 </div>
             </div>
         </div>
 
-<script src="<?php echo (URL); ?>views/plugins/js/jquery-1.2.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/datatables.min.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/datatablebuttons.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/buttons.flash.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/jszip.min.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/pdfmake.min.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/vfs.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/buttonshtml5.js"></script>
-<script src="<?php echo (URL); ?>views/plugins/js/button.print.js"></script>
-<script>
-
-<?php 
-$atA = $modelMov->dayActiveV($_GET['fecha']);
-$atAR = mysqli_num_rows($atA);
-if ($atAR>=1) { ?>
-
-    function listar() {
-    	var fecha = $("#fecha").val();
-		var URL = "../../irocket/views/tables/reportes/venta/listar_facturas_diario.php?fecha=" + fecha;
-        var table = $("#dt_bills").DataTable({
-            "ajax":{
-                method:"POST",
-                url: URL,
-				data: $("#formulario").serialize()
-            },
-            dom:"Bfrtlip",
-            columns:[
-                {"data":"bills_idbills"},
-                {"data":"fecha"},
-                {"data":"typeBill"},
-                {"data":"total"},
-                {"data":"pago"},
-                {"data":"saldo"},
-                {"data":"cliente"},
-                {"data":"caja"}
-            ],
-            buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-
-            language: idioma
-        });
-
-    }
-    var idioma = {
-                    "sProcessing":     "Procesando...",
-                    "sLengthMenu":     "Mostrar _MENU_ registros",
-                    "sZeroRecords":    "No se encontraron resultados",
-                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix":    "",
-                    "sSearch":         "Buscar:",
-                    "sUrl":            "",
-                    "sInfoThousands":  ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }
-                }
-    listar();
-</script>
-<?php } ?>
-<?php 
-$atA = $modelMov->dayPassiveV($_GET['fecha']);
-$atAR = mysqli_num_rows($atA);
-if ($atAR>0) { ?>
-<script>
-
-
-    function listar() {
-        var fecha = $("#fecha").val();
-        var URL = "../../irocket/views/tables/reportes/compra/listar_facturas_diario.php?fecha=" + fecha;
-        var datos = $("#formulario").serialize();
-        var table = $("#dt_bills2").DataTable({
-            "destroy":false,
-            "ajax":{
-                method:"POST",
-                url: URL,
-            },
-            dom:"Bfrtlip",
-            columns:[
-                {"data":"bills_idbills"},
-                {"data":"fecha"},
-                {"data":"typeBill"},
-                {"data":"total"},
-                {"data":"pago"},
-                {"data":"saldo"},
-                {"data":"cliente"},
-                {"data":"caja"}
-            ],
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-
-            language: idioma
-        });
-
-    }
-    var idioma = {
-                    "sProcessing":     "Procesando...",
-                    "sLengthMenu":     "Mostrar _MENU_ registros",
-                    "sZeroRecords":    "No se encontraron resultados",
-                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix":    "",
-                    "sSearch":         "Buscar:",
-                    "sUrl":            "",
-                    "sInfoThousands":  ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }
-                }
-    listar();
-</script>
-<?php } ?>

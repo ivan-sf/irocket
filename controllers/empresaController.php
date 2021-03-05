@@ -14,6 +14,8 @@ class empresaController
 	public function detalles()
 	{
 		if (isset($_POST['idUpdate'])) {
+			
+
 			$this->conexion = new Conexion();
 			$this->company = new Company();
 			$this->company->set("idcompany", $_POST['idUpdate']);
@@ -27,6 +29,12 @@ class empresaController
 			$this->company->set("companyLogoName",$_FILES['photo']['name']);
 			$this->company->set("companyLogoSize",$_FILES['photo']['size']);
 			$this->company->set("companyLogoType",$_FILES['photo']['type']);
+			
+			$this->company->set("resolucion",$_POST['resolucion']);
+			$this->company->set("prefijoInicial",$_POST['prefijoInicial']);
+			$this->company->set("prefijoFinal",$_POST['prefijoFinal']);
+			$this->company->set("pieFactura",$_POST['pieFactura']);
+
 			$this->company->update();
 		}else{
 			

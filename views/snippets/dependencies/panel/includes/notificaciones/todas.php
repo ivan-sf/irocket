@@ -91,7 +91,20 @@ $arrayInventory = $modelInventory->array2();
                           <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  </div>
                     <?php }elseif ($datos['typeNotification'] == 27) { ?>
                           <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/delete.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 96) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/warning.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 97) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/invisible.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 98) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/visibility.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 93) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/cash-back.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 94) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/return.png">  </div>
+                    <?php }elseif ($datos['typeNotification'] == 95) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/exchange.png">  </div>
                     <?php } ?>
+
 
         
 
@@ -149,6 +162,12 @@ $arrayInventory = $modelInventory->array2();
                             echo "Elimino proveedor";
                         }elseif($datos['typeNotification'] == 27){
                             echo "Elimino deposito";
+                        }elseif($datos['typeNotification'] == 93){
+                            echo "Cancelo saldo";
+                        }elseif($datos['typeNotification'] == 94){
+                            echo "Devolucion";
+                        }elseif($datos['typeNotification'] == 95){
+                            echo "Cambio";
                         }
                      ?>
 
@@ -191,14 +210,14 @@ $arrayInventory = $modelInventory->array2();
              if ($datos['typeNotification'] == 9 OR $datos['typeNotification'] == 17) { ?>
              	<center>
                		<br>
-                    <a href="<?php echo URL; ?>depositos/detalles?id=<?php echo $datos['depositAccount_iddepositAccounts']; ?>&configurar " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
+                    <a href="<?php echo URL; ?>depositos/detalles?id=<?php echo $datos['depositAccount_iddepositAccounts']; ?>&configurar&tipo=activo" class="btn btn-block btn-outline btn-info" >Ver detalles</a>
                 </center>
             <?php }  ?>
             <?php 
              if ($datos['typeNotification'] == 18 OR $datos['typeNotification'] == 19) { ?>
              	<center>
                		<br>
-                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo $datos['users_idusers']; ?>&detalles " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo $datos['users_idusers']; ?>&configurar " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
                 </center>
             <?php }  ?>
 
@@ -218,13 +237,7 @@ $arrayInventory = $modelInventory->array2();
                 </center>
             <?php }  ?>
 
-            <?php 
-             if ($datos['typeNotification'] == 10) { ?>
-              <center>
-                  <br>
-                    <a href="<?php echo URL; ?>cajas?caja=ventas" class="btn btn-block btn-outline btn-info" >Ingresar</a>
-                </center>
-            <?php }  ?>
+           
 
             <?php 
              if ($datos['typeNotification'] == 11 OR $datos['typeNotification'] == 12) { ?>
@@ -233,11 +246,11 @@ $arrayInventory = $modelInventory->array2();
                     <a href="<?php echo URL; ?>depositos/detalles?id=1&fondos" class="btn btn-block btn-outline btn-info" >Ver depositos</a>
                 </center>
             <?php }  ?>
-            <?php 
+             <?php 
              if ($datos['typeNotification'] == 8) { ?>
               <center>
                   <br>
-                    <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=1&configurar&tipo=activo" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
                 </center>
             <?php }  ?>
 
@@ -248,6 +261,32 @@ $arrayInventory = $modelInventory->array2();
                     <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver deposito eliminado</a>
                 </center>
             <?php }  ?>
+             <?php 
+               if ($datos['typeNotification'] == 96) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
+
+             <?php 
+               if ($datos['typeNotification'] == 97) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
+
+             <?php 
+               if ($datos['typeNotification'] == 98) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
             
 
             </div>
@@ -306,7 +345,20 @@ $arrayInventory = $modelInventory->array2();
                           <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/provider_add.png">  
                     <?php }elseif ($datos['typeNotification'] == 27) { ?>
                           <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/delete.png">  
+                    <?php }elseif ($datos['typeNotification'] == 96) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/warning.png">  
+                    <?php }elseif ($datos['typeNotification'] == 97) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/invisible.png">  
+                    <?php }elseif ($datos['typeNotification'] == 98) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/visibility.png">  
+                    <?php }elseif ($datos['typeNotification'] == 93) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/cash-back.png">  
+                    <?php }elseif ($datos['typeNotification'] == 94) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/return.png">  
+                    <?php }elseif ($datos['typeNotification'] == 95) { ?>
+                          <img class="img-responsive" alt="user" src="<?php echo URL; ?>views/plugins/images/exchange.png">  
                     <?php } ?>
+
 
 
         </div>
@@ -363,6 +415,12 @@ $arrayInventory = $modelInventory->array2();
                             echo "Elimino proveedor";
                         }elseif($datos['typeNotification'] == 27){
                             echo "Elimino deposito";
+                        }elseif($datos['typeNotification'] == 93){
+                            echo "Cancelo saldo";
+                        }elseif($datos['typeNotification'] == 94){
+                            echo "Devolucion";
+                        }elseif($datos['typeNotification'] == 95){
+                            echo "Cambio";
                         }
                      ?>
 
@@ -385,7 +443,7 @@ $arrayInventory = $modelInventory->array2();
                	<center>
                		<br>
 
-                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&detalles " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
                 </center>
              <?php  } ?>
              <?php 
@@ -404,18 +462,19 @@ $arrayInventory = $modelInventory->array2();
             <?php }  ?>
             <?php 
              if ($datos['typeNotification'] == 9 OR $datos['typeNotification'] == 17) { ?>
-             	<center>
-               		<br>
-                    <a href="<?php echo URL; ?>depositos/detalles?id=<?php echo $datos['depositAccount_iddepositAccounts']; ?>&configurar " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
+              <center>
+                  <br>
+                    <a href="<?php echo URL; ?>depositos/detalles?id=<?php echo $datos['depositAccount_iddepositAccounts']; ?>&configurar&tipo=activo" class="btn btn-block btn-outline btn-info" >Ver detalles</a>
                 </center>
             <?php }  ?>
             <?php 
              if ($datos['typeNotification'] == 18 OR $datos['typeNotification'] == 19) { ?>
-             	<center>
-               		<br>
-                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo $datos['users_idusers']; ?>&detalles " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
+              <center>
+                  <br>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo $datos['users_idusers']; ?>&configurar " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
                 </center>
             <?php }  ?>
+
 
             <?php 
              if ($datos['typeNotification'] == 23 OR $datos['typeNotification'] == 22) { ?>
@@ -432,13 +491,7 @@ $arrayInventory = $modelInventory->array2();
                     <a href="<?php echo URL; ?>proveedores/detalles?id=<?php echo $datos['users_idusers']; ?>&detalles " class="btn btn-block btn-outline btn-info" >Ver detalles</a>
                 </center>
             <?php }  ?>
-             <?php 
-             if ($datos['typeNotification'] == 10) { ?>
-              <center>
-                  <br>
-                    <a href="<?php echo URL; ?>cajas?caja=ventas" class="btn btn-block btn-outline btn-info" >Ingresar</a>
-                </center>
-            <?php }  ?>
+             
             <?php 
              if ($datos['typeNotification'] == 11 OR $datos['typeNotification'] == 12) { ?>
               <center>
@@ -451,7 +504,7 @@ $arrayInventory = $modelInventory->array2();
              if ($datos['typeNotification'] == 8) { ?>
               <center>
                   <br>
-                    <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
+                    <a href="<?php echo URL; ?>empleados/detalles?id=1&configurar&tipo=activo" class="btn btn-block btn-outline btn-info" >Ver perfil</a>
                 </center>
             <?php }  ?>
 
@@ -462,6 +515,35 @@ $arrayInventory = $modelInventory->array2();
                     <a href="<?php echo URL; ?>empleados/detalles?id=1&detalles" class="btn btn-block btn-outline btn-info" >Ver deposito eliminado</a>
                 </center>
             <?php }  ?>
+
+             <?php 
+               if ($datos['typeNotification'] == 96) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
+
+             <?php 
+               if ($datos['typeNotification'] == 97) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
+
+             <?php 
+               if ($datos['typeNotification'] == 98) { ?>
+                <center>
+                  <br>
+
+                    <a href=" <?php echo URL; ?>productos/detalles?id=<?php echo $datos['products_idproducts']; ?>&configurar " class="btn btn-block btn-outline btn-info">Ver detalles</a>
+                </center>
+             <?php  } ?>
+
+
             </div>
         </div>
     </li>

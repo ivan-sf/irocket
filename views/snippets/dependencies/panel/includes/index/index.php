@@ -1,4 +1,58 @@
 <?php 
+    $modelBills = new models\Bills();
+    $ingresosDiaPos = $modelBills->ingresosDiaPOS();
+    $ingresosDiaPosRemision = $modelBills->ingresosDiaRemisionPOS();
+    $ingresosDiaRemision = $modelBills->ingresosDiaRemision();
+    $ingresosDiaElectronica = $modelBills->ingresosDiaElectronica();
+    $comprasDiaPOS = $modelBills->comprasDiaPOS();
+    $comprasDiaRemisionPOS = $modelBills->comprasDiaRemisionPOS();
+    $comprasDiaRemision = $modelBills->comprasDiaRemision();
+    $comprasDiaElectronica = $modelBills->comprasDiaElectronica();
+
+    $totalI1 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($ingresosDiaPos)) {
+         $totalI1 += $totalIngreso['precioTotal']; 
+     } ;
+
+     $totalI2 = 0;
+     while ( $totalIngreso = mysqli_fetch_array($ingresosDiaPosRemision)) {
+          $totalI2 += $totalIngreso['precioTotal']; 
+      } ;
+
+    $totalI3 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($ingresosDiaRemision)) {
+        $totalI3 += $totalIngreso['total']; 
+    } ;
+
+    $totalI4 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($ingresosDiaElectronica)) {
+        $totalI4 += $totalIngreso['total']; 
+    } ;
+
+
+    $totalC1 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($comprasDiaPOS)) {
+        $totalC1 += $totalIngreso['precioTotal']; 
+    } ;
+
+    $totalC3 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($comprasDiaRemisionPOS)) {
+            $totalC3 += $totalIngreso['precioTotal']; 
+        } ;
+
+        $totalC4 = 0;
+    while ( $totalIngreso = mysqli_fetch_array($comprasDiaRemision)) {
+            $totalC4 += $totalIngreso['total']; 
+        } ;
+
+        $totalC2 = 0;
+        while ( $totalIngreso = mysqli_fetch_array($comprasDiaElectronica)) {
+            $totalC2 += $totalIngreso['total']; 
+        } ;
+        $totalVentas=$totalI1+$totalI2+$totalI3+$totalI4;
+        $totalCompras=$totalC1+$totalC2+$totalC3+$totalC4;
+        $balance=$totalVentas;
+   
     $modelInventory = new models\Inventory();
     $modelMovements = new models\Movements();
     $con = new models\Conexion();
@@ -8,16 +62,12 @@
     $dataTodayToCharge = $modelMovements->todayToCharge();
     $dataTodayToPay = $modelMovements->todayToPay();
     $dataTodayListDeposit = $modelMovements->todayListDeposit();
+    $listaDevoluciones = $modelMovements->listaDevoluciones();
     $dataTodayListRetreats = $modelMovements->todayListRetreats();
     $rowInventory = $modelInventory->row();
-    $totalA = 0;
-    while ( $totalActive = mysqli_fetch_array($dataTodayActive)) {
-         $totalA += $totalActive['totalMoney']; 
-     } ;
-    $totalP = 0;
-    while ( $totalPassive = mysqli_fetch_array($dataTodayPassive)) {
-         $totalP += $totalPassive['totalMoney']; 
-     } ;
+
+
+    
  ?>
 <div id="page-wrapper" style="min-height: 953px;">
 
@@ -53,63 +103,125 @@
 
                     
 
-                    <div class="col-lg-4">
-                        <div class="white-box">
-                            <h4 class="box-title text-primary">INGRESOS HOY</h4>
-
-                            <ul class="list-inline two-part">
-                                <li><i class="ti-shopping-cart text-primary"></i></li>
-                                   
-
-                                <h3><li class="text-right text-primary">$<span class="counter"><?php echo number_format($totalA) ?></span></li></h3>
+                    <div class="col-lg-6">
+                    <div class="white-box">
+                            <h4 class="box-title text-success">VENTAS DIA POS</h4>
+                            <ul class="list-inline two-part">                                   
+                                <h3><li class="text-right text-success">$<span class="counter"><?php echo number_format($totalI1) ?></span></li></h3>
                             </ul>
+                            <h4 class="box-title text-success">VENTAS DIA FACTURA ELECTRONICA</h4>
+                            <ul class="list-inline two-part">                                   
+                                <h3><li class="text-right text-success">$<span class="counter"><?php echo number_format($totalI4) ?></span></li></h3>
+                            </ul>
+                            
+                            
                         </div>
                         <div class="white-box">
-                            <h4 class="box-title text-danger">GASTOS HOY</h4>
-
-                            <ul class="list-inline two-part">
-                                <li><i class="ti-cut text-danger"></i></li>
-                                   
-
-                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalP) ?></span></li></h3>
+                            
+                            <h4 class="box-title text-success">VENTAS DIA REMISION AUTOMATICA</h4>
+                            <ul class="list-inline two-part">                                   
+                                <h3><li class="text-right text-success">$<span class="counter"><?php echo number_format($totalI2) ?></span></li></h3>
                             </ul>
-                        </div>
-                       
+                            <h4 class="box-title text-success">VENTAS DIA REMISION</h4>
+                            <ul class="list-inline two-part">                                   
+                                <h3><li class="text-right text-success">$<span class="counter"><?php echo number_format($totalI3) ?></span></li></h3>
+                            </ul>
+                            
+                        </div> 
+                        <div class="white-box">
+                            
+                            <h4 class="box-title text-success">TOTAL VENTAS</h4>
+                            <ul class="list-inline two-part">                                   
+                                <h3><li class="text-right text-success">$<span class="counter"><?php echo number_format($totalVentas) ?></span></li></h3>
+                            </ul>
+                            
+                            
+                        </div>                      
                     </div>
-
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="white-box">
-                            <h3 class="box-title">Balance diario</h3>
-                            <div>
-                                <canvas id="chart4" height="348" width="697" style="width: 697px; height: 348px;"> </canvas>
+                            <h4 class="box-title text-danger">COMPRAS DIA POS</h4>
+
+                            <ul class="list-inline two-part">
+                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalC1) ?></span></li></h3>
+                            </ul>
+                            <h4 class="box-title text-danger">COMPRAS DIA ELECTRONICA</h4>
+
+                            <ul class="list-inline two-part">
+                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalC2) ?></span></li></h3>
+                            </ul>
+                        </div>
+                        <div class="white-box">
+                            <h4 class="box-title text-danger">COMPRAS DIA REMISION AUTOMATICA</h4>
+
+                            <ul class="list-inline two-part">
+                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalC3) ?></span></li></h3>
+                            </ul>
+                            <h4 class="box-title text-danger">COMPRAS DIA REMISION</h4>
+
+                            <ul class="list-inline two-part">
+                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalC4) ?></span></li></h3>
+                            </ul>
+                        </div>
+
+                        <div class="white-box">
+                            <h4 class="box-title text-danger">TOTAL COMPRAS</h4>
+
+                            <ul class="list-inline two-part">
+                                <h3><li class="text-right text-danger">$<span class="counter"><?php echo number_format($totalCompras) ?></span></li></h3>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title"><i class="ti-shopping-cart text-success"></i> Devoluciones</h3>
+                            <div class="text-center"> <span class="text-muted">Lista de devoluciones</span>
+                                <div class="list-group"><br>
+                                      <?php 
+                                      $totalDev=0;
+                                            while ( $listDeposits = mysqli_fetch_array($listaDevoluciones)) {
+                                             $totalDev += $listDeposits['totalMoney'];   ?>
+                                    <a href="facturas/detalles?id=<?php echo $listDeposits['bills_idbills']; ?>&detalles">
+                                      
+
+                                        <button type="button" class="list-group-item">
+                                            <span class="badge badge-success"><?php echo number_format($listDeposits['totalMoney']); ?></span>
+                                            <?php if($listDeposits['typeMovement']==2){
+                                                echo "Factura  de venta #" . $listDeposits['bills_idbills']; 
+                                            } ?>
+                                            <?php if($listDeposits['typeMovement']==1){
+                                                echo "Factura  de compra #" . $listDeposits['bills_idbills']; 
+                                            } ?>
+                                        </button></a>
+                                        <?php } ?> 
+                                        
+                                </div>
                             </div>
+                           
                         </div>
-                    </div>
+                    </div>   
 
                    
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                             <div class="white-box text-center">
-                                <h1 class="text-success">$<span class="counter"><b><?php echo number_format($totalA-$totalP) ?></b></span></h1>
-                                <h2 class="box-title text-success"><b>BALANCE HOY</b></h2>
+                                <h1 class="text-success">$<span class="counter"><b><?php echo number_format($balance-$totalDev) ?></b></span></h1>
+                                <h2 class="box-title text-success"><b>BALANCE DIA</b></h2>
                             </div>
 
 
                     </div>
                 </div>
                 <?php 
-                $modelMov = new models\BillReports();
-                $atA = $modelMov->AllBillsDayActive();
-                $atP = $modelMov->AllBillsDayPassive();
-                $atT = $modelMov->AllBillsDay();
-                $totalA = 0;
-                $totalRA = mysqli_num_rows($atA);
-                $totalRP = mysqli_num_rows($atP);
-                $totalRT = mysqli_num_rows($atT);
-                while ($dataA = mysqli_fetch_array($atA)) {
-                    $totalA += $dataA['totalMoney'];
-                }
+                $totalVentasDia = $modelBills->totalVentasDia();
+                $totalComprasDia = $modelBills->totalComprasDia();
+                $facturasVentasDia = mysqli_num_rows($totalVentasDia);
+                $facturasComprasDia = mysqli_num_rows($totalComprasDia);
+                $totalFacturas=$facturasVentasDia+$facturasComprasDia;
                 
                  ?>
                 
@@ -118,28 +230,31 @@
                     
                     <div class="col-lg-4 col-md-4">
                         <div class="white-box">
-                            <h3 class="box-title"># VENTAS HOY</h3>
+                            <h3 class="box-title"># VENTAS DIA</h3>
                             <div class="text-right"> <span class="text-muted">Total ventas del dia</span>
-                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $totalRA; ?></h1> </div> 
+                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $facturasVentasDia; ?></h1> </div> 
                            
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <div class="white-box">
-                            <h3 class="box-title"># COMPRAS HOY</h3>
+                            <h3 class="box-title"># COMPRAS DIA</h3>
                             <div class="text-right"> <span class="text-muted">Total compras del dia</span>
-                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $totalRP; ?></h1> </div>
+                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $facturasComprasDia; ?></h1> </div>
                             
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-4">
                         <div class="white-box">
-                            <h3 class="box-title"># FACTURAS HOY</h3>
+                            <h3 class="box-title"># FACTURAS DIA</h3>
                             <div class="text-right"> <span class="text-muted">Total facturas del dia</span>
-                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $totalRT; ?></h1> </div> 
+                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo $totalFacturas; ?></h1> </div> 
                         </div>
                     </div>
+                    
+
+                    
                </div>
 
                <div class="row">
@@ -201,7 +316,7 @@
 
                 <div class="row">
                     
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-6 col-md-6">
                         <div class="white-box">
                             <h3 class="box-title">Valor actual de inventarios</h3>
                             <div class="text-right">
@@ -233,7 +348,7 @@
                            
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-6 col-md-6">
                         <div class="white-box">
                             <h3 class="box-title">Cuentas por pagar de inventarios</h3>
                             <div class="text-right">
@@ -254,11 +369,46 @@
                            
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    
+
+                      <div class="col-lg-6 col-md-6">
                         <div class="white-box">
-                            <h3 class="box-title">Balance total de inventarios</h3>
+                            <h3 class="box-title">Valor de produccion</h3>
                             <div class="text-right">
-                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo number_format($total+$total2); ?></h1> </div> 
+                                <h1><sup><i class="ti-arrow-up text-info"></i></sup>
+
+                                <?php 
+                                    $id = 1;
+                                    $sql = "SELECT * FROM products
+                                            INNER JOIN productdetails
+                                            ON idproducts=products_idproducts 
+                                            WHERE stateBD = 1";
+                                    $query = $con->returnConsulta($sql);
+                                    $datos = mysqli_num_rows($query);
+                                    $total22 = 0;
+                                    while ($array = mysqli_fetch_array($query)) {
+                                        $total22 += $array['precio']*$array['quantityProduct'];
+                                    }
+                                    $sql2 = "SELECT * FROM movementdepositaccount
+                                            WHERE typeMovement = 9";
+                                    $query2 = $con->returnConsulta($sql2);
+                                    $total2 = 0;
+                                    while ($array = mysqli_fetch_array($query2)) {
+                                        $total2 += $array['saldo'];
+                                    }
+                                    echo number_format($total22);
+                                ?>
+
+                                </h1> </div> 
+                           
+                        </div>
+                    </div>
+
+                     <div class="col-lg-6 col-md-6">
+                        <div class="white-box">
+                            <h3 class="box-title">Ganancias de produccion</h3>
+                            <div class="text-center">
+                                <h1><sup><i class="ti-arrow-up text-success"></i></sup> <?php echo number_format($total22-$total); ?></h1> </div> 
                            
                         </div>
                     </div>
@@ -280,14 +430,7 @@
                     $totalP += $dataP['totalMoney'];
                 }
                  ?>
-                <div class="row">
-                        <div class="col-md-6 col-lg-6 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Balance general</h3>
-                            <div id="morris-donut-chart"></div>
-                        </div>
-
-                    </div>
+               
 
                 <?php 
                 $modelMov = new models\Movements();
@@ -302,20 +445,7 @@
                     $totalP += $dataP['saldo'];
                 }
                  ?>
-                    <div class="col-lg-6">
-                            <div class="white-box text-center">
-                                <br><h1 class="counter"><?php echo number_format($totalA); ?></h1>
-                                <p class="text-muted"><b>TOTAL POR PAGAR</b></p><br><br>
-                            </div>
-
-                            <div class="white-box text-center">
-                               <br> <h1 class="counter"><?php echo number_format($totalP); ?></h1>
-                                <p class="text-muted"><b>TOTAL POR COBRAR</b> </p><br><br>
-                            </div>
-
-                    </div>
-
-                </div>
+               
 
                    <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -380,7 +510,8 @@
                 $atPS = $modelMov->AllProductsActive();
                 $atI = $modelMov->AllProductsInactive();
                 $atTP = $modelMov->ProductsTopSale();
-                $atTA = $modelMov->ProductsLimit();
+                $Productsago = $modelMov->Productsago();
+                $Productsexce = $modelMov->Productsexce();
                 $totalA = mysqli_num_rows($atA);
                 $totalI = mysqli_num_rows($atI);
                 $totalPB = 0;
@@ -389,12 +520,12 @@
                 }
                 $totalPS = 0;
                 while ($dataA = mysqli_fetch_array($atPS)) {
-                    $totalPS += $dataA['totalSales']+$dataA['totalSales_prom'];
+                    $totalPS += $dataA['totalSales'];
                 }
                 $totalPI = 0;
                 while ($dataA = mysqli_fetch_array($atA)) {
                     if ($dataA['quantityProduct'] >= 0) {
-                        $totalPI += $dataA['totalItemsInventory'];
+                        $totalPI += $dataA['totalItem'];
                     }
                 }
 
@@ -420,7 +551,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title">ITEMS COMPRADOS</h3>
+                            <h3 class="box-title">ARTICULOS COMPRADOS</h3>
                             <ul class="list-inline two-part">
                                 <li><i class="icon-folder text-purple"></i></li>
                                 <li class="text-right"><span class="counter"><?php echo number_format($totalPB); ?></span></li>
@@ -429,7 +560,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title">ITEMS VENDIDOS</h3>
+                            <h3 class="box-title">ARTICULOS VENDIDOS</h3>
                             <ul class="list-inline two-part">
                                 <li><i class="icon-folder-alt text-danger"></i></li>
                                 <li class="text-right"><span class="counter"><?php echo number_format($totalPS); ?></span></li>
@@ -438,7 +569,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title">ITEMS EN INVENTARIOS</h3>
+                            <h3 class="box-title">ARTICULOS EN INVENTARIOS</h3>
                             <ul class="list-inline two-part">
                                 <li><i class="ti-wallet text-success"></i></li>
                                 <li class="text-right"><span class="counter"><?php echo number_format($totalPI); ?></span></li>
@@ -446,83 +577,9 @@
                         </div>
                     </div>
                 </div>
-                    
-                <div class="row">
-                    <div class="col-md-12 col-lg-6 col-sm-12">
-                        <div class="white-box">
-                          
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <h2><center>Top ventas</center> </h2>
-                                    <p><center>5 Productos mas vendidos</center></p>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>NOMBRE</th>
-                                            <th>VENTAS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 0;
-                                        while ($dataA = mysqli_fetch_array($atTP)) { $i++?>
-                                        <tr>
-                                            <?php if ($dataA['totalSales']+$dataA['totalSales_prom']<=0) {
-                                                # code...
-                                            } else{?>
-                                            <td><?php echo $i; ?></td>
-                                            <td class="txt-oflo"><?php echo $dataA['nameProduct']; ?></td>
-                                            <td><span class="label label-success label-rouded"><?php echo $dataA['totalSales']+$dataA['totalSales_prom']; ?></span> </td>
-                                        </tr>
-                                        <?php }} ?>
-                                        
-                                       
-                                    </tbody>
-                                </table> </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-6 col-sm-12">
-                        <div class="white-box">
-                          
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <h2><center>Productos agotados</center></h2>
-                                    <p><center>Lista de productos no disponibles</center></p>
-                                </div>
-    
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>NOMBRE</th>
-                                            <th>VENTAS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 0;
-                                        while ($dataA = mysqli_fetch_array($atTA)) { $i++?>
-                                        <tr>
-                                            <td><?php echo $i; ?></td>
-                                            <td class="txt-oflo"><?php echo $dataA['nameProduct']; ?></td>
-                                            <td><span class="label label-success label-rouded"><?php echo $dataA['quantityProduct']; ?></span> </td>
-                                        </tr>
-                                        <?php } ?>
-                                        
-                                       
-                                    </tbody>
-                                </table> </div>
-                        </div>
-                    </div>
-                </div>
 
 
+                
                 <?php 
                     $modelMov = new models\UserReports();
                     $atA = $modelMov->allUsersA();
@@ -584,30 +641,144 @@
                         </div>
                     </div>
                 </div>
-                
-               
-
-                    
-
-
-                
-                
-
-                        <!-- /.row -->
-                
-             
 
 
                     
+                <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                          
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h2><center>Top ventas</center> </h2>
+                                    <p><center>50 Productos mas vendidos</center></p>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOMBRE</th>
+                                            <th>VENTAS</th>
+                                            <th>DISPONIBLES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $i = 0;
+                                        while ($dataA = mysqli_fetch_array($atTP)) { $i++?>
+                                        <tr>
+                                            <?php if ($dataA['totalSales']<=0) {
+                                                # code...
+                                            } else{?>
+                                            <td><?php echo $i; ?></td>
+                                            <td class="txt-oflo"><?php echo $dataA['nameProduct']; ?></td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['totalSales']; ?></span> </td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['quantityProduct']; ?></span> </td>
+                                        </tr>
+                                        <?php }} ?>
+                                        
+                                       
+                                    </tbody>
+                                </table> </div>
+                        </div>
+                    </div>    
 
-                   
-                         
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                          
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h2><center>Productos EXCEDIDOS</center></h2>
+                                    <p><center>Lista de productos excedidos en el sistema</center></p>
+                                </div>
+    
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOMBRE</th>
+                                            <th>VENTAS</th>
+                                            <th>DISPONIBLES</th>
+                                            <th>EDITAR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $i = 0;
+                                        while ($dataA = mysqli_fetch_array($Productsexce)) { $i++?>
+                                        <tr>
+                                            <?php if ($dataA['totalSales']<=0) {
+                                                # code...
+                                            } else{?>
+                                            <td><?php echo $i; ?></td>
+                                            <td class="txt-oflo"><?php echo $dataA['nameProduct']; ?></td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['totalSales']; ?></span> </td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['quantityProduct']; ?></span> </td>
+                                            <td>
+                                            <a href="productos/detalles?id=<?php echo $dataA['idproducts']; ?>&configurar">
+                                    
+                                            <button type="button" class="list-group-item">
+                                            
+                                            EDITAR
+                                            </button>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                        <?php }} ?>
+                                    </tbody>
+                                </table> </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                          
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h2><center>Productos agotados</center> </h2>
+                                    <p><center>Productos agotados en el inventario</center></p>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOMBRE</th>
+                                            <th>VENTAS</th>
+                                            <th>DISPONIBLES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $i = 0;
+                                        while ($dataA = mysqli_fetch_array($Productsago)) { $i++?>
+                                        <tr>
+                                            <?php if ($dataA['totalSales']<=0) {
+                                                # code...
+                                            } else{?>
+                                            <td><?php echo $i; ?></td>
+                                            <td class="txt-oflo"><?php echo $dataA['nameProduct']; ?></td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['totalSales']; ?></span> </td>
+                                            <td><span class="label label-success label-rouded"><?php echo $dataA['quantityProduct']; ?></span> </td>
+                                        </tr>
+                                        <?php }} ?>
+                                        
+                                       
+                                    </tbody>
+                                </table> </div>
+                        </div>
+                    </div>
+                </div>
 
 
-               
-
-
-
+                
+                                            }
                      
 
                 </div>

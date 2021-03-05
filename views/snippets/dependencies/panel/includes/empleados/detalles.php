@@ -4,6 +4,7 @@ $con = new models\Conexion();
 $idGet = $_GET['id'];
 $array = $model->set("idproduct",$idGet);
 $data = $model->view();
+$queryNom = $model->queryNom();
 $datos = mysqli_fetch_array($data);
 $modelInventory = new models\Inventory();
 $arrayInventory = $modelInventory->array();
@@ -65,24 +66,26 @@ if (isset($_GET['configurar'])) {
                     </div>
                     </div>";
                 }elseif (isset($_GET['error'])) {
-                    echo "
-                    <div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-danger alert-dismissible fade show' role='alert' id='alertabien'>
-                    <div class='m-alert__icon'>
-                    <i class='flaticon-rocket'></i>
-                    </div>
-                    <div class='m-alert__text'>
-                    <center>
-                        <strong>
-                    Lo sentimos !
-                    </strong>
-                    El empleado al que intentas acceder no existe o ha sido eliminado.
+                    if ($_GET['error']=='nomina') {
+                        echo "
+                        <div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-danger alert-dismissible fade show' role='alert' id='alertabien'>
+                        <div class='m-alert__icon'>
+                        <i class='flaticon-rocket'></i>
+                        </div>
+                        <div class='m-alert__text'>
+                        <center>
+                            <strong>
+                        Lo sentimos !
+                        </strong>
+                        Ingresa un valor de nomina valido.
 
-                    </center>
-                    </div>
-                    <div class='m-alert__close'>
-                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
-                    </div>
-                    </div>";
+                        </center>
+                        </div>
+                        <div class='m-alert__close'>
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                        </div>";
+                    }
                 }?>
             <div class="modal fade bs-s-sm" tabindex="" role="" aria-labelledby="" style="display: none;" aria-hidden="">
                 <div class="modal-dialog modal-md">
@@ -131,9 +134,130 @@ if (isset($_GET['configurar'])) {
                             <li>Cargo<span class="pull-right label-info label"><?php echo strtoupper($datos['jobTitle']); ?></span></li>
                             <li>Telefono<span class="pull-right label-info label"><?php echo strtoupper($datos['phone']); ?></span></li>
                             <li>Email<span class="pull-right label-info label"><?php echo strtoupper($datos['email']); ?></span></li>
+                            <li>Salario<span class="pull-right label-info label"><?php echo number_format($datos['salary']); ?></span></li>
                             <li>Descripcion<span class="pull-right label-info label"><?php echo strtoupper($datos['description']); ?></span></li>
                         </ul>
-                        
+
+
+
+
+
+                
+
+                    </div>
+
+
+                     <center><button class="btn m-btn--square btn-primary" alt="default" data-toggle="modal" data-target=".b20s-modal-sm" class="model_img img-responsive">ABONAR SALARIO</button></center>
+                     <br>
+                     <center><button class="btn m-btn--square btn-primary" alt="default" data-toggle="modal" data-target=".b20-modal-sm" class="model_img img-responsive">HISTORIAL DE ABONOS</button></center>
+                        <br>
+                        <!--
+                        <center><button class="btn m-btn--square btn-primary" alt="default" data-toggle="modal" data-target=".b20-modal-sm" class="model_img img-responsive">HISTORIAL</button></center>
+                        -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="modal fade b20s-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="mySmallModalLabel">Por favor ingrese el abono de nomina.</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            <input type="hidden" name="idNomina" value=" <?php echo $idGet; ?> ">
+                                            <label for="exampleInputEmail1">
+                                                Valor del pago
+                                            </label>
+                                            <input autofocus="" type="number" class="form-control m-input m-input--air m-input--pill" placeholder="Abono" name="abonoNom">
+                                            <br>
+                                            <label for="exampleInputEmail1">
+                                                Motivo del pago
+                                            </label>
+                                            <input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Motivo del pago" name="motivoNom">
+                                            <br>
+                                            <center><button class="btn m-btn--square btn-success" class="model_img img-responsive" type="submit">AGREGAR</button></center>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="modal fade b20-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="mySmallModalLabel">Historial de nomina.</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+
+
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th><b>Fecha</b></th>
+                                                <th><b>Motivo</b></th>
+                                                <th><b>Total</b></th>
+                                                <th><b>Empleado</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php while ( $dataProd = mysqli_fetch_array($queryNom)) {
+                                                     ?>
+                                            <tr>
+                                                
+                                                
+                                                <td><?php echo $dataProd['fecha']; ?></td>
+                                                <td><?php echo $dataProd['tipo']; ?></td>
+                                                <td><?php echo number_format($dataProd['total']); ?></td>
+                                                <td><?php echo $dataProd['empleado']; ?></td>
+                                      
+
+                                        
+
+
+                                            </tr>
+                                             <?php } ?>
+                                        </tbody>
+                                    </table>
+                                        
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                     
 

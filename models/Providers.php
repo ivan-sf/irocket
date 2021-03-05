@@ -61,6 +61,18 @@ class Providers
 		return $datos;
 	}
 
+	public function array2()
+	{
+		$sql = "SELECT * FROM users 
+		INNER JOIN userdetails 
+		ON users.idusers=userdetails.users_idusers
+		WHERE userdetails.range = 3
+		AND users.stateBD = 1
+		ORDER BY `users`.`userName` ASC";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
 	public function create()
 	{
 		$connect = $this->con->connect();
@@ -97,8 +109,23 @@ class Providers
 			$query = $this->con->returnConsulta($sql);
 			$array = mysqli_fetch_array($query);
 			$idComp = $array['idcompany'];
-			if ($query) {
-				$sql = "INSERT INTO `users` (`company_idcompany`, `userName`, `password`, `stateBD`) VALUES ('$idComp', '$nameUser1', '$documentUser1', '1')";
+			$nameUser11 = $nameUser1 . " " . $lastnameUser1;
+
+			$sql = "SELECT * FROM users 
+			INNER JOIN userdetails 
+			ON users.idusers=userdetails.users_idusers
+			WHERE userdetails.range = 3
+			AND users.userName = '$nameUser11'
+			OR userdetails.range = 3
+			AND userdetails.documentUser = '$documentUser1'";
+			$datos = $this->con->returnConsulta($sql);
+			$rowdata = mysqli_num_rows($datos);
+
+			if ($rowdata >= 1) {
+				header("location:" . URL . "proveedores/crear?error");
+			}else{
+				if ($query) {
+				$sql = "INSERT INTO `users` (`company_idcompany`, `userName`, `password`, `stateBD`) VALUES ('$idComp', '$nameUser11', '$documentUser1', '1')";
 				$query = $this->con->consulta($sql);
 				if ($query) {
 					$ruta = 'views/assets/images/users/' . date('h-m.s') . $photo_name[$i];
@@ -153,9 +180,12 @@ class Providers
 						}
 					}
 				}
-			}else{
+			}
+			else{
 				echo "Error al ejecutar la primera consulta";
 			}
+			}
+
 		}	
 	}
 
@@ -204,13 +234,34 @@ class Providers
 		$email = strtolower(mysqli_real_escape_string($connect,$this->email));
 		$description = strtolower(mysqli_real_escape_string($connect,$this->description));
 		$dateTime = date("Y-m-d");
+		$newUserName = $nameUser . " " . $lastnameUser;
+
+		$sqlProv = "SELECT * FROM users 
+		INNER JOIN userdetails
+		ON idusers=users_idusers
+		WHERE idusers='$idUser'";
+		$queryProv = $this->con->returnConsulta($sqlProv);
+		$rowProv = mysqli_num_rows($queryProv);
+		$arrayProv = mysqli_fetch_array($queryProv);
+		$nameUserOld = $arrayProv['userName'];
+		$docUserOld = $arrayProv['documentUser'];
+		
+		if ($nameUserOld==$newUserName OR $docUserOld==$documentUser) {
+			
+
+
+
+
 		if ($photo_size == 0) {
 			$sql = "SELECT * FROM company WHERE nameCompany='$idcompany'";
 			$query = $this->con->returnConsulta($sql);
 			$array = mysqli_fetch_array($query);
+
+
+
 			$idcompany = $array['idcompany'];
 			if ($query) {
-				$sql = "UPDATE `users` SET `userName`='$username', `password`='$pass' WHERE `idusers`='$idUser'";
+				$sql = "UPDATE `users` SET `userName`='$newUserName', `password`='$pass' WHERE `idusers`='$idUser'";
 				$query = $this->con->consulta($sql);
 				if ($query) {
 					$sql = "UPDATE `userdetails` SET `nameUser`='$nameUser', `lastnameUser`='$lastnameUser', `documentUser`='$documentUser', `age`='$age', `data_update`='$dateTime', `phone`='$phone', `email`='$email', `description`='$description', `company`='$companyUser' WHERE `iduserDetails`='$idUser'";
@@ -272,6 +323,39 @@ class Providers
 				echo "string";
 			}
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		}else{
+			
+
+
+
+
+
+			///VERIFICAR SI LOS NUEVOS DATOS SON IGUALES A ALGUNOS QUE EXISTAN EN EL SISTEMA
+
+
+
+
+
+
+
+		}
+
+		
 	}
 
 }

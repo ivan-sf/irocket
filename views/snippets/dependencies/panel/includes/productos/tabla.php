@@ -114,20 +114,20 @@ $arrayInventory = $modelInventory->array();
                                             </div>
                                         </div>
 
-                                        <!--begin::Form-->
-
+                                        <center><b><h4>INVENTARIO COMPLETO</h4></b></center>
                                         <div class="table-responsive">
                                             <br>
-                                            <table id="dt_inventory" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                            <table id="dt_prod" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
                                                 <thead>
                                                     <tr role="row">
+                                                        <th>Producto</th>
                                                         <th>Codigo</th>
-                                                        <th>Codigo promocion</th>
-                                                        <th>Nombre</th>
-                                                        <th>Precio</th>
-                                                        <th>Precio promocion</th>                                           
                                                         <th>Precio compra</th>                                           
-                                                        <th>Disponibles</th>                                           
+                                                        <th>Precio venta</th>                                           
+                                                        <th>Promocion 1</th>                                           
+                                                        <th>Promocion 2</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                           
                                                     </tr>
                                                 </thead>
                                                 
@@ -135,6 +135,364 @@ $arrayInventory = $modelInventory->array();
                                             
                                         </div>
 
+                                        <!--begin::Form-->
+                                        <center><b><h4>ESTANTE 1</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv1" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 2</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv2" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                         <center><b><h4>ESTANTE 3</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv3" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 4</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv4" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 5</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv5" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 6</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv6" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                         <center><b><h4>ESTANTE 7</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv7" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 8</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv8" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+                                        <center><b><h4>ESTANTE 9</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv9" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 10</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv10" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                         <center><b><h4>ESTANTE 11</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv11" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 12</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv12" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 13</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv13" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 14</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv14" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 15</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv15" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 16</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv16" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                         <center><b><h4>ESTANTE 17</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv17" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
+
+
+                                        <center><b><h4>ESTANTE 18</h4></b></center>
+                                        <div class="table-responsive">
+                                            <br>
+                                            <table id="listar_inv18" class="table table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Producto</th>
+                                                        <th>Codigo</th>
+                                                        <th>Precio 1</th>                                           
+                                                        <th>Precio 2</th>                                           
+                                                        <th>Precio entrada</th>                                           
+                                                        <th>Cantidad</th>                                           
+                                                    </tr>
+                                                </thead>
+                                                
+                                            </table>
+                                            
+                                        </div>
 
                                     </div>
                                 </div>
@@ -161,20 +519,989 @@ $arrayInventory = $modelInventory->array();
 
         <script>        
             function listar() {
-                var table = $("#dt_inventory").DataTable({
+                var table = $("#listar_inv1").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv1.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv2").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv2.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv3").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv3.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv4").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv4.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv5").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv5.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv6").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv6.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv7").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv7.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv8").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv8.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv9").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv9.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv10").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv10.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv11").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv11.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv12").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv12.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv13").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv13.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv14").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv14.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv15").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv15.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+        <script>        
+            function listar() {
+                var table = $("#listar_inv16").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv16.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+<script>        
+            function listar() {
+                var table = $("#listar_inv17").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv17.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+<script>        
+            function listar() {
+                var table = $("#listar_inv18").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../irocket/views/tables/inventarios/lista_inv18.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+
+                    language: idioma
+                });
+
+            }
+            var idioma = {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+            listar();
+        </script>
+
+
+
+         <script>        
+            function listar() {
+                var table = $("#dt_prod").DataTable({
                     "ajax":{
                         "method":"POST",
                         "url": "../../irocket/views/tables/listar_productos.php"
                     },
                     dom:"Bfrtlip",
                     columns:[
-                    {"data":"codeProduct"},
-                    {"data":"codeProduct_promotion"},
                     {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"price_buy"},
                     {"data":"precio"},
                     {"data":"precio_promotion"},
-                    {"data":"price_buy"},
-                    {"data":"quantityProduct"}
+                    {"data":"precio_promotion2"},
+                    {"data":"quantityProduct"},
                     
                     ],
                     buttons: [

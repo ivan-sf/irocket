@@ -21,6 +21,15 @@ class companyController
 			$this->company->set("companyNit",$_POST['nit']);
 			$this->company->set("companyDirection",$_POST['direction']);
 			$this->company->set("companyCity",$_POST['city']);
+			$this->company->set("regimen",$_POST['regimen']);
+			$this->company->set("lastnameUser",$_POST['lastnameUser']);
+			$this->company->set("nameUser",$_POST['nameUser']);
+			
+			$this->company->set("resolucion",$_POST['resolucion']);
+			$this->company->set("prefijoInicial",$_POST['prefijoInicial']);
+			$this->company->set("prefijoFinal",$_POST['nameUser']);
+			$this->company->set("pieFactura",$_POST['pieFactura']);
+
 			$this->company->set("companyPhone",$_POST['phone']);
 			$this->company->set("companyEmail",$_POST['email']);
 			$this->company->set("companyLogoNameTemp",$_FILES['photo']['tmp_name']);

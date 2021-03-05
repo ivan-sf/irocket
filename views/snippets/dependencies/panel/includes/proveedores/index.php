@@ -22,8 +22,9 @@ $arrayProducts = $modelProducts->arrayProvider();
                 
             
 
-                    <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>proveedores/tabla?index" class="">Tabla</a></button>
-                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>proveedores/crear">Crear</a></button><br>
+            <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>tercero/crear" class="">Crear tercero</a></button>
+                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>clientes?catalogo">Clientes</a></button>
+                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>empleados?catalogo">Empleados</a></button><br>
                 <br>
                     <?php  if (isset($_GET['success_update'])) {
                     echo "

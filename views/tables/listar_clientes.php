@@ -2,7 +2,7 @@
 
 include 'conexion.php';
 
-$query = "SELECT * FROM userdetails INNER JOIN users ON idusers=users_idusers WHERE userdetails.range=2 AND users.stateBD=1";
+$query = "SELECT * FROM userdetails INNER JOIN users ON idusers=users_idusers WHERE userdetails.tipoCliente=1 AND users.stateBD=1";
 $result = mysqli_query($conexion, $query);
 $row = mysqli_num_rows($result);
 

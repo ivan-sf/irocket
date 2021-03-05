@@ -30,6 +30,8 @@ $array = mysqli_fetch_array($sql);
 $row = mysqli_num_rows($sql);
 $typeBill = $_POST['typeBill'];
 $pago = $_POST['pagoForm'];
+$fechaPago = $_POST['fechaPago'];
+
 $total = 0;
 foreach($_SESSION["cart"] as $b){
 	$total += $b['q'] * $b['pc']; 	 	
@@ -104,12 +106,38 @@ $sql = $con->query("UPDATE `bills` SET `precio_total`='$total', `precio_compras`
 
 $totalCompra=$c['pc'];
 
-if ($pago>=$total) {
-	$cambio = $pago - $totalCompra;
-	$q2 = $con->query("INSERT INTO `movementdepositaccount` (`bills_idbills`, `cash_idcash`, `users_idusers`, `typeMovement`, `totalMoney`, `dataRegister`, `pago`, `saldo`) VALUES ('$cart_id', '$cash', '1', '8', '$total', '$dateTime', '$pago', '$cambio')");
+
+$sql = $con->query("SELECT * FROM users WHERE idusers='$cliente'");
+$array = mysqli_fetch_array($sql);
+$row = mysqli_num_rows($sql);
+if ($row>=1) {
+	$clienteName = strtoupper($array['userName']);
 }else{
-	$saldo = $totalCompra - $pago;
+	$clienteName = 'N/A';
+}
+if ($stateBill==1) {
+	$estado='CANCELADA';
+}else{
+	$estado='PENDIENTE';
+}
+$cash1 = 'Caja ' . $cash;
+
+if ($pago>=$total) {
+	$cambio = 0;
+
+	$q2 = $con->query("INSERT INTO `movementdepositaccount` (`bills_idbills`, `cash_idcash`, `users_idusers`, `typeMovement`, `totalMoney`, `dataRegister`, `pago`, `saldo`) VALUES ('$cart_id', '$cash', '1', '8', '$total', '$dateTime', '$pago', '$cambio')");
+
+	$q2 = $con->query("INSERT INTO `billreports` (`bills_idbills`, `total`, `pago`, `saldo`, `cliente`, `empleado`, `caja`, `fecha`, `estado`, `typeBill`) VALUES ('$cart_id', '$total', '$pago', '$cambio', '$clienteName', '1', '$cash1', '$dateTime', '$estado', 'Compra')");
+
+	$sql = $con->query("UPDATE `bills` SET `dateUpdate`='$fechaPago' WHERE `idbills`='$cart_id'");
+
+}else{
+	$saldo = $total - $pago;
 	$q2 = $con->query("INSERT INTO `movementdepositaccount` (`bills_idbills`, `cash_idcash`, `users_idusers`, `typeMovement`, `totalMoney`, `dataRegister`, `pago`, `saldo`) VALUES ('$cart_id', '$cash', '1', '9', '$pago', '$dateTime', '$pago', '$saldo')");
+
+	$q2 = $con->query("INSERT INTO `billreports` (`bills_idbills`, `total`, `pago`, `saldo`, `cliente`, `empleado`, `caja`, `fecha`, `estado`, `typeBill`) VALUES ('$cart_id', '$total', '$pago', '$saldo', '$clienteName', '1', '$cash1', '$dateTime', '$estado', 'Compra')");
+
+	$sql = $con->query("UPDATE `bills` SET `dateUpdate`='$fechaPago' WHERE `idbills`='$cart_id'");
 }
 
 unset($_SESSION["cart"]);
@@ -151,7 +179,7 @@ date_default_timezone_set('America/Bogota');
 	desde el panel de control
 */
 
-$nombre_impresora = "POS-58"; 
+$nombre_impresora = "CAJA2"; 
 
 
 $connector = new WindowsPrintConnector($nombre_impresora);
@@ -192,7 +220,8 @@ try{
 $array= $con->query("SELECT * FROM company");
 $datos = mysqli_fetch_array($array);
 
-$printer->text(ucfirst($datos['nameCompany']) . "\n");
+$printer->text(strtoupper($datos['nameCompany']) . "\n");
+
 #La fecha también
 $printer->setJustification(Printer::JUSTIFY_CENTER);
 
@@ -277,7 +306,7 @@ $printer->cut();
 	Esto es útil cuando la tenemos conectada
 	por ejemplo a un cajón
 */
-$printer->pulse();
+//$printer->pulse();
 
 /*
 	Para imprimir realmente, tenemos que "cerrar"

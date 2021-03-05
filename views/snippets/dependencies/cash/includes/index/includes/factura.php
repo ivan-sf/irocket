@@ -1,74 +1,14 @@
+
+
 <div class="row">
 
-
-  <?php
+<?php
 /*
 * Este archio muestra los productos en una tabla.
 */
 include "facturacion/php/conection.php";
 ?>
 
-<div class="col-md-12">
-
-
-
-  <?php 
-  $products = $con->query("SELECT * FROM irocket.products 
-    INNER JOIN irocket.productdetails 
-    ON products.idproducts=productdetails.products_idproducts
-    INNER JOIN irocket.inventory
-    ON products.inventory_idinventory=inventory.idinventory
-    INNER JOIN irocket.inventorydetails
-    ON products.inventory_idinventory=inventorydetails.inventory_idinventory 
-    WHERE products.stateBD = 1 OR products.stateBD = 9
-    ORDER BY products.idproducts desc");
-    $datos = mysqli_fetch_array($products); ?>
-    <?php
-    $found = false;
-    if(isset($_SESSION["cart"])){ foreach ($_SESSION["cart"] as $c) { if($c["product_id"]==$datos['idproducts']){ $found=true; break; }}}
-    ?>
-    <?php if($found):?>
-
-      <form class="form-inline" method="post" onsubmit="return checkSubmit();" id="formulariocarro" action="<?php echo URL; ?>views/snippets/layout/pages/cajas/php/addtocart.php">
-        <div class="form-group">
-         <input type="hidden" name="codeProduct" id="codeProduct" value="">
-         <input type="hidden" name="codeClient" id="codeClient" value="">
-         <input type="hidden" name="priceBuy" id="priceBuy" value="">
-         <input type="hidden" name="caja" id="codeClient" value="<?php echo $_GET['caja'] ?>">
-         <input type="hidden" name="product_id" id="product_id" value="">
-         <input type="hidden" name="precio" id="precio" value="">
-         <input type="hidden" name="precio2" id="precio2" value="">
-         <input type="hidden" name="precio_promotion" id="precio_promotion" value="">
-         <input type="hidden" name="nameProduct" id="nameProduct" value="">
-         <input type="hidden" name="codeProduct_promotion" id="codeProduct_promotion" value="">
-         <input type="hidden" name="q" value="" id="cantidadcarro" style="width:70px" min="1" class="form-control" placeholder="Cantidad">
-         <input type="hidden" class="btn btn-primary" style="width:100%;" ><center><span style="font-size:8pt;">
-         </div>
-       </form> 
-     <?php else:?>
-      <form class="form-inline" method="post" id="formulariocarro" onsubmit="return checkSubmit();" action="<?php echo URL; ?>views/snippets/layout/pages/cajas/php/addtocart.php">
-        <div class="form-group">
-          <input type="hidden" name="codeProduct" id="codeProduct" value="">
-          <input type="hidden" name="priceBuy" id="priceBuy" value="">
-          <input type="hidden" name="codeClient" id="codeClient" value="">
-          <input type="hidden" name="caja" id="codeClient" value="<?php echo $_GET['caja'] ?>">
-          <input type="hidden" name="product_id" id="product_id" value="">
-          <input type="hidden" name="precio" id="precio" value="">
-          <input type="hidden" name="precio2" id="precio2" value="">
-          <input type="hidden" name="precio_promotion" id="precio_promotion" value="">
-          <input type="hidden" name="nameProduct" id="nameProduct" value="">
-          <input type="hidden" name="codeProduct_promotion" id="codeProduct_promotion" value="">
-          <input type="hidden" name="q" value="" id="cantidadcarro" style="width:70px" min="1" class="form-control" placeholder="Cantidad">
-          <input type="hidden" class="btn btn-primary" style="width:100%;" ><center><span style="font-size:8pt;">
-          </div>
-        </form> 
-      <?php endif; ?>
-
-
-
-
-
-    </div>
     <div class="col-lg-11">
      <table>
        <thead>
@@ -107,12 +47,27 @@ include "facturacion/php/conection.php";
 
 
                   <br>
-                  <input class="form-control" type="text" id="codigo" placeholder="Codigo producto" name="codigo" name="" >
+
+                  <?php if (isset($_GET['codigo'])) { ?>
+                  <input class="form-control" type="text" id="codigo" placeholder="Codigo producto" value="<?php echo $_GET['codigo']; ?>" name="codigo" name="" autofocus="true">
+                  <?php }else{ ?>
+
+                  <input class="form-control" type="text" id="codigo" placeholder="Codigo producto" name="codigo" name="" autofocus="true">
+
+                   <?php } ?>
                   <br><input class="" type="hidden" id="precioX" placeholder="Precio del producto" name="precioX" >
 
 
                   <span class="spanbr"></span><small><b><center><br>Cantidad</center> <span style="margin: 0em"></span></b></small>
-                  <input class="btn dropdown-toggle  btn-outline" type="number" value="1" id="cantidadform" align="right" width="48" height="48" name="" ><br>
+
+                  <?php if (isset($_GET['cantidad'])) { ?>
+                  <input class="btn dropdown-toggle  btn-outline" type="number" id="cantidadform" align="right" width="48" height="48" name="" value="<?php echo $_GET['cantidad']; ?>" ><br>
+                  <?php }else{ ?>
+                  
+                  <input class="btn dropdown-toggle  btn-outline" type="number" value="1" id="cantidadform" align="right" width="48" height="48" name=""><br>
+
+                   <?php } ?>
+
 
                   <center><input type="button" id="botoncodigo" name="botoncodigo" class="btn btn-primary" style="margin: 5" value="AGREGAR">
                     <input type="button" id="botonSiguiente1" name="botonSiguiente1" class="btn btn-success" style="margin: 5px" value="SIGUIENTE">  </center>
@@ -137,7 +92,10 @@ include "facturacion/php/conection.php";
         <div id="display2" style="display: none;">
           <?php if ($_GET['caja'] == 'ventas') { ?>
             <form style='font-size:pt; margin-left:15px;margin-top:-15px;' onsubmit="return checkSubmit();" id="formularioPago" action="<?php echo URL; ?>cajas?caja=ventas" method='POST'>
+            <br>
               <input type="text" id="pago" name="pago" autofocus="" class="btn dropdown-toggle  btn-outline" placeholder="Pago" name="" >  <br>
+              <span><small><center><small>Descuento</small></center></small></span>
+              <input type="text" id="descuento" name="descuento" value="0" utofocus="" class="btn dropdown-toggle  btn-outline" placeholder="Descuento" name="" >  <br>
             <center>
               <input class="btn btn-danger" id="btnAtras1" type="button" value="ATRAS" style="margin-top: 10px">
               <input class="btn btn-success" id="btnPago" type="button" value="CONTINUAR" style="margin-top: 10px">
@@ -162,6 +120,7 @@ include "facturacion/php/conection.php";
         <div id="display3" style="display: none;">
           <form class="form-horizontal" onsubmit="return checkSubmit();" id="formProcess" method="post" action="<?php echo URL; ?>views/snippets/layout/pages/cajas/php/process.php"  style=''>
            <input type="hidden" name="product_id" value="<?php echo $r->idproducts; ?>">
+
            <input type="hidden" name="precio" value="<?php echo $r->precio; ?>">
            <input type="hidden" name="precio_promotion" value="<?php echo $r->precio_promotion; ?>">
            <input type="hidden" name="q" value="1" min="1" class="form-control" placeholder="Cantidad">
@@ -172,8 +131,28 @@ include "facturacion/php/conection.php";
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-13">
+
               <input type="text" id="codigocliente" name="codigocliente" autofocus="" class="btn dropdown-toggle  btn-outline" placeholder="Documento" name="" style="width: 95%">  <br>
+
+              <br>
+              <center>
+                <select name="imprimir">
+                <option value="no">NO</option>
+                <option value="si">SI</option>
+              </select>
+              </center>
+
+
+
+
+
               <input type="hidden" id="pagoForm" name="pagoForm" autofocus="" class="btn dropdown-toggle  btn-outline" > 
+           <input type="hidden" name="descuento2" id="descuento2">
+              
+
+              <input type="date" id="fechaPago" name="fechaPago" style="width: 95%; display: none">  <br>
+              
+
 
               <?php 
               if (isset($_GET['caja'])) {
@@ -419,9 +398,6 @@ foreach($_SESSION["cart"] as $c):
 <script src="<?php echo (URL); ?>views/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 
 <script>
-$(document).ready(function () {
-  $("#busqueda").focus() 
-})
 
  $("#botonCliente").attr("type","hidden");
 
@@ -437,11 +413,22 @@ $(document).ready(function () {
       $("#display3").css("display","")
       $("#pagoForm").val($("#pago").val())
       var valor = $("#pago").val()
+      var descuento = $("#descuento").val()
+      $("#descuento2").val($("#descuento").val())
       $("#pagoText").val(valor)
-      var valortotal = $("#pagoX").val()
+      var valortotal1 = $("#pagoX").val()
+      var valortotal = valortotal1-descuento
+      var valor1 = $("#pagoText").val()
+      $("#pagoX").val(valortotal)
       var vali = parseInt(valor)-parseInt(valortotal)
       $("#pagoTotalText").val(vali)
       $("#codigocliente").focus() 
+      if ($("#pagoTotalText").val()<0) {
+        $("#fechaPago").css("display","")
+      }else{
+        $("#fechaPago").css("display","none")
+      }
+      
     }  
   })
 
@@ -453,11 +440,21 @@ $(document).ready(function () {
       $("#display3").css("display","")
       $("#pagoForm").val($("#pago").val())
       var valor = $("#pago").val()
+      var descuento = $("#descuento").val()
+      $("#descuento2").val($("#descuento").val())
       $("#pagoText").val(valor)
-      var valortotal = $("#pagoX").val()
+      var valortotal1 = $("#pagoX").val()
+      var valortotal = valortotal1-descuento
+      var valor1 = $("#pagoText").val()
+      $("#pagoX").val(valortotal)
       var vali = parseInt(valor)-parseInt(valortotal)
       $("#pagoTotalText").val(vali)
       $("#codigocliente").focus() 
+      if ($("#pagoTotalText").val()<0) {
+        $("#fechaPago").css("display","")
+      }else{
+        $("#fechaPago").css("display","none")
+      }
     }
   }
 });
@@ -491,7 +488,8 @@ $(document).ready(function () {
       var valortotal = $("#pagoX").val()
       var vali = parseInt(valor)-parseInt(valortotal)
       $("#pagoTotalText").val(vali)
-      $("#codigocliente").focus() 
+      $("#codigocliente").focus()
+
     }
   }
 });
@@ -592,12 +590,19 @@ $(document).ready(function () {
   }
 });
 
+ $('#precio').keyup(function(e) {
+  if(e.keyCode == 113) {//F2
+    $("#preciop1").focus();
+  }
+});
+
  $('body').keyup(function(e) {
   if(e.keyCode == 114) {//F3
     $("#pago").attr("type","text");
     $("#pago").focus();
   }
 });
+
 
  $('#formulariocodigo').keyup(function(e) {
   if(e.keyCode == 13) {
@@ -640,6 +645,7 @@ $(document).ready(function () {
         $("#codeProduct").val(code);
         $("#precio").val($("#precioX").val());
         $("#precio2").val(precio_compra);
+        $("#nameVal").val(precio_compra);
         $("#codeClient").val($("#codigocliente").val());
         $("#precio_promotion").val(precioProm);
         $("#nameProduct").val(name);
@@ -661,27 +667,74 @@ $(document).ready(function () {
       url: URL_APP+"/irocket/controllers/ajax/ajax_factura_venta.php",
       success:function (data) {
        var code= data.data[0].codeProduct;
+       var desc= data.data[0].descriptionProduct;
        var id= data.data[0].idproducts;
        var codeProm= data.data[0].codeProduct_promotion;
        var precio= data.data[0].precio;
+       var preciop1= data.data[0].precio_promotion;
+       var preciop2= data.data[0].precio_promotion2;
        var precio_compra= data.data[0].price_buy;
        var precio_prom= data.data[0].price_buy;
        var precioProm= data.data[0].precio_promotion;
-       var cantidad= data.data[0].quantityProduct;
+       var cantidad= data.data[0].totalItemsInventory;
+       var dosis= data.data[0].dosis;
        var name= data.data[0].nameProduct;
+       var canti=$("#cantidadform").val();
+
        $("#codeProduct").val(code);
-       $("#precio").val(precio);
-       $("#precio2").val(precio_compra);
+       $("#codeProductp1").val(code);
+
+       if ($("#caja").val()=='ventas') {
+          $("#precio333").val(precio*canti);
+          $("#precio").val(precio);
+          $("#preciop1333").val(preciop1*canti);
+          $("#preciop1").val(preciop1);
+          $("#preciop2333").val(preciop2*canti);
+          $("#preciop2").val(preciop2);
+          $("#precio2").val(precio_compra);
+          $("#precio2p1").val(precio_compra);
+          $("#precio2p2").val(precio_compra);
+       }else{
+          $("#precio333").val(precio_compra*canti);
+          $("#preciop1333").val(precio_compra*canti);
+          $("#preciop2333").val(precio_compra*canti);
+          $("#precio").val(precio_compra*canti);
+          $("#preciop1").val(precio_compra*canti);
+          $("#preciop2").val(precio_compra*canti);
+          $("#precio2").val(precio_compra);
+          $("#precio2p1").val(precio_compra);
+          $("#precio2p2").val(precio_compra);
+       }
+       
        $("#codeClient").val($("#codigocliente").val());
+       $("#codeClientp1").val($("#codigocliente").val());
+       $("#codeClientp2").val($("#codigocliente").val());
        $("#precio_promotion").val(precioProm);
+       $("#precio_promotionp1").val(precioProm);
+       $("#precio_promotionp2").val(precioProm);
        $("#nameProduct").val(name);
+       $("#nameProductp1").val(name);
+       $("#nameProductp2").val(name);
        $("#codeProduct_promotion").val(codeProm);
+       $("#codeProduct_promotionp1").val(codeProm);
+       $("#codeProduct_promotionp2").val(codeProm);
        $("#cantidadcarro").val($("#cantidadform").val());
+       $("#cantidadcarrop1").val($("#cantidadform").val());
+       $("#cantidadcarrop2").val($("#cantidadform").val());
        $("#product_id").val(id);
+       $("#product_idp1").val(id);
+       $("#product_idp2").val(id);
+
+       $("#nameProduct33").html(name);
+       $("#codeProduct33").html(desc);
+       $("#dosis33").html(dosis);
+       $("#cantidad33").html(cantidad);
+
        if ($("#product_id").val() == '') {
 
        }else{
-        $("#formulariocarro").submit();
+         $("#precio333").focus();
+       // $("#formulariocarro").submit();
       }
     },error:function () {
       producto_promocion();
@@ -698,36 +751,44 @@ $(document).ready(function () {
     type: "post",
     dataType: 'json',
     data: {"codigo" : codigo},
-    url: URL_APP+"/irocket/controllers/ajax/ajax_factura_venta_prom.php",
+    url: URL_APP+"/irocket/controllers/ajax/ajax_factura_venta_def.php",
     success:function (data) {
      var code= data.data[0].codeProduct;
      var id= data.data[0].idproducts;
      var codeProm= data.data[0].codeProduct_promotion;
-     var precio= data.data[0].precio_promotion;
+     var codeProm2= data.data[0].codeProduct_promotion2;
+     var precio= data.data[0].precio_defect;
      var precio_compra= data.data[0].price_buy;
      var precio_prom= data.data[0].price_buy;
-     var precioProm= data.data[0].precio_promotion;
-     var cantidad= data.data[0].quantityProduct;
+     var cantidadDef= data.data[0].cantidadDef;
+     var cantidad= data.data[0].precio_defect;
      var name= data.data[0].nameProduct;
      $("#codeProduct").val(code);
      $("#precio").val(precio);
      $("#precio2").val(precio_compra);
      $("#codeClient").val($("#codigocliente").val());
-     $("#precio_promotion").val(precioProm);
+     $("#precio_promotion").val(cantidadDef);
      $("#nameProduct").val(name);
      $("#codeProduct_promotion").val(codeProm);
+     $("#codeProduct_promotion2").val(codeProm2);
      $("#cantidadcarro").val($("#cantidadform").val());
      $("#product_id").val(id);
      if ($("#product_id").val() == '') {
 
+     }if ($("#precio_promotion").val() <= 0 || $("#precio").val() == 0 || $("#cantidadcarro").val() > $("#precio_promotion").val()) {
      }else{
-      $("#formulariocarro").submit();
+        //$("#formulariocarro").submit();
+      
     }
   },error:function () {
     producto_promocion();
   }
 });
 }
+
+
+
+
 
 $("#botoncodigo").click(function() {
   var datos = $("#formulariocodigo").serialize();
@@ -746,7 +807,7 @@ $("#botoncodigo").click(function() {
      var precio_compra= data.data[0].price_buy;
      var precio_prom= data.data[0].price_buy;
      var precioProm= data.data[0].precio_promotion;
-     var cantidad= data.data[0].quantityProduct;
+     var cantidad= data.data[0].totalItemsInventory;
      var name= data.data[0].nameProduct;
 
      $("#codeProduct").val(code);
@@ -775,11 +836,24 @@ $("#botoncodigo").click(function() {
 
 
 
+$('body').keyup(function(e) {
+  if(e.keyCode == 115) {//f4
+      $("#opencash").submit();
+    }
+});
+
+
 
 </script>
 
 
-
+<form class="form-inline" method="post" id="opencash" onsubmit="return checkSubmit();" action="<?php echo URL; ?>views/snippets/layout/pages/cajas/php/opencash.php">
+  <input type="hidden" name="typeBill" value="<?php if ($_GET['caja']=='ventas') {
+    echo "1";
+  }else{
+    echo "0";
+    } ?>">
+</form>
                          
 
 <script>

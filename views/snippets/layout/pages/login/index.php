@@ -4,7 +4,7 @@ session_start();
 if (isset($_SESSION['UserNew'])) {
     header("location:" . URL . "index");
 }elseif (isset($_SESSION['adminUserNew'])) {
-    header("location:" . URL . "index");
+    header("location:" . URL . "cajas?caja=ventas");
 }
 $modelCompany = new models\Company();
 $modelUser = new models\User();

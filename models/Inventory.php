@@ -7,6 +7,7 @@ class Inventory
 	private $iduser;
 	private $iddelete;
 	private $idupdate;
+	private $codeCurrent;
 
 	function __construct(){
 		$this->con = new Conexion;
@@ -28,6 +29,7 @@ class Inventory
 		$nameInventory = $this->name;
 		$descriptionInventory = $this->description;
 		$iduser = $this->iduser;
+		$codeCurrent = $this->codeCurrent;
 		$count = count($nameInventory);
 		for ($i=0; $i < $count ; $i++) { 
 			$inventoryName = strtolower(mysqli_real_escape_string($connect,$nameInventory[$i]));
@@ -40,7 +42,7 @@ class Inventory
 				$array = mysqli_fetch_array($query);
 				$nameInventory = $array['nameInventory'];
 
-				if ($row <= 3 ) {
+				if ($row <= 49 ) {
 					$sql = "SELECT * FROM inventory INNER JOIN inventorydetails ON inventory.idinventory=inventorydetails.inventory_idinventory WHERE inventorydetails.nameInventory = '$inventoryName'";
 					$query = $this->con->returnConsulta($sql);
 					$row = mysqli_num_rows($query);
@@ -65,7 +67,7 @@ class Inventory
 								$idinventory = $array['idinventory'];
 								$dateTime = date("Y-m-d");
 
-								$sql = "INSERT INTO `inventorydetails` (`inventory_idinventory`, `nameInventory`, `date_register`, `user_create`, `descriptionInventory`, `totalItems`, `totalProducts`) VALUES ('$idinventory', '$inventoryName', '$dateTime', '$iduser', '$inventoryDescription', '0', '0')";
+								$sql = "INSERT INTO `inventorydetails` (`inventory_idinventory`, `nameInventory`, `date_register`, `user_create`, `descriptionInventory`, `codeStatus`, `codeCurrent`) VALUES ('$idinventory', '$inventoryName', '$dateTime', '$iduser', '$inventoryDescription', '1', $codeCurrent)";
 								$query = $this->con->consulta($sql);
 								if ($query) {
 									//echo "Si";
@@ -76,6 +78,7 @@ class Inventory
 									if ($query) {
 										header("location:" . URL . "inventarios/crear?success");	
 									}else{
+										header("location:" . URL . "inventarios/crear?success");	
 										echo "Error en la notificacion";
 									}
 									
@@ -103,6 +106,15 @@ class Inventory
 		return $datos;
 		
 	}
+	public function arrayCreate()
+	{
+		$sql = "SELECT * FROM inventory INNER JOIN inventorydetails ON idinventory=inventory_idinventory WHERE stateBD = 1";
+		$datos = $this->con->returnConsulta($sql);
+		$array = mysqli_fetch_array($datos);
+		return $array;
+	}
+
+	
 
 	public function array1()
 	{
@@ -150,8 +162,9 @@ class Inventory
 		$idupdate = strtolower(mysqli_real_escape_string($connect,$this->idupdate));
 		$name = strtolower(mysqli_real_escape_string($connect,$this->name));
 		$description = strtolower(mysqli_real_escape_string($connect,$this->description));
-		$dateTime = date("Y-m-d");
-		$sql = "UPDATE `inventorydetails` SET `nameInventory`='$name', `date_update`='$dateTime', `descriptionInventory`='$description' WHERE `inventory_idinventory`='$idupdate';";
+		$dateTime = date("Y-m-d"); 
+		$codeCurrent = $this->codeCurrent;
+		$sql = "UPDATE `inventorydetails` SET `nameInventory`='$name',  `codeCurrent`='$codeCurrent', `date_update`='$dateTime', `descriptionInventory`='$description' WHERE `inventory_idinventory`='$idupdate';";
 		$query = $this->con->consulta($sql);
 		$iduser = $this->iduser;
 		$idinventory = $idupdate;

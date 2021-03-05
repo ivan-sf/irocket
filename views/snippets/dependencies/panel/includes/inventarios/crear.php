@@ -2,7 +2,13 @@
 if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 //echo $_SESSION['adminUser'];
     $modelUser = new models\User();
+    $modelInventory = new models\Inventory();
     $array = $modelUser->inner();
+    $arrayInv = $modelInventory->arrayCreate();
+	$rowInv = $modelInventory->row();
+	$rowPreFinal = $rowInv+1;
+	$rowFinal = $rowPreFinal*1000;
+											
 }else{
     header("location:" . URL);
 }
@@ -44,6 +50,10 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 
 										<form method="POST" enctype="multipart/form-data" id="formulario" onsubmit="return checkSubmit();">
 											<input type="hidden" name="iduser" value=" <?php echo $array['idusers']; ?> ">
+											<input type="hidden" name="nameUser" value=" <?php echo $array['nameUser']; ?> ">
+											<input type="hidden" name="codeCurrent" value=" <?php echo $rowFinal; ?> ">
+											
+											<input type="hidden" name="iduser" value="">
 											<div class="m-portlet__body">
 												<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 													<div class="m-form__actions m-form__actions--solid">
@@ -114,7 +124,7 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 													</div>
 
 													<div class="form-group m-form__group row" id="">
-														<div class="col-lg-6">
+														<div class="col-lg-4">
 																<b>Nombre de inventario *</b><br>	
 															<br>
 															<div class="m-input-icon" id="input1">
@@ -122,12 +132,21 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 															</div>
 														</div>
 
-														<div class="col-lg-6">
+														<div class="col-lg-4">
 															<b>Descripcion *</b>
 																<br>
 																<br>
 															<div class="m-input-icon" id="input2">
 																<input type="text" class="form-control m-input m-input--air m-input--pill" placeholder="Descripcion inventario" name="descriptionInventary[]" id="descriptionInventary">
+															</div>
+														</div>
+
+														<div class="col-lg-4">
+															<b>Codigo de inventario *</b>
+																<br>
+																<br>
+															<div class="m-input-icon" id="input3">
+																<input type="text" class="form-control m-input m-input--air m-input--pill" value="<?php echo $rowFinal; ?>" name="codigoInventario[]" id="codigoInventario">
 															</div>
 														</div>
 													</div>
@@ -242,7 +261,7 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 												var lengthInputs = $("#input1 input").length;
 
 
-												if (lengthInputs >= 1 && lengthInputs <=3) {
+												if (lengthInputs >= 1 && lengthInputs <=30) {
 													$("#botonDelete").removeClass("hiddenDIV");
 
 													var dom = document.createElement("input");

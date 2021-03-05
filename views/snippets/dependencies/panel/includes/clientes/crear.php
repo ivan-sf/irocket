@@ -329,7 +329,26 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 	</div>
 </div>
 </div>
-
+<?php if(isset($_GET['error']) OR isset($_GET['success'])){
+?>												
+<script>
+$(document.body).keyup(function(e) {
+           // console.log(e.which)
+	if (e.which == 27) {
+		window.history.go(-2);
+	}
+})
+</script>
+<?php }else{ ?>		
+<script>
+$(document.body).keyup(function(e) {
+           // console.log(e.which)
+	if (e.which == 27) {
+		window.history.go(-1);
+	}
+})
+</script>										
+<?php } ?>	
 <script>
 	$('#formulario').keyup(function(e) {
 		if(e.keyCode == 13) {

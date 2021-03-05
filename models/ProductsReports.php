@@ -72,7 +72,7 @@ class ProductsReports
 		ON products.idproducts=productdetails.products_idproducts
 		WHERE stateBD='1'
 		ORDER BY totalSales DESC
-		LIMIT 5";
+		LIMIT 20";
 		$query = $this->con->returnConsulta($sql);
 		if ($query) {
 			return $query;
@@ -80,6 +80,60 @@ class ProductsReports
 			echo "asd";
 		}
 	}
+
+	public function Productsexce()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM products 
+		INNER JOIN productdetails 
+		ON products.idproducts=productdetails.products_idproducts
+		WHERE quantityProduct<0
+		ORDER BY totalSales DESC";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+
+	public function Productsago()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM products 
+		INNER JOIN productdetails 
+		ON products.idproducts=productdetails.products_idproducts
+		WHERE quantityProduct=0
+		ORDER BY totalSales DESC";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+
+
+
+public function ProductsTopVenP()
+	{
+		$sql = "SELECT * FROM products 
+		INNER JOIN productdetails 
+		ON products.idproducts=productdetails.products_idproducts
+		WHERE stateBD='1'
+		ORDER BY dateVenc ASC
+		LIMIT 50";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+	
 
 	public function ProductsLimit()
 	{
@@ -89,7 +143,7 @@ class ProductsReports
 		ON products.idproducts=productdetails.products_idproducts
 		WHERE stateBD='1' AND quantityProduct <= 0
 		ORDER BY totalItemsInventory DESC
-		LIMIT 5";
+		LIMIT 500";
 		$query = $this->con->returnConsulta($sql);
 		if ($query) {
 			return $query;

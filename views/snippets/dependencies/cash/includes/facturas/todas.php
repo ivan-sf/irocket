@@ -2,6 +2,7 @@
 $modelInventory = new models\Bills();
 $con = new models\Conexion();
 $arrayInventory = $modelInventory->array2();
+$arrayDetBill = $modelInventory->arrayDet();
 ?>
 <div id="page-wrapper" style="min-height: 541px;">
             <div class="container-fluid">
@@ -38,11 +39,16 @@ $arrayInventory = $modelInventory->array2();
                         
                         $set = $modelInventory->set("idbill",$datos['idbills']);
                         $viewBills = $modelInventory->view();
+                        $viewBillsD = $modelInventory->arrayDet();
+
                         $total = 0;
                         while($datos2 = mysqli_fetch_array($viewBills)) {
                             $total = $total + $datos2['precio_total'];
                         }
 
+                        while($datosDB = mysqli_fetch_array($viewBillsD)) {
+                            
+                        }
                      ?> 
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="white-box">
@@ -74,9 +80,13 @@ $arrayInventory = $modelInventory->array2();
                                             } ?>
                                         </b>
                                      </h4>
+                                     <?php echo $datos['cliente']; ?>
 
 
                                     <small><h5>Factura #<?php echo $datos['idbills']; ?></h5></small>
+                                    <small><h5><?php echo $datos['fecha']; ?></h5></small>
+                                    <small><h5><?php echo $total; ?></h5></small>
+
 
                                     <br>
                                 </div>

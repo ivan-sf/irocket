@@ -13,7 +13,7 @@ $tabla="";
 $query="SELECT * FROM users 
         INNER JOIN userdetails 
         ON users.idusers=userdetails.users_idusers
-        WHERE userdetails.range = 1
+        WHERE userdetails.tipoEmpleado = 1
         AND users.stateBD = 1
         ORDER BY users.idusers desc";
 
@@ -24,10 +24,10 @@ if(isset($_POST['alumnos']))
     $query="SELECT * FROM users 
         INNER JOIN userdetails 
         ON users.idusers=userdetails.users_idusers
-        WHERE userdetails.range = 1 AND users.stateBD = 1 AND users.userName  LIKE '%$q%' OR
-        userdetails.range = 1 AND users.stateBD = 1 AND userdetails.nameUser  LIKE '%$q%' OR
-        userdetails.range = 1 AND users.stateBD = 1 AND userdetails.lastnameUser  LIKE '%$q%' OR
-        userdetails.range = 1 AND users.stateBD = 1 AND userdetails.documentUser  LIKE '%$q%' 
+        WHERE userdetails.tipoEmpleado = 1 AND users.stateBD = 1 AND users.userName  LIKE '%$q%' OR
+        userdetails.tipoEmpleado = 1 AND users.stateBD = 1 AND userdetails.nameUser  LIKE '%$q%' OR
+        userdetails.tipoEmpleado = 1 AND users.stateBD = 1 AND userdetails.lastnameUser  LIKE '%$q%' OR
+        userdetails.tipoEmpleado = 1 AND users.stateBD = 1 AND userdetails.documentUser  LIKE '%$q%' 
         
         ORDER BY users.idusers desc";
 
@@ -47,8 +47,8 @@ if ($buscarAlumnos->num_rows > 0)
             <div class="product-img">
                 <img  height="150" width="180" src="<?php echo $r->ruta; ?>">
                 <div class="pro-img-overlay">
-                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo $r->idusers; ?>&configurar" class="bg-warning"><i class="ti-marker-alt"></i></a> 
-                    <a href="<?php echo URL; ?>empleados/detalles?id=<?php echo  $r->idusers; ?>&eliminar" class="bg-danger"><i class="ti-trash"></i></a>
+                    <a href="<?php echo URL; ?>tercero/editar?id=<?php echo $r->idusers; ?>&configurar" class="bg-warning"><i class="ti-marker-alt"></i></a> 
+                    <a href="<?php echo URL; ?>tercero/editar?id=<?php echo  $r->idusers; ?>&eliminar" class="bg-danger"><i class="ti-trash"></i></a>
                 </div>
             </div>
             <div class="product-text">

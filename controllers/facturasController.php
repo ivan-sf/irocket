@@ -11,6 +11,8 @@ use models\Conexion as conexion;
 
 class facturasController 
 {
+	
+
 	public function detalles()
 	{
 		if (isset($_POST['cambio'])) {
@@ -52,6 +54,18 @@ class facturasController
 			$this->bills->set("idUser",$_POST['idUser']);
 			$this->bills->set("tipo",$_POST['eliminar']);
 			$this->bills->deleteBill();
+		}elseif (isset($_POST['imprimir'])) {
+			$this->conexion = new Conexion();
+			$this->bills = new Bills();
+			$this->bills->printDayV();
+		}elseif (isset($_POST['idCliente'])) {
+			$this->conexion = new Conexion();
+			$this->bills = new Bills();
+			$this->bills->set("idCliente",$_POST['idCliente']);
+			$this->bills->set("cliente",$_POST['cliente']);
+			$this->bills->set("documentUser",$_POST['documentUser']);
+			$this->bills->set("idbill",$_GET['id']);
+			$this->bills->editarFactura();
 		}else{
 			
 		}
@@ -59,10 +73,22 @@ class facturasController
 
 	public function index()
 	{
+
 	}
 
 	public function update()
 	{
+		
+	}
+
+	public function imprimir()
+	{
+		
+	}
+
+	public function getpuc2()
+	{
+
 	}
 
 	

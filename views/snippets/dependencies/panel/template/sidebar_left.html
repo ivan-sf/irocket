@@ -15,6 +15,8 @@ $dateTimeDay = date("Y-m-d");
 
 //Datos Semana
 $fecha = date('Y-m-d');
+$fechaMes = date('m');
+$fechaAño = date('Y');
 
 $totalA = 0;
 while ( $total = mysqli_fetch_array($alltimeActive)) {
@@ -35,7 +37,7 @@ $total = $totalA-$totalP;
                 <div>
                     <img src="<?php echo (URL) . $array['ruta']; ?>" alt="user-img" class="img-circle">
                 </div>
-                                <h5 class=""><small><b><?php echo strtoupper($array['userName']); ?></b></small></h5>
+                                <h5 class="text-white"><small><b><?php echo strtoupper($array['userName']); ?></b></small></h5>
                 <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     
                     <?php echo ucwords($array['nameUser'] . " " . $array['lastnameUser']);  ?>
@@ -53,7 +55,7 @@ $total = $totalA-$totalP;
                 ?>
 
                 <ul class="dropdown-menu animated flipInY">
-                    <li><a href="<?php echo (URL); ?>empleados/detalles?id=<?php echo $usuario1;?>&configurar&perfil"><i class="ti-user"></i> Mi perfil</a></li>
+                    <li><a href="<?php echo (URL); ?>tercero/editar?id=<?php echo $usuario1;?>&configurar&perfil"><i class="ti-user"></i> Mi perfil</a></li>
                     <?php if(isset($_SESSION['administrador'])){ ?>
                     <li><a href="<?php echo URL; ?>depositos/detalles?id=1&configurar&tipo=activo"><i class="ti-wallet"></i> Depositos</a></li>
                     <li><a href="<?php echo URL; ?>notificaciones?ver=todo"><i class="ti-email"></i> Notificaciones</a></li>
@@ -79,8 +81,7 @@ $total = $totalA-$totalP;
                 <li>
                     <?php if(isset($_SESSION['administrador'])){ ?>
                     <div class="hide-menu t-earning">
-                        <div id="sparkline2dash" class="m-b-10"></div><small class="db">BALANCE GENERAL - <b><?php echo date("m/Y"); ?></b></small>
-                        <h3 class="m-t-0 m-b-0">$<?php echo number_format($total); ?> COP</h3></div>
+                        <div id="sparkline2dash" class="m-b-10"></div><small class="db"><b><?php echo date("d/m/Y"); ?></b></small>
                     <?php }?>
                     
                         <!-- <h3 class="m-t-0 m-b-0">$<?php echo number_format($datos2['currentAssets']); ?> COP</h3></div>-->
@@ -88,23 +89,153 @@ $total = $totalA-$totalP;
                     <li class="nav-small-cap m-t-10"><center>MENU PRINCIPAL</center></li>
 
 
+                    <?php if(isset($_SESSION['contable']) ){ ?>
+                        <li> 
+                       <a href="<?php echo URL; ?>index"" class="waves-effect">
+                           <i data-icon="/" class="icon-rocket">
+                           </i> <span class="hide-menu">Panel</span></a> 
+                       </li>
+                   <?php } ?>
+                   <?php if(isset($_SESSION['administrador']) ){ ?>
+                    <li> 
+                   <a href="<?php echo URL; ?>index"" class="waves-effect">
+                       <i data-icon="/" class="icon-rocket">
+                       </i> <span class="hide-menu">Panel</span></a> 
+                   </li>
+                    <?php } ?>
                        
-                         <li> 
-                        <a href="<?php echo URL; ?>index"" class="waves-effect">
-                            <i data-icon="/" class="icon-rocket">
-                            </i> <span class="hide-menu">Panel</span></a> 
-                        </li>
                           <li> 
                         <a href="<?php echo URL; ?>cajas?caja=ventas"" class="waves-effect">
                             <i data-icon="/" class="linea-icon linea-basic fa-fw">
                             </i> <span class="hide-menu">Caja</span></a> 
                         </li>
+                        <?php if(isset($_SESSION['contable']) OR isset($_SESSION['administrador']) ){ ?>
+                         <li> 
+                        <a href="<?php echo URL; ?>cajas?caja=compras"" class="waves-effect">
+                            <i data-icon="/" class="linea-icon linea-basic fa-fw">
+                            </i> <span class="hide-menu">Ingreso de pedidos</span></a> 
+                        </li>
+                        <?php } ?>
                         <li> 
-                        <a href="<?php echo URL; ?>cajas/facturas?ver=Todas"" class="waves-effect">
-                            <i data-icon="/" class=" icon-layers">
-                            </i> <span class="hide-menu">Facturas</span></a> 
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class=" icon-layers" data-icon="F"></i> 
+                                <span class="hide-menu"> Facturas venta
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">3</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=venta&pos">POS</a> </li>
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=venta&electronica">Electronicas</a> </li>
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=venta&remision">Remision</a> </li>
+                            </ul>
                         </li>
 
+                        <li> 
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class=" icon-layers" data-icon="F"></i> 
+                                <span class="hide-menu"> Facturas compra
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">3</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=compra&pos">POS</a> </li>
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=compra&electronica">Electronicas</a> </li>
+                                <li> <a href="<?php echo URL; ?>cajas/facturas?ver=compra&remision">Remision</a> </li>
+                            </ul>
+                        </li>
+
+                        
+
+
+                        <?php if(isset($_SESSION['contable']) OR isset($_SESSION['administrador']) ){ ?>
+                        <li> 
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class=" icon-pie-chart" data-icon="F"></i> 
+                                <span class="hide-menu"> Contabilidad 
+                                    <span class="fa arrow"></span> 
+                                    <span class="label label-rouded label-custom pull-right">1</span>
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li> <a href="<?php echo URL; ?>contabilidad/crear?tipo=documento">Crear documento</a> </li>
+                                <li> <a href="<?php echo URL; ?>contabilidad/crear?tipo=comprobante">Comprobantes</a> </li>
+                                <li> <a href="<?php echo URL; ?>contabilidad/crear?tipo=codigo">PUC</a> </li>
+                                <!--
+                                <li> <a href="<?php echo URL; ?>contabilidad/crear?tipo=codigo">Crear codigo PUC</a> </li>
+                                -->
+                                <li> <a href="<?php echo URL; ?>contabilidad/table">Valores totales PUC</a> </li>
+                            </ul>
+                        </li>
+                        <?php } ?>      
+                        
+                        <?php if(isset($_SESSION['administrador']) OR isset($_SESSION['contable'])){ ?>
+                            
+
+                            <li> 
+    
+                                <a href="javascript:void(0);" class="waves-effect">
+                                    <i class="fa fa-desktop" data-icon="F"></i> 
+                                    <span class="hide-menu"> Catalogos 
+                                        <span class="fa arrow"></span> 
+                                        <span class="label label-rouded label-custom pull-right">5</span>
+                                    </span>
+                                </a>
+                                <ul class="nav nav-second-level">
+    
+                                    <li> <a href="<?php echo URL; ?>inventarios?catalogo">Inventarios</a> </li>
+                                    <li> <a href="<?php echo URL; ?>productos?catalogo">Productos</a> </li>
+                                    <li> <a href="<?php echo URL; ?>empleados?catalogo">Empleados</a> </li>
+                                    <li> <a href="<?php echo URL; ?>clientes?catalogo">Clientes</a> </li>
+                                    <li> <a href="<?php echo URL; ?>proveedores?catalogo">Proveedores</a> </li>
+                                </ul>
+                            </li>
+    
+                            
+    
+                             <li> 
+    
+                                <a href="javascript:void(0);" class="waves-effect">
+                                    <i class="fa fa-cubes" data-icon="F"></i> 
+                                    <span class="hide-menu"> Crear 
+                                        <span class="fa arrow"></span> 
+                                        <span class="label label-rouded label-custom pull-right">3</span>
+                                    </span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    
+                                    <li> <a href="<?php echo URL; ?>tercero/crear">Crear tercero</a> </li>
+                                    <?php if(isset($_SESSION['administrador'])){ ?>
+                                        <li> <a href="<?php echo URL; ?>productos/crear">Crear productos</a> </li>
+                                        <li> <a href="<?php echo URL; ?>inventarios/crear">Crear inventarios</a> </li>
+                                    <?php } ?>
+    
+                                </ul>
+                            </li>
+    
+    
+                            <?php } ?>
+
+                        <?php if(isset($_SESSION['contable'])){ ?>
+
+                            
+                            <li> 
+                                <a href="javascript:void(0);" class="waves-effect">
+                                    <i class=" icon-pie-chart" data-icon="F"></i> 
+                                    <span class="hide-menu"> Reportes 
+                                        <span class="fa arrow"></span> 
+                                        <span class="label label-rouded label-custom pull-right">1</span>
+                                    </span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=contable&fecha=<?php echo $fechaMes ?>&fechaY=<?php echo $fechaAño ?>">Contable</a> </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        
                          <?php if(isset($_SESSION['administrador'])){ ?>
 
 
@@ -113,17 +244,13 @@ $total = $totalA-$totalP;
                                 <i class=" icon-pie-chart" data-icon="F"></i> 
                                 <span class="hide-menu"> Reportes 
                                     <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">4</span>
+                                    <span class="label label-rouded label-custom pull-right">1</span>
                                 </span>
                             </a>
                             <ul class="nav nav-second-level">
-
-                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=todo">Completos</a> </li>
                                 <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=diario&fecha=<?php echo $fecha ?>">Diarios</a> </li>
-                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semanal&fecha=<?php echo $fecha ?>">Semanales</a> </li>
-                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=mensual&fecha=<?php echo $fecha ?>">Mensuales</a> </li>
-                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=semestral&fecha=<?php echo $fecha ?>">Semestrales</a> </li>
-                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=anual&fecha=<?php echo $fecha ?>">Anuales</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=mensual&fecha=<?php echo $fechaMes ?>&fechaY=<?php echo $fechaAño ?>">Mensual</a> </li>
+                                <li> <a href="<?php echo URL; ?>facturas?reportes=ventas&tipo=contable&fecha=<?php echo $fechaMes ?>&fechaY=<?php echo $fechaAño ?>">Contable</a> </li>
                             </ul>
                         </li>
 <!--
@@ -188,17 +315,17 @@ $total = $totalA-$totalP;
                                 <i class="fa fa-building-o" data-icon="F"></i> 
                                 <span class="hide-menu"> Empresa 
                                     <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">4</span>
+                                    <span class="label label-rouded label-custom pull-right">3</span>
                                 </span>
                             </a>
                             <ul class="nav nav-second-level">
 
                                 <li> <a href="<?php echo URL; ?>empresa/detalles?id=1&detalles">Detalles</a> </li>
                                 <li> <a href="<?php echo URL; ?>empresa/detalles?id=1&configurar">Configurar</a> </li>
-                                <li> <a target="_blank" href="<?php echo URL_SITIO; ?>">Crear nueva empresa</a> </li>
+                                <li> <a target="_blank" href="#">Crear nueva empresa</a> </li>
                             </ul>
                         </li>
-
+<!--
                         <li> 
 
                             <a href="javascript:void(0);" class="waves-effect">
@@ -214,10 +341,10 @@ $total = $totalA-$totalP;
                                 <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&fondos&tipo=activo">Depositos</a> </li>
                                 <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&fondos&tipo=pasivo">Retiros</a> </li>
                                 <li> <a href="<?php echo URL; ?>depositos/detalles?id=1&configurar&tipo=activo">Configurar cuenta</a> </li>
-                                <li> <a target="_blank" href="<?php echo URL_SITIO; ?>">Crear nueva cuenta</a> </li>
+                                <li> <a target="_blank" href="#">Crear nueva cuenta</a> </li>
                             </ul>
                         </li>
-
+                    -->
 
                         <?php }?>
 
@@ -233,115 +360,34 @@ $total = $totalA-$totalP;
 
 
 
+                       
 
-
-                        <li> 
-
-                            <a href="javascript:void(0);" class="waves-effect">
-                                <i class="fa fa-desktop" data-icon="F"></i> 
-                                <span class="hide-menu"> Catalogos 
-                                    <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">5</span>
-                                </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-
-                                <li> <a href="<?php echo URL; ?>inventarios?catalogo">Inventarios</a> </li>
-                                <li> <a href="<?php echo URL; ?>productos?catalogo">Productos</a> </li>
-                                <li> <a href="<?php echo URL; ?>empleados?catalogo">Empleados</a> </li>
-                                <li> <a href="<?php echo URL; ?>clientes?catalogo">Clientes</a> </li>
-                                <li> <a href="<?php echo URL; ?>proveedores?catalogo">Proveedores</a> </li>
-                            </ul>
-                        </li>
-
-
-
-                         <li> 
-
-                            <a href="javascript:void(0);" class="waves-effect">
-                                <i class="fa fa-cubes" data-icon="F"></i> 
-                                <span class="hide-menu"> Inventarios 
-                                    <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">2</span>
-                                </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-
-                                
-                                <li> <a href="<?php echo URL; ?>inventarios/crear">Crear inventarios</a> </li>
-
-                                <li> <a href="<?php echo URL; ?>inventarios/tabla?index">Tabla</a> </li>
-                            </ul>
-                        </li>
-
-
-
-
-                        <li> 
-
-                            <a href="javascript:void(0);" class="waves-effect">
-                                <i class="fa fa-shopping-cart" data-icon="F"></i> 
-                                <span class="hide-menu"> Productos 
-                                    <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">2</span>
-                                </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-
-                                <li> <a href="<?php echo URL; ?>productos/crear">Crear productos</a> </li>
-                                <li> <a href="<?php echo URL; ?>productos/tabla?index">Tabla</a> </li>
-                            </ul>
-                        </li>
-
-                         <li> 
-
-                            <a href="javascript:void(0);" class="waves-effect">
-                                <i class="fa fa-smile-o" data-icon="F"></i> 
-                                <span class="hide-menu"> Empleados 
-                                    <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">2</span>
-                                </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-
-                                <li> <a href="<?php echo URL; ?>empleados/crear">Crear empleados</a> </li>
-                                    <li> <a href="<?php echo URL; ?>empleados/tabla?index">Tabla</a> </li>
-                            </ul>
-                        </li>
-
-                         <li> 
-
-                            <a href="javascript:void(0);" class="waves-effect">
-                                <i class="fa  fa-heart" data-icon="F"></i> 
-                                <span class="hide-menu"> Clientes 
-                                    <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">2</span>
-                                </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-
-                                <li> <a href="<?php echo URL; ?>clientes/crear">Crear clientes</a> </li>
-                                    <li> <a href="<?php echo URL; ?>clientes/tabla?index">Tabla</a> </li>
-                            </ul>
-                        </li>
-
+                       
+                        
+                        <?php if(isset($_SESSION['administrador']) OR isset($_SESSION['contable'])){ ?>
+    
                          <li> 
 
                             <a href="javascript:void(0);" class="waves-effect">
                                 <i class="icon-people" data-icon="F"></i> 
-                                <span class="hide-menu"> Proveedores 
+                                <span class="hide-menu"> Tablas 
                                     <span class="fa arrow"></span> 
-                                    <span class="label label-rouded label-custom pull-right">2</span>
+                                    <span class="label label-rouded label-custom pull-right">3</span>
                                 </span>
                             </a>
                             <ul class="nav nav-second-level">
 
-                                <li> <a href="<?php echo URL; ?>proveedores/crear">Crear proveedores</a> </li>
-                                <li> <a href="<?php echo URL; ?>proveedores/tabla?index">Tabla</a> </li>
+                                    <li> <a href="<?php echo URL; ?>empleados/tabla?index">Empleados</a> </li>
+                                    <li> <a href="<?php echo URL; ?>clientes/tabla?index">Clientes</a> </li>
+                                    <li> <a href="<?php echo URL; ?>proveedores/tabla?index">Proveedores</a> </li>
+                                <li> <a href="<?php echo URL; ?>productos/tabla?index">Productos</a> </li>
+                                <li> <a href="<?php echo URL; ?>inventarios/tabla?index">Inventarios</a> </li>
                             </ul>
                         </li>
+                        <?php } ?>
 
                          
+
 
 
                     <li>
@@ -349,10 +395,10 @@ $total = $totalA-$totalP;
                         <span class="hide-menu">Salir del sistema</span>
                     </a></li>
                     <li class="nav-small-cap"><center>SOPORTE</center></li>
-                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+                    <li><a target="_blank" href="#" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
                      <span class="hide-menu">Documentacion</span></a></li>
-                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-success"></i> <span class="hide-menu">Preguntas frecuentes</span></a></li>
-                    <li><a target="_blank" href="<?php echo URL_SITIO; ?>" class="waves-effect"><i class="fa fa-circle-o text-info"></i> <span class="hide-menu">Contactar</span></a></li>
+                    <li><a target="_blank" href="#" class="waves-effect"><i class="fa fa-circle-o text-success"></i> <span class="hide-menu">Preguntas frecuentes</span></a></li>
+                    <li><a target="_blank" href="#" class="waves-effect"><i class="fa fa-circle-o text-info"></i> <span class="hide-menu">Contactar</span></a></li>
                 </ul>
             </div>
         </div>

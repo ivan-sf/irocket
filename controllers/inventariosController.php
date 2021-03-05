@@ -23,6 +23,8 @@ class inventariosController
 			$this->inventory->set("name",$_POST['nameInventary']);
 			$this->inventory->set("description",$_POST['descriptionInventary']);
 			$this->inventory->set("iduser",$_POST['iduser']);
+			$this->inventory->set("codeCurrent",$_POST['codeCurrent']);
+			
 			$this->inventory->create();
 			
 		}else{
@@ -49,6 +51,7 @@ class inventariosController
 			$this->inventory->set("name",$_POST['nombreInventario']);
 			$this->inventory->set("description",$_POST['descripcionInventario']);
 			$this->inventory->set("iduser",$_POST['iduser']);
+			$this->inventory->set("codeCurrent",$_POST['codeCurrent']);
 			$this->inventory->update();
 		}elseif (isset($_POST['idDelete'])) {
 			$this->Conexion = new Conexion();

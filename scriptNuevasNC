@@ -1,0 +1,3 @@
+DELETE FROM `registroscontables` WHERE tipoRegistro=1 OR tipoRegistro=5000 or  tipoRegistro=2 or  tipoRegistro=5011;
+DELETE FROM `notacontable` WHERE tipoNotacontable=1 OR tipoNotacontable=2 OR tipoNotacontable=5000 OR tipoNotacontable=5001;
+UPDATE `bills` SET `contabilidad` = '0', `revision` = '0', `notacontable` = '0';

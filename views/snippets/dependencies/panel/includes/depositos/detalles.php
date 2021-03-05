@@ -383,25 +383,7 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de ingreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Ingresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Ingresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Activo corriente</option>
-                                                        <option>Activo no corriente</option>    
-                                                        <option>Activo financiero</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Inversion mercancia a corto plazo</option>
-                                                        <option>Inversion mercancia a mediano plazo</option>
-                                                        <option>Inversion mercancia a largo plazo</option>
-                                                    </optgroup>
-                                                </select>
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
@@ -414,7 +396,7 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Valor de ingreso
                                                 </label>
-                                                <input autofocus="" autofocus="" name='newfondos' type="number" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                                <input name='newfondos' type="number" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" >
                                                 <span class="m-form__help">
                                                     <span class="m--font-">
                                                         <small>Por favor ingrese la suma de dinero que desea agregar de su cuenta de depositos.</small>
@@ -504,30 +486,9 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de egreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Egresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Egresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>   
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Pasivo corriente</option>
-                                                        <option>Pasivo no corriente</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Ajuste de inventario</option>
-                                                        <option>Pago de alquiler</option>
-                                                        <option>Pago de transporte</option>
-                                                    </optgroup>
-                                                    <optgroup label="Servicios publicos">
-                                                        <option>Pago de energia</option>
-                                                        <option>Pago de agua</option>    
-                                                        <option>Pago de gas</option>    
-                                                        <option>Pago de internet</option>    
-                                                    </optgroup>
-                                                </select>
+                                                
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
@@ -874,25 +835,9 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de ingreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Ingresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Ingresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Activo corriente</option>
-                                                        <option>Activo no corriente</option>    
-                                                        <option>Activo financiero</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Inversion mercancia a corto plazo</option>
-                                                        <option>Inversion mercancia a mediano plazo</option>
-                                                        <option>Inversion mercancia a largo plazo</option>
-                                                    </optgroup>
-                                                </select>
+                                                
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
@@ -995,30 +940,10 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de egreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Egresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Egresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>   
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Pasivo corriente</option>
-                                                        <option>Pasivo no corriente</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Ajuste de inventario</option>
-                                                        <option>Pago de alquiler</option>
-                                                        <option>Pago de transporte</option>
-                                                    </optgroup>
-                                                    <optgroup label="Servicios publicos">
-                                                        <option>Pago de energia</option>
-                                                        <option>Pago de agua</option>    
-                                                        <option>Pago de gas</option>    
-                                                        <option>Pago de internet</option>    
-                                                    </optgroup>
-                                                </select>
+                                               
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
+
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
@@ -1680,29 +1605,26 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de ingreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Ingresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Ingresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Activo corriente</option>
-                                                        <option>Activo no corriente</option>    
-                                                        <option>Activo financiero</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Inversion mercancia a corto plazo</option>
-                                                        <option>Inversion mercancia a mediano plazo</option>
-                                                        <option>Inversion mercancia a largo plazo</option>
-                                                    </optgroup>
-                                                </select>
+                                                <?php 
+                                                if (isset($_GET['motivo'])) { ?>
+                                                <input autofocus="" autofocus="" name='typeDeposit' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                                <?php  }else{ ?>
+                                                 
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
+                                                <?php  } ?>
+                                                
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
-                                                            <small>Por favor seleccione el tipo de deposito que desea ingresar.</small>
+                                                            <small>Por favor seleccione el tipo de deposito que desea ingresar. 
+                                                            <?php if (isset($_GET['motivo'])) { ?>
+                                                                <a href="<?php echo URL ?>depositos/detalles?id=1&fondos&tipo=activo">MOTIVOS GENERALES</a>
+                                                                
+                                                            <?php }else{ ?>
+                                                                <a href="<?php echo URL ?>depositos/detalles?id=1&fondos&tipo=activo&motivo">OTRO MOTIVO</a>
+                                                            <?php  } ?>
+                                                            </small>
                                                         </span>
                                                     </span>
                                                 </div>
@@ -1801,30 +1723,9 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de egreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Egresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Egresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>   
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Pasivo corriente</option>
-                                                        <option>Pasivo no corriente</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Ajuste de inventario</option>
-                                                        <option>Pago de alquiler</option>
-                                                        <option>Pago de transporte</option>
-                                                    </optgroup>
-                                                    <optgroup label="Servicios publicos">
-                                                        <option>Pago de energia</option>
-                                                        <option>Pago de agua</option>    
-                                                        <option>Pago de gas</option>    
-                                                        <option>Pago de internet</option>    
-                                                    </optgroup>
-                                                </select>
+                                                
+                                                <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
@@ -1963,34 +1864,24 @@ if (isset($_SESSION['administrador'])) {
                                                 <label for="exampleInputEmail1">
                                                     Tipo de ingreso
                                                 </label>
-                                                <select class="form-control" name="typeDeposit">
-                                                    <optgroup label="Egresos">
-                                                        <option>Ajuste de cuenta</option>
-                                                        <option>Pago de nomina</option>    
-                                                        <option>Egresos ordinarios</option>
-                                                        <option>Actividades</option>
-                                                        <option>Otros motivos</option>   
-                                                    </optgroup>
-                                                    <optgroup label="Activos">
-                                                        <option>Pasivo corriente</option>
-                                                        <option>Pasivo no corriente</option>    
-                                                    </optgroup>
-                                                    <optgroup label="Inventarios">
-                                                        <option>Ajuste de inventario</option>
-                                                        <option>Pago de alquiler</option>
-                                                        <option>Pago de transporte</option>
-                                                    </optgroup>
-                                                    <optgroup label="Servicios publicos">
-                                                        <option>Pago de energia</option>
-                                                        <option>Pago de agua</option>    
-                                                        <option>Pago de gas</option>    
-                                                        <option>Pago de internet</option>    
-                                                    </optgroup>
-                                                </select>
+                                                <?php if (isset($_GET['motivo'])) { ?>
+                                                <input name='typeDeposit' type="text" class="form-control m-input m-input--air m-input--pill" id="" >
+                                                <?php }else{ ?>
+                                               
+                                                    <input type="text" name="typeDeposit" autofocus class="form-control m-input m-input--air m-input--pill">
+                                                
+                                                <?php } ?>
                                                 <div class="col-lg-12">
                                                     <span class="m-form__help">
                                                         <span class="m--font-">
-                                                            <small>Por favor seleccione el tipo de deposito que desea ingresar.</small>
+                                                            <small>Por favor seleccione el tipo de deposito que desea ingresar. 
+                                                            <?php if (isset($_GET['motivo'])) { ?>
+                                                                <a href="<?php echo URL ?>depositos/detalles?id=1&fondos&tipo=pasivo">MOTIVOS GENERALES</a>
+                                                                
+                                                            <?php }else{ ?>
+                                                                <a href="<?php echo URL ?>depositos/detalles?id=1&fondos&tipo=pasivo&motivo">OTRO MOTIVO</a>
+                                                            <?php  } ?>
+                                                            </small>
                                                         </span>
                                                     </span>
                                                 </div>

@@ -12,10 +12,6 @@ if(isset($_SESSION['UserNew']) AND isset($_SESSION['cash']) OR isset($_SESSION['
     $modelInventory = new models\Notifications();
     $con = new models\Conexion();
     $arrayInventory = $modelInventory->array();
-}elseif(isset($_SESSION['UserNew']) AND isset($_SESSION['cash']) OR isset($_SESSION['adminUserNew']) AND !isset($_SESSION['cash'])){
-    header("location:" . URL . "login/caja");
-}else{
-    header("location:" . URL . "login/caja");
 }
 
 require "views/snippets/templates/cash/template.php";

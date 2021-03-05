@@ -49,12 +49,23 @@ class Clients
 		}
 	}
 
+	public function arrayClients()
+	{
+		$sql = "SELECT * FROM users 
+		INNER JOIN userdetails 
+		ON users.idusers=userdetails.users_idusers
+		WHERE userdetails.tipoCliente=1 AND users.stateBD = 1
+		ORDER BY users.idusers desc";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
 	public function array()
 	{
 		$sql = "SELECT * FROM users 
 		INNER JOIN userdetails 
 		ON users.idusers=userdetails.users_idusers
-		WHERE userdetails.range = 2
+		WHERE userdetails.tipoCliente = 1
 		AND users.stateBD = 1
 		ORDER BY users.idusers desc";
 		$datos = $this->con->returnConsulta($sql);

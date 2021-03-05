@@ -74,6 +74,16 @@ class empleadosController
 			$this->employee = new employee();//echo "Hi";
 			$this->employee->set("idUser", $_POST['idDelete']);
 			$this->employee->delete();
+		}elseif(isset($_POST['idNomina']) AND $_POST['idNomina']!=''){
+			$this->conexion = new Conexion();
+			$this->employee = new employee();//echo "Hi";
+			$this->employee->set("idUser", $_POST['idNomina']);
+			if ($_POST['abonoNom']!='') {
+				$this->employee->set("motivoNom", $_POST['motivoNom']);
+				$this->employee->set("abonoNom", $_POST['abonoNom']);
+				$this->employee->nomina();
+			}
+			
 		}	
 	}
 

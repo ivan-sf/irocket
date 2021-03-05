@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['adminUser'])) {
 	header("location:" . URL . "layouts/");
-}elseif (isset($_SESSION['administrador']) OR isset($_SESSION['adminUserNew']) OR isset($_SESSION['cash'])) {
+}elseif (isset($_SESSION['administrador'])) {
     //header("location:" . URL . "inventarios?bienvenido");
 }else{
 	header("location:" . URL);

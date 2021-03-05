@@ -115,12 +115,8 @@ $modelPP = new models\Products();
 
                                 <?php if (isset($_GET['detalles'])) { ?>
 
-                                    <li role="presentation" class="nav-item col-lg-6"><a href="#home" class="nav-link active" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <span class="visible-xs"><i class="fa fa-rocket"></i></span>
-                                    <span class="hidden-xs"> <center><b>Inventarios</b></center></span></a>
-                                    </li>
-                                    
-                                    <li role="presentation" class="nav-item col-lg-6"><a href="#messages" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-refresh"></i></span> <span class="hidden-xs"><center><b>Editar</b></center></span></a></li>
+                                   
+                                    <li role="presentation" class="nav-item col-lg-12"><a href="#messages" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-refresh"></i></span> <span class="hidden-xs"><center><b>Editar</b></center></span></a></li>
                             </ul>
                             <div class="tab-content">
 
@@ -192,6 +188,8 @@ $modelPP = new models\Products();
                                     </span>
                                 </span>
                             </div>
+
+                            
 
                             <div class="form-group m-form__group">
                                 <label for="exampleInputEmail1">
@@ -276,12 +274,9 @@ $modelPP = new models\Products();
 
                          <?php }else{  ?>
 
-                            <li role="presentation" class="nav-item col-lg-6"><a href="#home" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <span class="visible-xs"><i class="fa fa-rocket"></i></span>
-                                    <span class="hidden-xs"> <center><b>Inventarios</b></center></span></a>
-                                    </li>
+                        
                                     
-                                    <li role="presentation" class="nav-item col-lg-6"><a href="#messages" class="nav-link active" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-refresh"></i></span> <span class="hidden-xs"><center><b>Editar</b></center></span></a></li>
+                                    <li role="presentation" class="nav-item col-lg-12"><a href="#messages" class="nav-link active" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-refresh"></i></span> <span class="hidden-xs"><center><b>Editar</b></center></span></a></li>
                             </ul>
                             <div class="tab-content">
 
@@ -364,13 +359,52 @@ $modelPP = new models\Products();
 
                             <div class="form-group m-form__group">
                                 <label for="exampleInputEmail1">
-                                    NIT
+                                    Nit
                                 </label>
                                 <input name='nit' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['nitCompany']); ?>">
 
                                 <span class="m-form__help">
                                     <span class="m--font-">
                                         <small>Por favor ingrese los cambios a realizar en el NIT.</small>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-form__group">
+                                <label for="exampleInputEmail1">
+                                    Resolucion
+                                </label>
+                                <input name='resolucion' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['resolucion']); ?>">
+
+                                <span class="m-form__help">
+                                    <span class="m--font-">
+                                        <small>Por favor ingrese los cambios a realizar en el Resolucion.</small>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-form__group">
+                                <label for="">
+                                    Prefijo Inicial
+                                </label>
+                                <input name='prefijoInicial' type="text" class="form-control m-input m-input--air m-input--pill" value="<?php echo strtoupper($datos1['prefijoInicial']); ?>">
+
+                                <span class="m-form__help">
+                                    <span class="m--font-">
+                                        <small>Por favor ingrese los cambios a realizar en el prefijo inicial.</small>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-form__group">
+                                <label>
+                                    Prefijo Final
+                                </label>
+                                <input name='prefijoFinal' type="text" class="form-control m-input m-input--air m-input--pill" value="<?php echo strtoupper($datos1['prefijoFinal']); ?>">
+
+                                <span class="m-form__help">
+                                    <span class="m--font-">
+                                        <small>Por favor ingrese los cambios a realizar en el Prefijo final.</small>
                                     </span>
                                 </span>
                             </div>
@@ -422,6 +456,19 @@ $modelPP = new models\Products();
                                     Email
                                 </label>
                                 <input name='email' type="text" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo strtoupper($datos1['emailCompany']); ?>">
+
+                                <span class="m-form__help">
+                                    <span class="m--font-">
+                                        <small>Por favor ingrese los cambios a realizar en el Email.</small>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-form__group">
+                                <label>
+                                    Mensaje Pie de Factura
+                                </label>
+                                <input name='pieFactura' type="text" class="form-control m-input m-input--air m-input--pill" value="<?php echo strtoupper($datos1['pieFactura']); ?>">
 
                                 <span class="m-form__help">
                                     <span class="m--font-">

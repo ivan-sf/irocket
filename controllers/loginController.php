@@ -32,6 +32,9 @@ class loginController
 			$this->company->set("companyCity",$_POST['city']);
 			$this->company->set("companyPhone",$_POST['tel']);
 			$this->company->set("companyEmail",$_POST['mail']);
+			$this->company->set("regimen",$_POST['regimen']);
+			$this->company->set("nameUser",$_POST['nameUser']);
+			$this->company->set("lastnameUser",$_POST['lastnameUser']);
 			$this->company->set("companyLogo",$_FILES['companyLogo']['tmp_name']);
 			$this->company->set("companyLogoNameTemp",$_FILES['companyLogo']['name']);
 			$this->company->set("companyLogoSize",$_FILES['companyLogo']['size']);

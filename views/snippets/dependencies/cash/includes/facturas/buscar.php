@@ -59,10 +59,12 @@ if (isset($_GET['buscar'])) {
                         $viewBills = $modelInventory->view();
                         $total = 0;
                         while($datos2 = mysqli_fetch_array($viewBills)) {
-                            $total = $total + $datos2['precio_total'];
+                            $total = $total + $datos2['precioTotal'];
                         }
+                        $cliente = $datos['cliente'];
 
                      ?> 
+
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="white-box">
                             <div class="el-card-item">
@@ -82,20 +84,27 @@ if (isset($_GET['buscar'])) {
                                 <div class="el-card-content">
                                     <h4 class="">
                                         <b>
+                                        <?php if($datos['typeBill'] == 4){
+                                                echo "Factura de compra POS";
+                                            }elseif($datos['typeBill'] == 5){
+                                                echo "Factura de compra Remision";
+                                            }elseif($datos['typeBill'] == 6){
+                                                echo "Factura compra Electronica";
+                                            }?>
                                             <?php if($datos['typeBill'] == 1){
-                                                echo "Factura de venta";
+                                                echo "Factura de venta POS";
                                             }elseif($datos['typeBill'] == 2){
-                                                echo "Factura de compra";
+                                                echo "Factura de venta Remision";
                                             }elseif($datos['typeBill'] == 3){
-                                                echo "Factura de cambio";
-                                            }elseif($datos['typeBill'] == 4){
-                                                echo "Factura de devolucion";
-                                            } ?>
+                                                echo "Factura venta electronica";
+                                            }?>
                                         </b>
                                      </h4>
+                     <?php echo $cliente; ?>
+                                     
 
 
-                                    <small><h5>Factura #<?php echo $datos['idbills']; ?></h5></small>
+                                    <small><h5>Factura #<?php echo $datos['numeroFactura']; ?></h5></small>
 
                                     <br>
                                 </div>

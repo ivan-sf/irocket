@@ -78,7 +78,7 @@ $r = $products->fetch_object();
 	<p class="alert alert-warning">El carrito esta vacio.</p>
 <?php endif;?>
 <br><br><hr>
-<p>Powered by <a href="http://evilnapsis.com/" target="_blank">Evilnapsis</a></p>
+<p>IDSF <a href="http://evilnapsis.com/" target="_blank"></a></p>
 
 		</div>
 	</div>

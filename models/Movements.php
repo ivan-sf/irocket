@@ -479,6 +479,15 @@ class Movements
 		return $datos;
 	}
 
+	public function daytimeActiveDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM movementdepositaccount WHERE typeMovement=1  AND MONTH(dataRegister)='$day' AND YEAR(dataRegister)='$dayY'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
 
 	public function alltimePassive()
 	{
@@ -512,6 +521,15 @@ class Movements
 		return $datos;
 	}
 
+	public function daytimePassiveDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM movementdepositaccount WHERE typeMovement=2  AND MONTH(dataRegister)='$day' AND YEAR(dataRegister)='$dayY'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
 	public function todayToCharge()
 	{
 		$today = date("Y-m-d");
@@ -523,7 +541,12 @@ class Movements
 	public function todayToPay()
 	{
 		$today = date("Y-m-d");
-		$sql = "SELECT * FROM movementdepositaccount WHERE typeMovement=9 ORDER BY idmovementDepositAccount DESC";
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billreports 
+		ON idbills=bills_idbills 
+		WHERE billreports.estado='PENDIENTE'
+		AND billreports.typeBill='Compra'
+		ORDER BY dateUpdate ASC";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
@@ -532,6 +555,23 @@ class Movements
 	{
 		$today = date("Y-m-d");
 		$sql = "SELECT * FROM movementdepositaccount WHERE typeMovement=1 AND totalMoney>0 ORDER BY idmovementDepositAccount DESC LIMIT 5";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function listaDevoluciones()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM `movementdepositaccount` WHERE dataRegister='$today' AND typeDeposit='devolucion'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function listaDevolucionesMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM `movementdepositaccount` WHERE MONTH(dataRegister)='$day' AND YEAR(dataRegister)='$dayY' AND typeDeposit='devolucion'";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}

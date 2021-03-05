@@ -214,21 +214,6 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 														</div>
 														<br>
 
-														<div class="col-lg-12">
-															<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-																<b>Fecha de pago <b></b> </b>
-															</font></font>
-															<span class="m-form__help"><br>
-																<small>Fecha del proximo pago.</b></small>
-															</span>
-															<div class="m-input-icon" id="input13">
-																<input type="date" name="fecha" min="<?php echo date("Y-m-d");?>" max="<?php echo date("Y");?>-12-31" step="2" class="form-control m-input m-input--air m-input--pill" placeholder="fechadepago" name="fechadepago[]">
-
-															</div>
-
-
-														</div>
-														<br>
 
 
 														<div class="m-input-icon" id="input6">

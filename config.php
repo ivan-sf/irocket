@@ -8,14 +8,17 @@ define('DB', 'irocket');
 define('HOSTDB', 'localhost');
 define('USERDB', 'root');
 define('PASSDB', '');
-define("URL", 'http://192.168.0.20/' . DIRAPP . "/");
-define("URL_SITIO", "https://irocketapi.wordpress.com/");
+define("URL", 'http://192.168.100.4/' . DIRAPP . "/");
+define("URL_SITIO", "#");
 
 
 $con  = new mysqli(HOSTDB,USERDB,PASSDB,DB);
 
 ?>
-
 <script>
-	const URL_APP = "http://192.168.0.20/";
+	const URL_SITIO = "#";
+	const URL_APP = "http://192.168.100.4/";
+</script>
+<script>
+	const URL_APP = "http://192.168.100.4/";
 </script>

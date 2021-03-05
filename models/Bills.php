@@ -18,6 +18,7 @@ class Bills
 	private $saldo;
 	private $estado;
 	private $typeBill;
+	private $fecha;
 
 
 
@@ -32,7 +33,448 @@ class Bills
 	public function get($atributo){
 		return $this-$atributo;
 	}
+
 	
+
+	
+	
+	public function ingresosDiaPOS()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=1  AND billdetails.typeBillDetail=1 AND bills.dateRegister='$today' OR 
+		bills.typeBill=1 AND  bills.stateBill=1 AND billdetails.typeBillDetail=3 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function editarFactura()
+	{
+		$idCliente = $this->idCliente;
+		$cliente = $this->cliente;
+		$documentUser = $this->documentUser;
+		$idbill = $this->idbill;
+
+		$sql="UPDATE `bills` SET `idCliente` = '$idCliente', `cliente` = '$cliente', `documentUser` = '$documentUser' WHERE `bills`.`idbills` = $idbill";
+		$query = $this->con->returnConsulta($sql);
+
+		header("location:" . URL . "facturas/detalles?id=" . "$idbill" . "&editar");
+	}
+	
+	public function iva19($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 OR 
+		bills.typeBill=3 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function iva19Mes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=3 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=3 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=19";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	
+	public function valorProductos($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=1 AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2 OR 
+		bills.typeBill=3 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	public function iva5($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 OR 
+		bills.typeBill=3 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function iva5Mes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=5 OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=5 OR
+		bills.typeBill=3 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=5 OR
+		bills.typeBill=3 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=5";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+
+	public function iva19C($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=4 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2  AND billdetails.typeBillDetail=1 OR 
+		bills.typeBill=6 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=19 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function iva19CMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=4 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=4 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=6 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 AND billdetails.ivaPorcentaje=19 OR
+		bills.typeBill=6 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2  AND billdetails.ivaPorcentaje=19"; 
+		
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function iva5C($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=4 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2  AND billdetails.typeBillDetail=1 AND billdetails.typeBillDetail=1 AND billdetails.typeBillDetail=1 OR 
+		bills.typeBill=6 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 AND billdetails.typeBillDetail=1 AND billdetails.typeBillDetail=1 
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function iva5CMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=4 AND  bills.stateBill=1   AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1 OR 
+		bills.typeBill=6 AND  bills.stateBill=1   AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.ivaPorcentaje=5 AND billdetails.stateBillDetail=2 AND billdetails.typeBillDetail=1
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaPosFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=1 AND  bills.stateBill=3  AND bills.dateRegister='$day' AND billdetails.typeBillDetail!=2 OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.typeBillDetail!=2";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaPosFDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE 
+		bills.typeBill=1 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2 OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail!=2";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaElecFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=3 AND  bills.stateBill=3  AND bills.dateRegister='$day' OR
+		bills.typeBill=3 AND  bills.stateBill=1  AND bills.dateRegister='$day'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaElecFDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=3 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' OR
+		bills.typeBill=3 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaRemFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=2 AND  bills.stateBill=3  AND bills.dateRegister='$day' OR
+		bills.typeBill=2 AND  bills.stateBill=1  AND bills.dateRegister='$day' OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.typeBillDetail=2 OR 
+		bills.typeBill=1 AND  bills.stateBill=3  AND bills.dateRegister='$day' AND billdetails.typeBillDetail=2
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaRemFDMes($day,$dayY)
+	{
+		$this->$dayY = $dayY;
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=2 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' OR
+		bills.typeBill=2 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail=2 OR 
+		bills.typeBill=1 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail=2
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+
+	
+	public function comprasDiaPosFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=4 AND  bills.stateBill=3  AND bills.dateRegister='$day' AND billdetails.typeBillDetail=1 OR
+		bills.typeBill=4 AND  bills.stateBill=1  AND bills.dateRegister='$day' AND billdetails.typeBillDetail=1";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaPosFDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=4 AND  bills.stateBill=3  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail=1 OR
+		bills.typeBill=4 AND  bills.stateBill=1  AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' AND billdetails.typeBillDetail=1";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaElecFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=6 AND  bills.stateBill=3  AND bills.dateRegister='$day' OR
+		bills.typeBill=6 AND  bills.stateBill=1  AND bills.dateRegister='$day'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaElecFDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=6 AND  bills.stateBill=3 AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' OR
+		bills.typeBill=6 AND  bills.stateBill=1   AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaRemFD($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=5 AND  bills.stateBill=3  AND bills.dateRegister='$day' OR
+		bills.typeBill=5 AND  bills.stateBill=1  AND bills.dateRegister='$day'
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaRemFDMes($day,$dayY)
+	{
+		$this->$day = $day;
+		$this->$dayY = $dayY;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=5 AND  bills.stateBill=3 AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY' OR
+		bills.typeBill=5 AND  bills.stateBill=1 AND MONTH(bills.dateRegister)='$day' AND YEAR(bills.dateRegister)='$dayY'
+		";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	/*public function ingresosDia($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day' OR
+		bills.typeBill=2 AND  bills.stateBill=1  AND bills.dateRegister='$day' OR
+		bills.typeBill=3 AND  bills.stateBill=1  AND bills.dateRegister='$day' OR
+		bills.typeBill=1 AND  bills.stateBill=1  AND bills.dateRegister='$day'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}*/
+	
+
+
+	public function comprasDia($day)
+	{
+		$this->$day = $day;
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=4 AND  bills.stateBill=1 AND bills.dateRegister='$day' OR
+		bills.typeBill=5 AND  bills.stateBill=1 AND bills.dateRegister='$day' OR
+		bills.typeBill=6 AND  bills.stateBill=1 AND bills.dateRegister='$day' ";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaPOS()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=4 AND  bills.stateBill=1 AND billdetails.typeBillDetail=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaRemisionPOS()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=1 AND  bills.stateBill=1 AND billdetails.typeBillDetail=2 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+
+	public function comprasDiaRemisionPOS()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE bills.typeBill=4 AND  bills.stateBill=1 AND billdetails.typeBillDetail=2 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function ingresosDiaRemision()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=2 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaRemision()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=5 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	
+
+	public function ingresosDiaElectronica()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=3 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function comprasDiaElectronica()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=6 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	public function totalVentasDia()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=1 AND  bills.stateBill=1 AND bills.dateRegister='$today' or
+		bills.typeBill=2 AND  bills.stateBill=1 AND bills.dateRegister='$today' or
+		bills.typeBill=3 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	
+	public function totalComprasDia()
+	{
+		$today = date("Y-m-d");
+		$sql = "SELECT * FROM bills 
+		WHERE bills.typeBill=4 AND  bills.stateBill=1 AND bills.dateRegister='$today' or
+		bills.typeBill=5 AND  bills.stateBill=1 AND bills.dateRegister='$today' or
+		bills.typeBill=6 AND  bills.stateBill=1 AND bills.dateRegister='$today'";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	
+
+
 	public function array()
 	{
 		$sql = "SELECT * FROM bills WHERE stateBill=1 OR stateBill=2 OR stateBill=3 ORDER BY idbills desc LIMIT 5";
@@ -42,28 +484,73 @@ class Bills
 
 	public function array2()
 	{
-		$sql = "SELECT * FROM bills WHERE stateBill=1 OR stateBill=2 OR stateBill=3 ORDER BY idbills desc";
+		$sql = "SELECT * FROM bills WHERE dateRegister='2018-11-08' ORDER BY idbills desc ";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
 
 	public function arrayBusqueda($id)
 	{
-		$sql = "SELECT * FROM bills WHERE stateBill=1 AND idbills LIKE $id OR stateBill=2 AND idbills LIKE $id OR stateBill=3 AND idbills LIKE $id ORDER BY idbills desc";
+		if (is_numeric($id)) {
+			$sql = "SELECT * FROM bills WHERE stateBill=1 AND numeroFactura LIKE $id ORDER BY idbills desc";
+			$datos = $this->con->returnConsulta($sql);
+			return $datos;
+		}else{
+			$sql = "SELECT * FROM bills WHERE cliente LIKE '%$id%'";
+			$datos = $this->con->returnConsulta($sql);
+			return $datos;
+		}
+	}
+
+	public function arrayBuyPos()
+	{
+		$sql = "SELECT * FROM bills WHERE 
+		typeBill=4 AND stateBill=1 
+		ORDER BY idbills desc LIMIT 20";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
 
-	public function arrayBuy()
+	public function arrayBuyElec()
 	{
-		$sql = "SELECT * FROM bills WHERE typeBill=2 AND stateBill=1 OR typeBill=2 AND stateBill=2 OR typeBill=2 AND stateBill=3 ORDER BY idbills desc";
+		$sql = "SELECT * FROM bills WHERE 
+		typeBill=6 AND stateBill=1 
+		ORDER BY idbills desc LIMIT 20";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
 
-	public function arraySale()
+	public function arrayBuyRem()
 	{
-		$sql = "SELECT * FROM bills WHERE typeBill=1 AND stateBill=1 OR typeBill=1 AND stateBill=2 OR typeBill=1 AND stateBill=3 ORDER BY idbills desc";
+		$sql = "SELECT * FROM bills WHERE 
+		typeBill=5 AND stateBill=1 
+		ORDER BY idbills desc LIMIT 20";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+
+	
+	public function arraySalePos()
+	{
+		$sql = "SELECT * FROM bills 
+		WHERE typeBill=1 AND stateBill=1
+		ORDER BY idbills desc LIMIT 20";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	public function arraySaleElec()
+	{
+		$sql = "SELECT * FROM bills 
+		WHERE typeBill=3 AND stateBill=1
+		ORDER BY idbills desc LIMIT 20";
+		$datos = $this->con->returnConsulta($sql);
+		return $datos;
+	}
+	public function arraySaleRem()
+	{
+		$sql = "SELECT * FROM bills 
+		WHERE typeBill=2 AND stateBill=1
+		ORDER BY idbills desc LIMIT 20";
 		$datos = $this->con->returnConsulta($sql);
 		return $datos;
 	}
@@ -88,8 +575,80 @@ class Bills
 			echo "asd";
 		}
 	}
-
+	
 	public function viewDetails()
+	{
+		$idbill = $this->idbill;
+		$sql = "SELECT * FROM  billdetails 
+		WHERE 
+		bills_idbills='$idbill' AND  stateBillDetail=2 ";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+	public function arrayBillDetailDevolucion()
+	{
+		$idbill = $this->idbill;
+		$sql = "SELECT * FROM  billdetails 
+		WHERE 
+		bills_idbills='$idbill' AND stateBillDetail=3";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+	
+	public function viewDetailsDayVV()
+	{
+		$idBillD = $this->idBillD;
+		$sql = "SELECT * FROM  billdetails 
+		WHERE bills_idbills='$idBillD' AND  stateBillDetail=2
+		";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+	public function viewDetailsDayV()
+	{
+		$idbill = $this->idbill;
+		$sql = "SELECT * FROM  billdetails 
+		WHERE bills_idbills='$idbill' AND  stateBillDetail=2
+		";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+	public function viewDetailsDayC()
+	{
+		$fecha = $this->fecha;
+		$sql = "SELECT * FROM bills 
+		INNER JOIN billdetails 
+		ON bills.idbills=billdetails.bills_idbills
+		WHERE billdetails.dateRegister='$fecha' AND  billdetails.stateBillDetail=1 AND bills.typeBill=2
+		";
+		$query = $this->con->returnConsulta($sql);
+		if ($query) {
+			return $query;
+		}else{
+			echo "asd";
+		}
+	}
+
+	public function arrayDet()
 	{
 		$idbill = $this->idbill;
 		$sql = "SELECT * FROM  billdetails 
@@ -435,6 +994,12 @@ class Bills
 								}
 								
 
+								$iduser = 1;
+								$datetimeNot = 	date("Y-m-d G:i:s A");
+								$mensaje = "Se ha realizado un cambio en una factura.";
+								$sqlRM="INSERT INTO `notifications` (`users_idusers`, `products_idproducts`, `typeNotification`, `message`, `date_register`) VALUES ('$iduser', '10', '95', '$mensaje', '$datetimeNot')";
+								$queryRM=$this->con->consulta($sqlRM);
+
 
 
 
@@ -738,8 +1303,12 @@ class Bills
 									$sqlRM="UPDATE `irocket`.`movementdepositaccount` SET `totalMoney`='$totalSM', `typeMovement`='$est' WHERE `bills_idbills`='$idBill'";
 									$queryRM=$this->con->consulta($sqlRM);
 								}
-								
 
+								$iduser = 1;
+								$datetimeNot = 	date("Y-m-d G:i:s A");
+								$mensaje = "Se ha realizado un cambio en una factura.";
+								$sqlRM="INSERT INTO `notifications` (`users_idusers`, `products_idproducts`, `typeNotification`, `message`, `date_register`) VALUES ('$iduser', '10', '95', '$mensaje', '$datetimeNot')";
+								$queryRM=$this->con->consulta($sqlRM);
 
 
 
@@ -848,9 +1417,7 @@ class Bills
 if ($estado != 1) {
 	header("location:" . URL . "/facturas/detalles?id=" . $idBill . "&devolucion=".$idBillD."&error=saldo");
 }else{
-	if ($precioTVP==$precioTotalVPPP AND $typeBill==1) {
-			header("location:" . URL . "/facturas/detalles?id=" . $idBill . "&devolucion=".$idBillD."&error=promocion");
-		}elseif ($typeBill==2) {
+	if ($typeBill==2) {
 
 
 
@@ -879,16 +1446,19 @@ if ($estado != 1) {
 			$sql = "SELECT * FROM billdetails WHERE idbillDetails='$idBillD'";
 			$query = $this->con->returnConsulta($sql);
 			$dataA= mysqli_fetch_array($query);
+			$dataR= mysqli_num_rows($query);
 			$id=$dataA['idbillDetails'];
 			$totalProd=$dataA['precio_total'];
 
-			$sql2 = "SELECT * FROM billreports WHERE bills_idbills='$idBill'";
+			$sql2 = "SELECT * FROM billdetails WHERE bills_idbills='$idBill' AND stateBillDetail=1";
 			$query2 = $this->con->returnConsulta($sql2);
-			$dataA2= mysqli_fetch_array($query2);
+			while ($dataA2= mysqli_fetch_array($query2)) {
+				$total+=$dataA['precio_total'];
+			}
 			$dataR2= mysqli_num_rows($query2);
-			$total=$dataA2['total'];
-			$saldo=$dataA2['saldo'];
-			$totalNew=$total-$totalProd;
+
+
+			$totalNew=$total;
 			$saldoNew=$saldo-$totalProd;
 			if ($saldoNew <= 0) {
 				$saldoNew = 0;
@@ -911,6 +1481,18 @@ if ($estado != 1) {
 			$sql = "UPDATE `irocket`.`movementdepositaccount` SET `totalMoney`='$totalNew', `dataUpdate`='1', `saldo`='$saldoNew', `return`='1' WHERE `bills_idbills`='$idBill'";
 			$query = $this->con->consulta($sql);
 
+			$sql = "SELECT * FROM `movementdepositaccount` WHERE `bills_idbills`='$idBill'";
+			$query = $this->con->consulta($sql);
+			$dataA= mysqli_fetch_array($query);
+			$total=$dataA['totalMoney'];
+
+			if ($total=='') {
+				$sql = "UPDATE `irocket`.`movementdepositaccount` SET `totalMoney`=0 WHERE `bills_idbills`='$idBill'";
+				$query = $this->con->consulta($sql);
+			}
+
+
+
 			$sql = "SELECT * FROM depositaccountdetails";
 			$query = $this->con->returnConsulta($sql);
 			$dataA= mysqli_fetch_array($query);
@@ -923,6 +1505,12 @@ if ($estado != 1) {
 
 			$sql = "UPDATE `irocket`.`depositaccountdetails` SET `currentAssets`='$totalDeposit' WHERE `iddepositAccountDetails`='1'";
 			$query = $this->con->consulta($sql);
+
+			$iduser = 1;
+			$datetimeNot = 	date("Y-m-d G:i:s A");
+			$mensaje = "Se ha realizado una devolucion en una factura.";
+			$sqlRM="INSERT INTO `notifications` (`users_idusers`, `products_idproducts`, `typeNotification`, `message`, `date_register`) VALUES ('$iduser', '10', '94', '$mensaje', '$datetimeNot')";
+			$queryRM=$this->con->consulta($sqlRM);
 
 			header("location:" . URL . "/facturas/detalles?id=" . $idBill . "&devolucion");
 		}else{
@@ -940,7 +1528,7 @@ if ($estado != 1) {
 
 
 			
-		}elseif($precioTVP!=$precioTotalVPPP AND $typeBill==1){ 
+		}elseif($typeBill==1){ 
 
 		//SUMAR O RESTAR
 		if ($typeBill==1) {
@@ -1020,6 +1608,12 @@ if ($estado != 1) {
 
 			$sql = "UPDATE `irocket`.`depositaccountdetails` SET `currentAssets`='$totalDeposit' WHERE `iddepositAccountDetails`='1'";
 			$query = $this->con->consulta($sql);
+
+			$iduser = 1;
+			$datetimeNot = 	date("Y-m-d G:i:s A");
+			$mensaje = "Se ha realizado una devolucion en una factura.";
+			$sqlRM="INSERT INTO `notifications` (`users_idusers`, `products_idproducts`, `typeNotification`, `message`, `date_register`) VALUES ('$iduser', '10', '94', '$mensaje', '$datetimeNot')";
+			$queryRM=$this->con->consulta($sqlRM);
 
 			header("location:" . URL . "/facturas/detalles?id=" . $idBill . "&devolucion");
 		}else{
@@ -1106,7 +1700,17 @@ if ($estado != 1) {
 		$saldo = $dataA['total'];
 		$saldoo = $saldo-$totalP;
 
-		$sql = "UPDATE `billreports` SET `pago`='$totalP', `saldo`='$saldoo' WHERE `bills_idbills`='$idBill'";
+		$sql666 = "SELECT * FROM bills WHERE idbills = '$idBill'";
+		$query666 = $this->con->returnConsulta($sql666);
+		$dataA666 = mysqli_fetch_array($query666);
+		$estado666 = $dataA666['stateBill'];
+
+		if ($estado666==2) {
+			$sql = "UPDATE `billreports` SET `pago`='$totalP', `saldo`='$saldoo' WHERE `bills_idbills`='$idBill'";
+		}else{
+			$sql = "UPDATE `billreports` SET `pago`='$totalP', `saldo`='$saldoo', `estado`='CANCELADA' WHERE `bills_idbills`='$idBill'";
+		}
+
 		$query = $this->con->consulta($sql);
 
 		$sql = "SELECT * FROM depositaccountdetails WHERE iddepositAccountDetails = '1'";
@@ -1125,6 +1729,12 @@ if ($estado != 1) {
 			$query = $this->con->consulta($sql);
 		}
 
+		$iduser = 1;
+		$datetimeNot = 	date("Y-m-d G:i:s A");
+		$mensaje = "Se ha cancelado un saldo pendiente en una factura.";
+		$sqlRM="INSERT INTO `notifications` (`users_idusers`, `products_idproducts`, `typeNotification`, `message`, `date_register`) VALUES ('$iduser', '10', '93', '$mensaje', '$datetimeNot')";
+		$queryRM=$this->con->consulta($sqlRM);
+
 		if ($query) {
 			header("location:" . URL . "facturas/detalles?id=" . $idBill . "&detalles&success=deposito");
 		}
@@ -1138,6 +1748,45 @@ if ($estado != 1) {
 		$tipo = $this->tipo;
 		header("location:" . URL . "/facturas/detalles?id=" . $idUser . "&detalles");
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function printDayV()
+	{
+		header("location:" . URL . "cajas/imprimir");
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	public function update()

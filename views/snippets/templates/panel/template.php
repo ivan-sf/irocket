@@ -16,7 +16,6 @@ class Template{
 
 	function __destruct()
 	{
-		include_once ("views/snippets/dependencies/panel/template/sidebar_right.html");
 		include_once ("views/snippets/dependencies/panel/template/footer.html");
 		
 

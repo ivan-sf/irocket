@@ -221,35 +221,30 @@ while ($dataP = mysqli_fetch_array($atP)) {
 
 
 
-    function listar() {
-    	var fecha = $("#fecha").val();
-		var URL = "../../irocket/views/tables/reportes/venta/listar_facturas_semestral.php?fecha=" + fecha;
-		var datos = $("#formulario").serialize();
-        var table = $("#dt_bills").DataTable({
-            "ajax":{
-                method:"POST",
-                url: URL,
-				data: $("#formulario").serialize()
-            },
-            dom:"Bfrtlip",
-            columns:[
-                {"data":"bills_idbills"},
-                {"data":"fecha"},
-                {"data":"typeBill"},
-                {"data":"total"},
-                {"data":"pago"},
-                {"data":"saldo"},
-                {"data":"cliente"},
-                {"data":"caja"}
-            ],
-            buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
+function listar() {
+                var table = $("#listar_inv3").DataTable({
+                    "ajax":{
+                        "method":"POST",
+                        "url": "../../../../irocket/views/tables/inventarios/lista_inv3.php"
+                    },
+                    dom:"Bfrtlip",
+                    columns:[
+                    {"data":"nameProduct"},
+                    {"data":"codeProduct"},
+                    {"data":"precio"},
+                    {"data":"precio_promotion"},
+                    {"data":"price_buy"},
+                    {"data":"quantityProduct"}
+                    
+                    ],
+                    buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
 
-            language: idioma
-        });
+                    language: idioma
+                });
 
-    }
+            }
     var idioma = {
                     "sProcessing":     "Procesando...",
                     "sLengthMenu":     "Mostrar _MENU_ registros",

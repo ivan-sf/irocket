@@ -10,7 +10,7 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
-    <footer class="footer text-center"> 2017 © Elite Admin brought to you by themedesigner.in </footer>
+    <footer class="footer text-center">IDSF Integration software <a href="<?php echo URL; ?>index">IR AL PANEL</a></footer>
         </div>
     
    <script src="<?php echo URL; ?>views/plugins/bower_components/jquery/dist/jquery.min.js"></script>

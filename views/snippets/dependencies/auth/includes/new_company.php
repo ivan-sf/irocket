@@ -17,7 +17,6 @@ if ($dataCompany >= 1) {
     <i class="ti-comment"></i>
         Bienvenido, <b>iRocket</b> es un sistema contable y de control empresarial multiplataforma, cuyo objetivo es ser su mejor aliado. Recuerde que puede visitar 
         <a target="_blank" href="<?php echo URL_SITIO; ?>"><b>nuestro sitio web</b></a> para obtener mas informacion.<br>
-        
         <a href="#" class="closed"><b>x</b></a> 
  </div>
  </div>

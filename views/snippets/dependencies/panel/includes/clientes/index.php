@@ -1,5 +1,5 @@
 <?php 
-$modelProducts = new models\Employees();
+$modelProducts = new models\Clients();
 $arrayProducts = $modelProducts->arrayClients();
  ?>
 
@@ -22,8 +22,9 @@ $arrayProducts = $modelProducts->arrayClients();
                 
             
 
-                    <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>clientes/tabla?index" class="">Tabla</a></button>
-                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>clientes/crear">Crear</a></button><br>
+                    <button class="btn m-btn--pill btn-badge" type="submit"><a href="<?php echo URL; ?>tercero/crear" class="">Crear tercero</a></button>
+                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>empleados?catalogo">Empleados</a></button>
+                    <button class="btn m-btn--pill btn-badge"><a href="<?php echo URL; ?>proveedores?catalogo">Proveedores</a></button><br>
                 <br>
                     <?php  if (isset($_GET['success_update'])) {
                     echo "
@@ -88,7 +89,14 @@ $arrayProducts = $modelProducts->arrayClients();
 
                       <br>
 
-
+<script>
+        $(document.body).keyup(function(e) {
+           // console.log(e.which)
+            if (e.which == 27) {
+                window.history.go(-1);
+            }
+        })
+</script>
 
 
 

@@ -106,6 +106,22 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 																<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
 																</div>
 																</div>";
+															}elseif (isset($_GET['error'])) {
+																echo "
+																<div class='m-alert m-alert--icon m-alert--air m-alert--square alert alert-danger alert-dismissible fade show' role='alert' id='alertabien'>
+																<div class='m-alert__icon'>
+																<i class='flaticon-rocket'></i>
+																</div>
+																<div class='m-alert__text'>
+																<strong>
+																Genial !
+																</strong>
+																	Ya existe un proveedor con el mismo nombre o el mismo numero de documento si tiene dudas o problemas contactenos por medio de <a target='_blank' href='<?php URL_SITIO ?> '>nuestro sitio web.</a>
+																</div>
+																<div class='m-alert__close'>
+																<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+																</div>
+																</div>";
 															}else{
 
 															} ?>
@@ -312,7 +328,26 @@ if(isset($_SESSION['adminUser']) OR isset($_SESSION['adminUserNew'])){
 
 
 
-
+						<?php if(isset($_GET['error']) OR isset($_GET['success'])){
+?>												
+<script>
+$(document.body).keyup(function(e) {
+           // console.log(e.which)
+	if (e.which == 27) {
+		window.history.go(-2);
+	}
+})
+</script>
+<?php }else{ ?>		
+<script>
+$(document.body).keyup(function(e) {
+           // console.log(e.which)
+	if (e.which == 27) {
+		window.history.go(-1);
+	}
+})
+</script>										
+<?php } ?>	
 
 
 

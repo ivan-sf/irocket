@@ -50,7 +50,7 @@ class Login
 					}
 
 
-					if ($permits == 9 AND $stateBD == 1 OR $permits == 1 AND $stateBD == 1) {
+					if ($permits == 9 AND $stateBD == 1 OR $permits == 1 AND $stateBD == 1 OR $permits == 8 AND $stateBD == 1 OR $permits == 5 AND $stateBD == 1) {
 						
 						if ($numSes <= 50) {
 							$newSes = $numSes + 1;
@@ -60,8 +60,11 @@ class Login
     							session_start();
 								$_SESSION['adminUserNew'] = $array['idusers'];
 								$_SESSION['cash'] = $caja;
-								if ($permits == 9) {
+								if ($permits == 9 OR $permits == 5) {
 									$_SESSION['administrador'] = $array['idusers'];
+								}
+								if ($permits == 8) {
+									$_SESSION['contable'] = $array['idusers'];
 								}
 								//echo $_SESSION['adminUserNew'];
     						}

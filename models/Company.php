@@ -17,6 +17,14 @@ class Company
 	private $companyLogoName;
 	private $companyLogoSize;
 	private $companyLogoType;
+	private $regimen;
+	private $lastnameUser;
+	private $nameUser;
+
+	private $resolucion;
+	private $prefijoInicial;
+	private $prefijoFinal;
+	private $pieFactura;
 
 	function __construct(){
 		$this->con = new Conexion;
@@ -62,6 +70,9 @@ class Company
 		$companyNit = strtolower(mysqli_real_escape_string($connect,$this->companyNit));
 		$companyDirection = strtolower(mysqli_real_escape_string($connect,$this->companyDirection));
 		$companyCity = strtolower(mysqli_real_escape_string($connect,$this->companyCity));
+		$regimen = strtolower(mysqli_real_escape_string($connect,$this->regimen));
+		$lastnameUser = strtolower(mysqli_real_escape_string($connect,$this->lastnameUser));
+		$nameUser = strtolower(mysqli_real_escape_string($connect,$this->nameUser));
 		$companyPhone = strtolower(mysqli_real_escape_string($connect,$this->companyPhone));
 		$companyEmail = strtolower(mysqli_real_escape_string($connect,$this->companyEmail));
 		$companyLogoNameTemp = strtolower(mysqli_real_escape_string($connect,$this->companyLogoNameTemp));
@@ -75,42 +86,24 @@ class Company
 		$row = mysqli_num_rows($query);
 		$array = mysqli_fetch_array($query);
 		
-		
+		$propietario = $nameUser . " " . $lastnameUser; 
 
 		if ($companyName != '') {
 			$sql = "SELECT * FROM company";
 			$datos = $this->con->returnConsulta($sql);
 			$row = mysqli_num_rows($datos);
-			if ($row == 0) {
-				$i = 0;
-				$datetime = date("Y-m-d");
-				$sql = "INSERT INTO `inventory` (`codeInventory`, `stateBD`) VALUES ('007', '9')";
-				$query = $this->con->Consulta($sql);
-				$sql = "INSERT INTO `inventorydetails` (`inventory_idinventory`, `nameInventory`, `date_register`, `user_create`, `descriptionInventory`, `totalProducts`, `totalItems`) VALUES ('1', 'secretX', '$datetime', '1', 'x', '9', '')";
-				$query = $this->con->Consulta($sql);
-				while ($i < 9) {
-					$i++;
-					$sql = "INSERT INTO `products` (`codeProduct`, `codeProduct_promotion`, `precio`, `precio_promotion`, `quantityProduct`, `stateBD`, `price_buy_prom`, `price_buy`, `inventory_idinventory`) VALUES ('$i', '$i', '0', '0', '9999999999', '9', '0', '0', '1')";
-					$query = $this->con->Consulta($sql);
-					$sql = "INSERT INTO `productdetails` (`products_idproducts`, `nameProduct`, `min_limit_items`, `date_register`) VALUES ('$i', 'producto1', '1', '$datetime')";
-					$query = $this->con->Consulta($sql);
-				}
-
-				$sql = "INSERT INTO `company` (`nameCompany`) VALUES ('$companyName')";
+			if ($row == 0) {		
+				$sql = "INSERT INTO `company` (`nameCompany`,`regimen`,`propietario`) VALUES ('$companyName','$regimen','$propietario')";
 				$insert = $this->con->Consulta($sql);
 				if ($insert == 1) {
-					//echo $companyLogoNameTemp . "a <br>" ;
-					//echo $companyLogoName . "<br>" ;
-					//echo $companyLogoSize . "b <br>" ;
-					//echo $companyLogoType . "c <br>" ;
+					
 					$sql = "SELECT * FROM company WHERE namecompany = '$companyName'";
 					$datos = $this->con->returnConsulta($sql);
 					$array = mysqli_fetch_array($datos);
 					$idcompany = $array['idcompany'];
 
 					if ($companyLogoSize == 0) {
-						//echo $idcompany;
-						//$ss = $array['namecompany'];
+						
 						$ruta = "views/assets/images/company/default.png";
 						$sql2 = "INSERT INTO `companydetails` (`company_idcompany`, `nitCompany`, `directionCompany`, `cityCompany`, `phoneCompany`, `emailCompany`, `rutaLogoCompany`, `data_register`) VALUES ('$idcompany', '$companyNit', '$companyDirection', '$companyCity', '$companyPhone', '$companyEmail', '$ruta', '$dateTime')";
 						$datos2 = $this->con->consulta($sql2);
@@ -120,59 +113,10 @@ class Company
 									$mensaje = "Felicitaciones ! has registrado la empresa " . $companyName . " exitosamente.";
 									$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `company_idcompany`) VALUES ('', '7', '$mensaje', '$datetimeNot', '$idcompany')";
 									$query = $this->con->consulta($sql);
-
-
 						}else{
 							echo "Lo sentimos, ah ocurrido un problema al insertar el nombre de tu empresa en la base de datos, por favor vuelva a intentar si el problema persiste por favor contacte con el Soporte tecnico.";
 						}
 
-					}else{
-						$companyLogoInsert = addslashes(file_get_contents($this->companyLogoNameTemp));
-						if ($companyLogoSize >= 2000000) {
-							$dir_subida = 'views/assets/images/company/' . date('h-m.s');
-							$ruta = 'views/assets/images/company/' . date('h-m.s') . $_FILES['companyLogo']['name'];
-							$fichero_subido = $dir_subida . basename($_FILES['companyLogo']['name']);
-							if (move_uploaded_file($_FILES['companyLogo']['tmp_name'], $fichero_subido)) {
-							   	echo "El fichero es válido y se subió con éxito.\n";
-								$sql2 = "INSERT INTO `companydetails` (`company_idcompany`, `nitCompany`, `directionCompany`, `cityCompany`, `phoneCompany`, `emailCompany`, `rutaLogoCompany`, `data_register`) VALUES ('$idcompany', '$companyNit', '$companyDirection', '$companyCity', '$companyPhone', '$companyEmail', '$ruta', '$dateTime')";
-								$datos2 = $this->con->consulta($sql2);
-								if ($datos2 == 1) {
-									
-									$datetimeNot = 	date("Y-m-d G:i:s A");
-									$mensaje = "Felicitaciones ! has registrado la empresa " . $companyName . " exitosamente.";
-									$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `company_idcompany`) VALUES ('', '7', '$mensaje', '$datetimeNot', '$idcompany')";
-									$query = $this->con->consulta($sql);
-
-
-								}else{
-									echo "Lo sentimos, ah ocurrido un problema al insertar el nombre de tu empresa en la base de datos, por favor vuelva a intentar si el problema persiste por favor contacte con el Soporte tecnico.";
-								}
-							} else {
-								echo "¡Posible ataque de subida de ficheros!\n";
-							}
-						}else{
-							
-							$dir_subida = 'views/assets/images/company/' . date('h-m.s');
-							$ruta = 'views/assets/images/company/' . date('h-m.s') . $_FILES['companyLogo']['name'];
-							$fichero_subido = $dir_subida . basename($_FILES['companyLogo']['name']);
-							if (move_uploaded_file($_FILES['companyLogo']['tmp_name'], $fichero_subido)) {
-								echo "El fichero es válido y se subió con éxito.\n";
-								$sql2 = "INSERT INTO `companydetails` (`company_idcompany`, `nitCompany`, `directionCompany`, `cityCompany`, `phoneCompany`, `emailCompany`, `rutaLogoCompany`, `data_register`) VALUES ('$idcompany', '$companyNit', '$companyDirection', '$companyCity', '$companyPhone', '$companyEmail', '$ruta', '$dateTime')";
-								$datos2 = $this->con->consulta($sql2);
-								if ($datos2 == 1) {
-									
-									$datetimeNot = 	date("Y-m-d G:i:s A");
-									$mensaje = "Felicitaciones ! has registrado la empresa " . $companyName . " exitosamente.";
-									$sql = "INSERT INTO `notifications` (`idnotifications`, `typeNotification`, `message`, `date_register`, `company_idcompany`) VALUES ('', '7', '$mensaje', '$datetimeNot', '$idcompany')";
-									$query = $this->con->consulta($sql);
-
-								}else{
-									echo "Lo sentimos, ah ocurrido un problema al insertar el nombre de tu empresa en la base de datos, por favor vuelva a intentar si el problema persiste por favor contacte con el Soporte tecnico.";
-								}
-							} else {
-								echo "¡Posible ataque de subida de ficheros!\n";
-							}
-						}
 					}
 				}else{
 					echo "Lo sentimos, ah ocurrido un problema al insertar el nombre de tu empresa en la base de datos, por favor vuelva a intentar si el problema persiste por favor contacte con el Soporte tecnico.";
@@ -205,6 +149,13 @@ class Company
 		$companyCity = strtolower(mysqli_real_escape_string($connect,$this->companyCity));
 		$companyPhone = strtolower(mysqli_real_escape_string($connect,$this->companyPhone));
 		$companyEmail = strtolower(mysqli_real_escape_string($connect,$this->companyEmail));
+
+		$resolucion = strtolower(mysqli_real_escape_string($connect,$this->resolucion));
+		$prefijoInicial = strtolower(mysqli_real_escape_string($connect,$this->prefijoInicial));
+		$prefijoFinal = strtolower(mysqli_real_escape_string($connect,$this->prefijoFinal));
+		$pieFactura = strtolower(mysqli_real_escape_string($connect,$this->pieFactura));
+		
+
 		$companyLogoNameTemp = $this->companyLogoNameTemp;
 		$companyLogoName = $this->companyLogoName;
 		$companyLogoSize = $this->companyLogoSize;
@@ -213,8 +164,20 @@ class Company
 		if ($companyLogoSize == 0) {
 			$sql = "UPDATE `company` SET `nameCompany`='$companyName' WHERE `idcompany`='$idUpdate'";
 			$query = $this->con->consulta($sql);
+			
 			if ($query) {
-				$sql = "UPDATE `companydetails` SET `nitCompany`='$companyNit', `directionCompany`='$companyDirection', `cityCompany`='$companyCity', `phoneCompany`='$companyPhone', `emailCompany`='$companyEmail', `data_update`='$dateTime' WHERE `idcompanyDetails`='$idUpdate'";
+				$sql = "UPDATE `companydetails` SET 
+				`nitCompany`='$companyNit', 
+				`directionCompany`='$companyDirection', 
+				`cityCompany`='$companyCity', 
+				`phoneCompany`='$companyPhone', 
+				`emailCompany`='$companyEmail', 
+				`data_update`='$dateTime', 
+				`resolucion`='$resolucion',  
+				`prefijoInicial`='$prefijoInicial',  
+				`prefijoFinal`='$prefijoFinal',  
+				`pieFactura`='$pieFactura' 
+				WHERE `idcompanyDetails`='$idUpdate'";
 				$query = $this->con->consulta($sql);
 				if ($query) {
 					$idUpdate = $this->idcompany;
@@ -237,7 +200,18 @@ class Company
 				$sql = "UPDATE `company` SET `nameCompany`='$companyName' WHERE `idcompany`='$idUpdate'";
 			$query = $this->con->consulta($sql);
 			if ($query) {
-				$sql = "UPDATE `companydetails` SET `nitCompany`='$companyNit',`rutaLogoCompany`='$ruta', `directionCompany`='$companyDirection', `cityCompany`='$companyCity', `phoneCompany`='$companyPhone', `emailCompany`='$companyEmail', `data_update`='$dateTime' WHERE `idcompanyDetails`='$idUpdate'";
+				$sql = "UPDATE `companydetails` SET 
+				`nitCompany`='$companyNit', 
+				`directionCompany`='$companyDirection', 
+				`cityCompany`='$companyCity', 
+				`phoneCompany`='$companyPhone', 
+				`emailCompany`='$companyEmail', 
+				`data_update`='$dateTime', 
+				`resolucion`='$resolucion',  
+				`prefijoInicial`='$prefijoInicial',  
+				`prefijoFinal`='$prefijoFinal',  
+				`pieFactura`='$pieFactura' 
+				WHERE `idcompanyDetails`='$idUpdate'";
 				$query = $this->con->consulta($sql);
 				if ($query) {
 					$idUpdate = $this->idcompany;
