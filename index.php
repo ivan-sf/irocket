@@ -12,7 +12,7 @@ define('DIRAPP', 'irocket');
 define("URL", 'http://192.168.100.4/' . DIRAPP . "/");
 define("INIT_CONTROLLER", "login");
 define("INIT_METODO", "index");
-define("TITLE_APP", "COMERCIAL PERALTA");
+define("TITLE_APP", "TITAN COMERCIAL");
 define("URL_SITIO", "#");
 require_once("config/autoload.php");
 config\autoload::Run();
